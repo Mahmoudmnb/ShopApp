@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer_pro/sizer.dart';
 
 import '../blocs/blocs.dart';
-import 'social_button.dart';
+import 'widgets.dart';
 
 class AlternativeSignIn extends StatelessWidget {
   const AlternativeSignIn({super.key});
@@ -12,44 +13,51 @@ class AlternativeSignIn extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SignUpBlocBloc, SignUpBlocState>(
       builder: (context, state) {
-        return state is IsSignUp
-            ? !state.isSignUp
-                ? Column(
-                    children: [
-                      GestureDetector(
+        bool isSignUp = false;
+        if (state is SignUpBlocInitial) {
+          isSignUp = true;
+        } else if (state is IsSignUp) {
+          isSignUp = state.isSignUp;
+        }
+        return Column(
+          children: [
+            HideItem(
+                maxHight: 3.h,
+                visabl: !isSignUp,
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Center(
+                      child: Text(
+                    'Or sign In with',
+                    style: GoogleFonts.dmSans(
+                      color: Colors.black.withOpacity(0.6),
+                      fontSize: 5.sp,
+                    ),
+                  )),
+                )),
+            SizedBox(height: 2.h),
+            HideItem(
+              maxHight: 15.h,
+              visabl: !isSignUp,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 5.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SocialButton(
                         onTap: () {},
-                        child: Center(
-                            child: Text(
-                          'Or sign In with',
-                          style: TextStyle(
-                            color: Colors.black.withOpacity(0.6),
-                            fontFamily: 'DM Sans',
-                            fontSize: 5.sp,
-                          ),
-                        )),
-                      ),
-                      const SizedBox(height: 30),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SocialButton(
-                              onTap: () {},
-                              imageUrl: 'asset/images/apple-50.png'),
-                          const SizedBox(width: 20),
-                          SocialButton(
-                              onTap: () {},
-                              imageUrl: 'asset/images/google-48.png'),
-                          const SizedBox(width: 20),
-                          SocialButton(
-                              onTap: () {},
-                              imageUrl: 'asset/images/facebook-60.png'),
-                        ],
-                      ),
-                      SizedBox(height: 5.h),
-                    ],
-                  )
-                : const SizedBox.shrink()
-            : const SizedBox.shrink();
+                        imageUrl: 'assets/images/linkedin_logo.png'),
+                    SocialButton(
+                        onTap: () {}, imageUrl: 'assets/images/google_logo.png'),
+                    SocialButton(
+                        onTap: () {},
+                        imageUrl: 'assets/images/git_hub_logo.png'),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        );
       },
     );
   }

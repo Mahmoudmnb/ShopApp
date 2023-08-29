@@ -7,10 +7,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 void main(List<String> args) {
   runApp(MultiBlocProvider(providers: [
     BlocProvider(
-      create: (context) => AuthBloc(),
+      create: (context) => VisiblePsswordBloc(),
     ),
     BlocProvider(
-      create: (context) => Auth1Bloc(),
+      create: (context) => EmailTextBloc(),
     ),
     BlocProvider(
       create: (context) => SignUpBlocBloc(),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer_pro/sizer.dart';
 
 import '../blocs/blocs.dart';
 import '../data.dart';
+import 'widgets.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -13,130 +15,140 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc, AuthState>(
-      builder: (context, state) {
-        return BlocBuilder<Auth1Bloc, Auth1State>(
-          builder: (context1, state1) {
+    return BlocBuilder<VisiblePsswordBloc, VisiblePasswordState>(
+      builder: (context, visiblePasswordState) {
+        return BlocBuilder<EmailTextBloc, EmailTextState>(
+          builder: (context1, emailTextState) {
             return BlocBuilder<SignUpBlocBloc, SignUpBlocState>(
-              builder: (context2, state2) {
-                Padding buildTextForm() {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      obscureText: (state is AuthInitial &&
-                              (hintText == 'Password' ||
-                                  hintText == 'Confirm Password'))
-                          ? true
-                          : state is VisiblePassword
-                              ? (state.isVisible &&
-                                      (hintText == 'Password' ||
-                                          hintText == 'Confirm Password'))
-                                  ? true
-                                  : false
-                              : false,
-                      keyboardType: hintText == 'Email address'
-                          ? TextInputType.emailAddress
-                          : hintText == 'Password' ||
-                                  hintText == 'Confirm Password'
-                              ? TextInputType.visiblePassword
-                              : TextInputType.name,
-                      validator: (value) {
-                        bool isSignUp = false;
-                        if (state2 is SignUpBlocInitial) {
-                          isSignUp = true;
-                        } else if (state2 is IsSignUp) {
-                          isSignUp = state2.isSignUp;
-                        }
-                        return validator(value, isSignUp);
-                      },
-                      onSaved: (newValue) {
-                        onSave(newValue);
-                      },
-                      onChanged: (value) {
-                        if (hintText == 'Password') {
-                          Data.tempPassword = value;
-                        } else if (hintText == 'Email address') {
-                          context
-                              .read<Auth1Bloc>()
-                              .add(ChangeEmailText(emailText: value));
-                        }
-                      },
-                      decoration: InputDecoration(
-                        suffixIcon: hintText == 'Email address'
-                            ? Icon(
-                                Icons.check_circle_outline,
-                                color: state1 is EmailText
-                                    ? (state1.emailText.isEmpty
-                                        ? Colors.grey
-                                        : (!state1.emailText.contains('@') ||
-                                                !state1.emailText
-                                                    .contains('.com'))
-                                            ? Colors.red
-                                            : Colors.green)
-                                    : Colors.grey,
-                              )
-                            : hintText == 'Password'
-                                ? IconButton(
-                                    onPressed: () {
-                                      if (state is AuthInitial) {
-                                        context
-                                            .read<AuthBloc>()
-                                            .add(HidePassword());
-                                      } else if (state is VisiblePassword) {
-                                        if (state.isVisible) {
+              builder: (context2, signUpState) {
+                bool isSignUP = false;
+                if (signUpState is SignUpBlocInitial) {
+                  isSignUP = true;
+                } else if (signUpState is IsSignUp) {
+                  isSignUP = signUpState.isSignUp;
+                }
+                return HideItem(
+                    maxHight: 60,
+                    visabl: (!isSignUP &&
+                            (hintText == 'Enter your name' ||
+                                hintText == 'Confirm Password'))
+                        ? false
+                        : true,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        obscureText:
+                            (visiblePasswordState is VisiblePasswordInitial &&
+                                    (hintText == 'Password' ||
+                                        hintText == 'Confirm Password'))
+                                ? true
+                                : visiblePasswordState is VisiblePassword
+                                    ? (visiblePasswordState.isVisible &&
+                                            (hintText == 'Password' ||
+                                                hintText == 'Confirm Password'))
+                                        ? true
+                                        : false
+                                    : false,
+                        keyboardType: hintText == 'Email address'
+                            ? TextInputType.emailAddress
+                            : hintText == 'Password' ||
+                                    hintText == 'Confirm Password'
+                                ? TextInputType.visiblePassword
+                                : TextInputType.name,
+                        validator: (value) {
+                          bool isSignUp = false;
+                          if (signUpState is SignUpBlocInitial) {
+                            isSignUp = true;
+                          } else if (signUpState is IsSignUp) {
+                            isSignUp = signUpState.isSignUp;
+                          }
+                          return validator(value, isSignUp);
+                        },
+                        onSaved: (newValue) {
+                          onSave(newValue);
+                        },
+                        onChanged: (value) {
+                          if (hintText == 'Password') {
+                            Data.tempPassword = value.trim();
+                          } else if (hintText == 'Email address') {
+                            context
+                                .read<EmailTextBloc>()
+                                .add(ChangeEmailText(emailText: value.trim()));
+                          }
+                        },
+                        decoration: InputDecoration(
+                          suffixIcon: hintText == 'Email address'
+                              ? Icon(
+                                  Icons.check_circle_outline,
+                                  color: emailTextState is EmailText
+                                      ? (emailTextState.emailText.isEmpty
+                                          ? Colors.grey
+                                          : (!emailTextState.emailText
+                                                      .contains('@') ||
+                                                  !emailTextState.emailText
+                                                      .endsWith('.com'))
+                                              ? Colors.red
+                                              : Colors.green)
+                                      : Colors.grey,
+                                )
+                              : hintText == 'Password'
+                                  ? IconButton(
+                                      onPressed: () {
+                                        if (visiblePasswordState
+                                            is VisiblePasswordInitial) {
                                           context
-                                              .read<AuthBloc>()
+                                              .read<VisiblePsswordBloc>()
                                               .add(HidePassword());
-                                        } else {
-                                          context
-                                              .read<AuthBloc>()
-                                              .add(ShowPassword());
+                                        } else if (visiblePasswordState
+                                            is VisiblePassword) {
+                                          if (visiblePasswordState.isVisible) {
+                                            context
+                                                .read<VisiblePsswordBloc>()
+                                                .add(HidePassword());
+                                          } else {
+                                            context
+                                                .read<VisiblePsswordBloc>()
+                                                .add(ShowPassword());
+                                          }
                                         }
-                                      }
-                                    },
-                                    icon: state is AuthInitial
-                                        ? const Icon(Icons.visibility_outlined,
-                                            color: Colors.grey)
-                                        : state is VisiblePassword
-                                            ? Icon(
-                                                state.isVisible
-                                                    ? Icons.visibility_outlined
-                                                    : Icons
-                                                        .visibility_off_outlined,
-                                                color: Colors.grey)
-                                            : const SizedBox.shrink(),
-                                  )
-                                : null,
-                        hintStyle:
-                            TextStyle(fontFamily: 'DM Sans', fontSize: 6.sp),
-                        hintText: hintText,
-                        border: const UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFFD6D6D6),
+                                      },
+                                      icon: visiblePasswordState
+                                              is VisiblePasswordInitial
+                                          ? const Icon(
+                                              Icons.visibility_outlined,
+                                              color: Colors.grey)
+                                          : visiblePasswordState
+                                                  is VisiblePassword
+                                              ? Icon(
+                                                  visiblePasswordState.isVisible
+                                                      ? Icons
+                                                          .visibility_outlined
+                                                      : Icons
+                                                          .visibility_off_outlined,
+                                                  color: Colors.grey)
+                                              : const SizedBox.shrink(),
+                                    )
+                                  : null,
+                          hintStyle: GoogleFonts.dmSans(fontSize: 6.sp),
+                          hintText: hintText,
+                          border: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFD6D6D6),
+                            ),
                           ),
-                        ),
-                        enabledBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFFD6D6D6),
+                          enabledBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFD6D6D6),
+                            ),
                           ),
-                        ),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFFD6D6D6),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFD6D6D6),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                }
-
-                return state2 is IsSignUp
-                    ? !state2.isSignUp &&
-                            (hintText == 'Confirm Password' ||
-                                hintText == 'Enter your name')
-                        ? const SizedBox.shrink()
-                        : buildTextForm()
-                    : buildTextForm();
+                    ));
               },
             );
           },
@@ -157,13 +169,17 @@ class CustomTextField extends StatelessWidget {
     }
   }
 
-  String? validator(String? value, bool isSignUp) {
+  String? validator(String? newValue, bool isSignUp) {
+    String? value;
+    if (newValue != null) {
+      value = newValue.trim();
+    }
     if (hintText == 'Enter your name' && isSignUp) {
       if (value == null || value.isEmpty || value.length <= 6) {
         return 'Name shold be more than six chrachters';
       }
     } else if (hintText == 'Email address') {
-      if (value == null || !value.contains('@') || !value.contains('.com')) {
+      if (value == null || !value.contains('@') || !value.endsWith('.com')) {
         return 'Invalid email';
       }
     } else if (hintText == 'Password') {
@@ -172,7 +188,7 @@ class CustomTextField extends StatelessWidget {
       }
     } else if (hintText == 'Confirm Password' && isSignUp) {
       if (value == null ||
-          value.compareTo(Data.tempPassword) != 0 ||
+          value.compareTo(Data.tempPassword.trim()) != 0 ||
           value.isEmpty) {
         return "Confirm password is empty or it doesn't match password field ";
       }

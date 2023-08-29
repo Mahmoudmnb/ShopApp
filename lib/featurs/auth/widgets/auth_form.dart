@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer_pro/sizer.dart';
 
-import '../blocs/sign_up_bloc/sign_up_bloc_bloc.dart';
-import 'custom_button.dart';
-import 'custom_text_field.dart';
+import '../blocs/blocs.dart';
+import 'widgets.dart';
 
 class AuthForm extends StatefulWidget {
   const AuthForm({super.key});
@@ -46,47 +46,52 @@ class _AuthFormState extends State<AuthForm> {
             key: formKey,
             child: Column(
               children: [
-                const SizedBox(height: 10),
+                SizedBox(height: 1.h),
                 CustomTextField(
                   hintText: 'Enter your name',
                   controller: nameCon,
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 1.h),
                 CustomTextField(
                   hintText: 'Email address',
                   controller: emailCon,
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 1.h),
                 CustomTextField(
                   hintText: 'Password',
                   controller: passwordCon,
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 1.h),
                 CustomTextField(
                   hintText: 'Confirm Password',
                   controller: confirmPasswordcon,
                 ),
-                SizedBox(height: 5.h),
+                SizedBox(height: 3.h),
               ],
             )),
         BlocBuilder<SignUpBlocBloc, SignUpBlocState>(
           builder: (context, state) {
+            bool isSignUP = false;
+            if (state is SignUpBlocInitial) {
+              isSignUP = true;
+            } else if (state is IsSignUp) {
+              isSignUP = state.isSignUp;
+            }
             return CustomButton(
-                text: state is SignUpBlocInitial
-                    ? 'SIGN UP'
-                    : state is IsSignUp
-                        ? state.isSignUp
-                            ? 'SIGN UP'
-                            : 'SIGN IN'
-                        : 'SIGN IN',
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    formKey.currentState!.save();
-                  }
-                });
+              onPressed: () {
+                if (formKey.currentState!.validate()) {
+                  formKey.currentState!.save();
+                }
+              },
+              text: SwitchBetweenTwoTextWithRotation(
+                  isFirestText: isSignUP,
+                  firstText: 'SIGN IN',
+                  secondText: 'SING UP',
+                  textStyle: GoogleFonts.dmSans()),
+            );
           },
         ),
-        SizedBox(height: 6.h),
+        SizedBox(height: 1.h),
       ],
     );
   }

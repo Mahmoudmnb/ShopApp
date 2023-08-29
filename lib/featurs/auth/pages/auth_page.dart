@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer_pro/sizer.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import '../blocs/blocs.dart';
-import '../widgets/alternative_sign_in.dart';
-import '../widgets/auth_form.dart';
+import '../widgets/widgets.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
@@ -14,93 +13,109 @@ class AuthPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 4.4.w),
-            child: Column(
-              children: [
-                SizedBox(height: 2.5.h),
-                Row(
-                  children: [
-                    const Spacer(),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                          foregroundColor: const Color(0xFF2E2E2E)),
-                      child: Text(
-                        'Skip',
-                        style: TextStyle(fontFamily: 'DM Sans', fontSize: 9.sp),
+          child: SizedBox(
+            height: 96.h,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4.4.w),
+              child: Column(
+                children: [
+                  SizedBox(height: 1.5.h),
+                  Row(
+                    children: [
+                      const Spacer(),
+                      TextButton(
+                        style: TextButton.styleFrom(
+                            foregroundColor: const Color(0xFF2E2E2E)),
+                        child: Text(
+                          'Skip',
+                          style: GoogleFonts.dmSans(fontSize: 9.sp),
+                        ),
+                        onPressed: () {
+                          // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          //   builder: (context) => const HomePage(),
+                          // ));
+                        },
                       ),
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
-                SizedBox(height: 2.h),
-                Container(color: Colors.black, width: 172, height: 110),
-                SizedBox(height: 4.h),
-                Row(
-                  children: [
-                    SizedBox(width: 1.h),
-                    BlocBuilder<SignUpBlocBloc, SignUpBlocState>(
+                    ],
+                  ),
+                  Image.asset(
+                    'assets/images/logo.png',
+                    height: 20.h,
+                    width: 20.h,
+                  ),
+                  SizedBox(height: 1.h),
+                  Row(
+                    children: [
+                      SizedBox(width: 1.h),
+                      BlocBuilder<SignUpBlocBloc, SignUpBlocState>(
+                        builder: (context, state) {
+                          bool isSignUp = false;
+                          if (state is SignUpBlocInitial) {
+                            isSignUp = true;
+                          } else if (state is IsSignUp) {
+                            isSignUp = state.isSignUp;
+                          }
+                          return SwitchBetweenTwoTextWithRotation(
+                              isFirestText: isSignUp,
+                              firstText: 'Sign In',
+                              secondText: 'Sign Up',
+                              textStyle: GoogleFonts.dmSans(fontSize: 10.sp));
+                        },
+                      ),
+                    ],
+                  ),
+                  const AuthForm(),
+                  SizedBox(height: 1.h),
+                  const AlternativeSignIn(),
+                  const Expanded(child: SizedBox.shrink()),
+                  SizedBox(
+                    child: BlocBuilder<SignUpBlocBloc, SignUpBlocState>(
                       builder: (context, state) {
-                        return Text(
-                          state is IsSignUp
-                              ? state.isSignUp
-                                  ? 'Sign Up'
-                                  : 'Sign In'
-                              : 'Sign Up',
-                          style:
-                              TextStyle(fontFamily: 'DM Sans', fontSize: 10.sp),
+                        bool isSignUp = false;
+                        if (state is SignUpBlocInitial) {
+                          isSignUp = true;
+                        } else if (state is IsSignUp) {
+                          isSignUp = state.isSignUp;
+                        }
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SwitchBetweenTwoText(
+                                isFirestText: isSignUp,
+                                firstText: '     Don\'t have an account?',
+                                secondText: 'Already have an account?',
+                                textStyle: GoogleFonts.dmSans()),
+                            SizedBox(width: 1.w),
+                            TextButton(
+                              style: TextButton.styleFrom(
+                                  foregroundColor: const Color(0xFF646464)),
+                              child: SwitchBetweenTwoTextWithRotation(
+                                firstText: 'Sign Up',
+                                isFirestText: isSignUp,
+                                secondText: 'Sign IN',
+                                textStyle: GoogleFonts.dmSans(
+                                    decoration: TextDecoration.underline,
+                                    fontSize: 14),
+                              ),
+                              onPressed: () {
+                                if (state is SignUpBlocInitial) {
+                                  context.read<SignUpBlocBloc>().add(
+                                      ChangeBetweenSignUpOrSignIn(
+                                          isSignUp: false));
+                                } else if (state is IsSignUp) {
+                                  context.read<SignUpBlocBloc>().add(
+                                      ChangeBetweenSignUpOrSignIn(
+                                          isSignUp: !state.isSignUp));
+                                }
+                              },
+                            ),
+                          ],
                         );
                       },
                     ),
-                  ],
-                ),
-                const AuthForm(),
-                const AlternativeSignIn(),
-                SizedBox(
-                  child: BlocBuilder<SignUpBlocBloc, SignUpBlocState>(
-                    builder: (context, state) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            state is IsSignUp
-                                ? state.isSignUp
-                                    ? 'Already have an account?'
-                                    : 'Don\'t have an account?'
-                                : 'Already have an account?',
-                          ),
-                          SizedBox(width: 1.w),
-                          TextButton(
-                            style: TextButton.styleFrom(
-                                foregroundColor: const Color(0xFF646464)),
-                            child: Text(
-                              state is IsSignUp
-                                  ? state.isSignUp
-                                      ? 'Sign IN'
-                                      : 'Sign UP'
-                                  : 'Sing In',
-                              style: const TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  fontSize: 14),
-                            ),
-                            onPressed: () {
-                              if (state is SignUpBlocInitial) {
-                                context.read<SignUpBlocBloc>().add(
-                                    ChangeBetweenSignUpOrSignIn(
-                                        isSignUp: false));
-                              } else if (state is IsSignUp) {
-                                context.read<SignUpBlocBloc>().add(
-                                    ChangeBetweenSignUpOrSignIn(
-                                        isSignUp: !state.isSignUp));
-                              }
-                            },
-                          ),
-                        ],
-                      );
-                    },
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

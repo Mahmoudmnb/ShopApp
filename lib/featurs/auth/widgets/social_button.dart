@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer_pro/sizer.dart';
 
 class SocialButton extends StatelessWidget {
   const SocialButton({super.key, required this.onTap, required this.imageUrl});
@@ -8,23 +9,13 @@ class SocialButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 47,
-        height: 47,
-        padding: const EdgeInsets.all(5),
-        decoration: ShapeDecoration(
-          shape: RoundedRectangleBorder(
-            side: BorderSide(
-                width: 1, color: const Color(0xFF332118).withOpacity(.1)),
-            borderRadius: BorderRadius.circular(4),
-          ),
+    return Expanded(
+      child: Padding(
+        padding: EdgeInsets.only(left: 8.w, right: 8.w),
+        child: Image.asset(
+          imageUrl,
+          fit: BoxFit.contain,
         ),
-        // child: Image.asset(
-        //   imageUrl,
-        // )
-        child: Text(imageUrl),
       ),
     );
   }

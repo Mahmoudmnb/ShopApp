@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-part 'auth_event.dart';
-part 'auth_state.dart';
+part 'visible_password_event.dart';
+part 'visible_password_state.dart';
 
-class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc() : super(AuthInitial()) {
-    on<AuthEvent>((event, emit) {
+class VisiblePsswordBloc
+    extends Bloc<VisiblePasswordEvent, VisiblePasswordState> {
+  VisiblePsswordBloc() : super(VisiblePasswordInitial()) {
+    on<VisiblePasswordEvent>((event, emit) {
       if (event is ShowPassword) {
         emit(VisiblePassword(isVisible: true));
       } else if (event is HidePassword) {
