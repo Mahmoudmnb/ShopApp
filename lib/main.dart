@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:sizer_pro/sizer.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'featurs/auth/blocs/blocs.dart';
 import 'featurs/auth/pages/pages.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main(List<String> args) {
+Future<void> main(List<String> args) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Supabase.initialize(
+    url: 'https://eujauxjltyekeqyohodz.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV1amF1eGpsdHlla2VxeW9ob2R6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODg2NDM3MzYsImV4cCI6MjAwNDIxOTczNn0.IsX_pZLfNmrYPYGhqH8yZ31Zz5mt9XSztN4Mv1MPlZw',
+  );
   runApp(MultiBlocProvider(providers: [
     BlocProvider(
       create: (context) => VisiblePsswordBloc(),
@@ -13,8 +20,11 @@ void main(List<String> args) {
       create: (context) => EmailTextBloc(),
     ),
     BlocProvider(
-      create: (context) => SignUpBlocBloc(),
-    )
+      create: (context) => SignUpBloc(),
+    ),
+    BlocProvider(
+      create: (context) => SignInLoadingBloc(),
+    ),
   ], child: const MyApp()));
 }
 

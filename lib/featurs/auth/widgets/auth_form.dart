@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shop_app/featurs/auth/data.dart';
 import 'package:sizer_pro/sizer.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:toast/toast.dart';
 
 import '../blocs/blocs.dart';
 import 'widgets.dart';
@@ -40,6 +43,7 @@ class _AuthFormState extends State<AuthForm> {
 
   @override
   Widget build(BuildContext context) {
+    ToastContext().init(context);
     return Column(
       children: [
         Form(
@@ -69,7 +73,7 @@ class _AuthFormState extends State<AuthForm> {
                 SizedBox(height: 3.h),
               ],
             )),
-        BlocBuilder<SignUpBlocBloc, SignUpBlocState>(
+        BlocBuilder<SignUpBloc, SignUpBlocState>(
           builder: (context, state) {
             bool isSignUP = false;
             if (state is SignUpBlocInitial) {
@@ -78,21 +82,71 @@ class _AuthFormState extends State<AuthForm> {
               isSignUP = state.isSignUp;
             }
             return CustomButton(
-              onPressed: () {
+              onPressed: () async {
                 if (formKey.currentState!.validate()) {
                   formKey.currentState!.save();
+                  String name = Data.name;
+                  String email = Data.email;
+                  String password = Data.password;
+                  if (isSignUP) {
+                    signUp(email, password);
+                  } else {
+                    signIn(email, password);
+                  }
                 }
               },
-              text: SwitchBetweenTwoTextWithRotation(
-                  isFirestText: isSignUP,
-                  firstText: 'SIGN IN',
-                  secondText: 'SING UP',
-                  textStyle: GoogleFonts.dmSans()),
+              text: BlocBuilder<SignInLoadingBloc, SignInLoadingState>(
+                builder: (context1, state1) {
+                  bool isLoading = false;
+                  if (state1 is IsLoading) {
+                    if (state1.isLoading) {
+                      isLoading = true;
+                    }
+                  }
+                  return isLoading
+                      ? const CircularProgressIndicator()
+                      : SwitchBetweenTwoTextWithRotation(
+                          isFirestText: isSignUP,
+                          firstText: 'SIGN IN',
+                          secondText: 'SING UP',
+                          textStyle: GoogleFonts.dmSans());
+                },
+              ),
             );
           },
         ),
         SizedBox(height: 1.h),
       ],
     );
+  }
+
+  signIn(String email, String password) async {
+    changeButtonLoadingState(true);
+    SupabaseClient supabase = Supabase.instance.client;
+    try {
+      await supabase.auth.signInWithPassword(password: password, email: email);
+      changeButtonLoadingState(false);
+    } on AuthException {
+      changeButtonLoadingState(false);
+      Toast.show('Invalid email or password', duration: 2);
+    }
+  }
+
+  signUp(String email, String password) async {
+    changeButtonLoadingState(true);
+    SupabaseClient supabase = Supabase.instance.client;
+    try {
+      await supabase.auth.signUp(password: password, email: email);
+      changeButtonLoadingState(false);
+    } on AuthException catch (error) {
+      changeButtonLoadingState(false);
+      Toast.show(error.message, duration: 2);
+    }
+  }
+
+  changeButtonLoadingState(bool isLoading) {
+    context
+        .read<SignInLoadingBloc>()
+        .add(ChangeLoadingState(isLoading: isLoading));
   }
 }

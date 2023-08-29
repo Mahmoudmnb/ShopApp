@@ -19,7 +19,7 @@ class CustomTextField extends StatelessWidget {
       builder: (context, visiblePasswordState) {
         return BlocBuilder<EmailTextBloc, EmailTextState>(
           builder: (context1, emailTextState) {
-            return BlocBuilder<SignUpBlocBloc, SignUpBlocState>(
+            return BlocBuilder<SignUpBloc, SignUpBlocState>(
               builder: (context2, signUpState) {
                 bool isSignUP = false;
                 if (signUpState is SignUpBlocInitial) {
@@ -73,7 +73,7 @@ class CustomTextField extends StatelessWidget {
                           } else if (hintText == 'Email address') {
                             context
                                 .read<EmailTextBloc>()
-                                .add(ChangeEmailText(emailText: value.trim()));
+                                .add(ChangeEmailText(emailText: value));
                           }
                         },
                         decoration: InputDecoration(

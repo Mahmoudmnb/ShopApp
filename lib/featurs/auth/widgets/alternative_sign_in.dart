@@ -11,7 +11,7 @@ class AlternativeSignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignUpBlocBloc, SignUpBlocState>(
+    return BlocBuilder<SignUpBloc, SignUpBlocState>(
       builder: (context, state) {
         bool isSignUp = false;
         if (state is SignUpBlocInitial) {
@@ -48,7 +48,8 @@ class AlternativeSignIn extends StatelessWidget {
                         onTap: () {},
                         imageUrl: 'assets/images/linkedin_logo.png'),
                     SocialButton(
-                        onTap: () {}, imageUrl: 'assets/images/google_logo.png'),
+                        onTap: () {},
+                        imageUrl: 'assets/images/google_logo.png'),
                     SocialButton(
                         onTap: () {},
                         imageUrl: 'assets/images/git_hub_logo.png'),

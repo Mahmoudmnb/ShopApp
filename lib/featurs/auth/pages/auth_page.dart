@@ -47,7 +47,7 @@ class AuthPage extends StatelessWidget {
                   Row(
                     children: [
                       SizedBox(width: 1.h),
-                      BlocBuilder<SignUpBlocBloc, SignUpBlocState>(
+                      BlocBuilder<SignUpBloc, SignUpBlocState>(
                         builder: (context, state) {
                           bool isSignUp = false;
                           if (state is SignUpBlocInitial) {
@@ -69,7 +69,7 @@ class AuthPage extends StatelessWidget {
                   const AlternativeSignIn(),
                   const Expanded(child: SizedBox.shrink()),
                   SizedBox(
-                    child: BlocBuilder<SignUpBlocBloc, SignUpBlocState>(
+                    child: BlocBuilder<SignUpBloc, SignUpBlocState>(
                       builder: (context, state) {
                         bool isSignUp = false;
                         if (state is SignUpBlocInitial) {
@@ -99,11 +99,11 @@ class AuthPage extends StatelessWidget {
                               ),
                               onPressed: () {
                                 if (state is SignUpBlocInitial) {
-                                  context.read<SignUpBlocBloc>().add(
+                                  context.read<SignUpBloc>().add(
                                       ChangeBetweenSignUpOrSignIn(
                                           isSignUp: false));
                                 } else if (state is IsSignUp) {
-                                  context.read<SignUpBlocBloc>().add(
+                                  context.read<SignUpBloc>().add(
                                       ChangeBetweenSignUpOrSignIn(
                                           isSignUp: !state.isSignUp));
                                 }
