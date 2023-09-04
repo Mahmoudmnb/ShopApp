@@ -1,13 +1,20 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shop_app/featurs/auth/data.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shop_app/core/constant.dart';
+import 'package:shop_app/core/internet_info.dart';
+import 'package:shop_app/featurs/auth/models/user_model.dart';
+import 'package:shop_app/featurs/home/pages/main_page.dart';
 import 'package:sizer_pro/sizer.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:toast/toast.dart';
 
-import '../blocs/blocs.dart';
-import 'widgets.dart';
+import '../blocs/auth_blocs.dart';
+import '../data.dart';
+import 'auth_widgets.dart';
 
 class AuthForm extends StatefulWidget {
   const AuthForm({super.key});
@@ -88,10 +95,14 @@ class _AuthFormState extends State<AuthForm> {
                   String name = Data.name;
                   String email = Data.email;
                   String password = Data.password;
-                  if (isSignUP) {
-                    signUp(email, password);
+                  if (await InternetInfo.isconnected()) {
+                    if (isSignUP) {
+                      signUp(email, password, name);
+                    } else {
+                      signIn(email, password);
+                    }
                   } else {
-                    signIn(email, password);
+                    Toast.show('Check you internet connection', duration: 2);
                   }
                 }
               },
@@ -109,7 +120,7 @@ class _AuthFormState extends State<AuthForm> {
                           isFirestText: isSignUP,
                           firstText: 'SIGN IN',
                           secondText: 'SING UP',
-                          textStyle: GoogleFonts.dmSans());
+                          textStyle: GoogleFonts.dmSans(fontSize: 8.sp));
                 },
               ),
             );
@@ -125,28 +136,55 @@ class _AuthFormState extends State<AuthForm> {
     SupabaseClient supabase = Supabase.instance.client;
     try {
       await supabase.auth.signInWithPassword(password: password, email: email);
+      var data = await supabase.from('users').select('name').eq('email', email);
+      String userName = data[0]['name'];
+      Constant.currentUser =
+          UserModel(email: email, name: userName, password: password);
+      SharedPreferences db = await SharedPreferences.getInstance();
+      db.setString('currentUser', Constant.currentUser!.toJson());
       changeButtonLoadingState(false);
+      goToHomePage();
     } on AuthException {
       changeButtonLoadingState(false);
       Toast.show('Invalid email or password', duration: 2);
+    } on SocketException {
+      changeButtonLoadingState(false);
+      Toast.show('Check your internet connection');
     }
   }
 
-  signUp(String email, String password) async {
+  signUp(String email, String password, String name) async {
     changeButtonLoadingState(true);
     SupabaseClient supabase = Supabase.instance.client;
     try {
       await supabase.auth.signUp(password: password, email: email);
+      await supabase
+          .from('users')
+          .insert({'email': email, 'name': name, 'password': password});
+      Constant.currentUser =
+          UserModel(email: email, name: name, password: password);
+      SharedPreferences db = await SharedPreferences.getInstance();
+      db.setString('currentUser', Constant.currentUser!.toJson());
       changeButtonLoadingState(false);
+      goToHomePage();
     } on AuthException catch (error) {
       changeButtonLoadingState(false);
       Toast.show(error.message, duration: 2);
+    } on SocketException {
+      changeButtonLoadingState(false);
+      Toast.show('Check your internet connection');
     }
   }
 
-  changeButtonLoadingState(bool isLoading) {
+  void changeButtonLoadingState(bool isLoading) {
     context
         .read<SignInLoadingBloc>()
         .add(ChangeLoadingState(isLoading: isLoading));
+  }
+
+  void goToHomePage() {
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) => const MainPage(),
+    ));
   }
 }

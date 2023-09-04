@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/featurs/home/pages/main_page.dart';
 import 'package:sizer_pro/sizer.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'featurs/auth/blocs/blocs.dart';
-import 'featurs/auth/pages/pages.dart';
+import 'featurs/auth/blocs/auth_blocs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future<void> main(List<String> args) async {
@@ -36,8 +36,20 @@ class MyApp extends StatelessWidget {
     return Sizer(
       builder: (context, orientation, deviceType) => const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: AuthPage(),
+        home: MainPage(),
+        // home: FutureBuilder(
+        //   future: SharedPreferences.getInstance(),
+        //   builder: (context, snapshot) {
+        //     if (snapshot.hasData &&
+        //         snapshot.data!.getString('currentUser') != null) {
+        //       return const MainPage();
+        //     } else {
+        //       return const AuthPage();
+        //     }
+        //   },
+        // ),
       ),
     );
   }
 }
+

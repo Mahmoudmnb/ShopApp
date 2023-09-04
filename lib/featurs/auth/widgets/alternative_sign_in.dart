@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer_pro/sizer.dart';
 
-import '../blocs/blocs.dart';
-import 'widgets.dart';
+import '../blocs/auth_blocs.dart';
+import 'auth_widgets.dart';
 
 class AlternativeSignIn extends StatelessWidget {
   const AlternativeSignIn({super.key});
@@ -44,15 +44,11 @@ class AlternativeSignIn extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SocialButton(
-                        onTap: () {},
-                        imageUrl: 'assets/images/linkedin_logo.png'),
+                    SocialButton(onTap: () {}, imageUrl: 'assets/images/linkedin_logo.png'),
                     SocialButton(
                         onTap: () {},
                         imageUrl: 'assets/images/google_logo.png'),
-                    SocialButton(
-                        onTap: () {},
-                        imageUrl: 'assets/images/git_hub_logo.png'),
+                    SocialButton(onTap: () {}, imageUrl: 'assets/images/facebook_logo.png'),
                   ],
                 ),
               ),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer_pro/sizer.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../blocs/blocs.dart';
-import '../widgets/widgets.dart';
+import '../blocs/auth_blocs.dart';
+import '../widgets/auth_widgets.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
@@ -19,7 +19,7 @@ class AuthPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 4.4.w),
               child: Column(
                 children: [
-                  SizedBox(height: 1.5.h),
+                  SizedBox(height: 1.h),
                   Row(
                     children: [
                       const Spacer(),

@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../featurs/auth/blocs/blocs.dart';
+import '../featurs/auth/blocs/auth_blocs.dart';
 import '../featurs/auth/models/user_model.dart';
 
 class Constant {
@@ -19,4 +19,5 @@ class Constant {
       create: (context) => SignInLoadingBloc(),
     ),
   ];
+  
 }

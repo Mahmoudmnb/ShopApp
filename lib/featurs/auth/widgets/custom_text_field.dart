@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer_pro/sizer.dart';
 
-import '../blocs/blocs.dart';
+import '../blocs/auth_blocs.dart';
 import '../data.dart';
-import 'widgets.dart';
+import 'auth_widgets.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
