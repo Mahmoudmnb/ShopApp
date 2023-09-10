@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/featurs/home/blocs/bloc/discount_products_bloc.dart';
 import 'package:shop_app/featurs/home/pages/main_page.dart';
+import 'package:shop_app/featurs/search/cubit/sreach_cubit.dart';
+import 'package:shop_app/injection.dart';
 import 'package:sizer_pro/sizer.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'featurs/auth/blocs/auth_blocs.dart';
@@ -12,6 +15,7 @@ Future<void> main(List<String> args) async {
     anonKey:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV1amF1eGpsdHlla2VxeW9ob2R6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODg2NDM3MzYsImV4cCI6MjAwNDIxOTczNn0.IsX_pZLfNmrYPYGhqH8yZ31Zz5mt9XSztN4Mv1MPlZw',
   );
+  init();
   runApp(MultiBlocProvider(providers: [
     BlocProvider(
       create: (context) => VisiblePsswordBloc(),
@@ -24,6 +28,12 @@ Future<void> main(List<String> args) async {
     ),
     BlocProvider(
       create: (context) => SignInLoadingBloc(),
+    ),
+    BlocProvider(
+      create: (context) => DiscountProductsBloc(),
+    ),
+    BlocProvider(
+      create: (context) => SearchCubit(),
     ),
   ], child: const MyApp()));
 }
@@ -52,4 +62,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

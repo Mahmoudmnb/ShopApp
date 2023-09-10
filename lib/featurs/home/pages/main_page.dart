@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shop_app/featurs/home/pages/home_pages.dart';
-import 'package:shop_app/featurs/home/widgets/home_widgets.dart';
+import 'package:shop_app/featurs/search/search_screen.dart';
 import 'package:sizer_pro/sizer.dart';
+
+import '../../../injection.dart';
+import '../data_source/data_source.dart';
+import '../widgets/main_page_drawer.dart';
+import '../widgets/main_page_tab_bar.dart';
+import 'home_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -14,7 +19,6 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
-
   @override
   void initState() {
     tabController = TabController(length: 4, vsync: this);
@@ -40,8 +44,8 @@ class _MainPageState extends State<MainPage>
           children: [
             Builder(
               builder: (context) => IconButton(
-                  onPressed: () {
-                    Scaffold.of(context).openDrawer();
+                  onPressed: () async {
+                    // Scaffold.of(context).openDrawer();
                   },
                   icon: const Icon(Icons.density_medium_rounded)),
             ),
@@ -61,15 +65,18 @@ class _MainPageState extends State<MainPage>
           style: GoogleFonts.dmSans(fontSize: 12.sp),
         ),
       ),
-      body: TabBarView(controller: tabController, children: const [
-        HomePage(),
-        Center(
-          child: Text('Search'),
+      body: TabBarView(controller: tabController, children: [
+        FutureBuilder(
+          future: sl.get<DataSource>().getDiscountProducts(),
+          builder: (context, snapshot) => snapshot.hasData
+              ? HomePage(disCountProducts: snapshot.data!)
+              : const SizedBox.shrink(),
         ),
-        Center(
+        const SearchScreen(),
+        const Center(
           child: Text('Purches'),
         ),
-        Center(
+        const Center(
           child: Text('Profile'),
         )
       ]),

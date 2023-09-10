@@ -22,7 +22,7 @@ class TopCollectionImage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   image: const DecorationImage(
                       fit: BoxFit.fill,
-                      image: AssetImage('assets/images/man.png'))),
+                      image: AssetImage('assets/images/1.png'))),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -54,7 +54,7 @@ class TopCollectionImage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   image: const DecorationImage(
                       fit: BoxFit.fill,
-                      image: AssetImage('assets/images/man.png'))),
+                      image: AssetImage('assets/images/1.png'))),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.end,

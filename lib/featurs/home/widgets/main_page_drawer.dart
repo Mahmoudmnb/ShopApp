@@ -62,7 +62,7 @@ class _MainPageDrawerState extends State<MainPageDrawer> {
                   width: 62.w,
                   dropdownMenuEntries: const [
                     DropdownMenuEntry(value: 0, label: 'Suits'),
-                    DropdownMenuEntry(value: 0, label: 'Pants')
+                    DropdownMenuEntry(value: 1, label: 'Pants')
                   ]),
             )
           ],

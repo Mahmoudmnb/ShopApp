@@ -31,7 +31,7 @@ class TrendyImage extends StatelessWidget {
                 image: const DecorationImage(
                     fit: BoxFit.fill,
                     image: AssetImage(
-                      'assets/images/man.png',
+                      'assets/images/1.png',
                     ))),
           ),
         ),
