@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/core/constant.dart';
 import 'package:shop_app/core/internet_info.dart';
 import 'package:shop_app/featurs/auth/models/user_model.dart';
-import 'package:shop_app/featurs/home/pages/main_page.dart';
+import 'package:shop_app/injection.dart';
 import 'package:sizer_pro/sizer.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:toast/toast.dart';
@@ -17,7 +17,8 @@ import '../data.dart';
 import 'auth_widgets.dart';
 
 class AuthForm extends StatefulWidget {
-  const AuthForm({super.key});
+  final void Function() goToHomePage;
+  const AuthForm({super.key, required this.goToHomePage});
 
   @override
   State<AuthForm> createState() => _AuthFormState();
@@ -88,7 +89,7 @@ class _AuthFormState extends State<AuthForm> {
             } else if (state is IsSignUp) {
               isSignUP = state.isSignUp;
             }
-            return CustomButton(
+            return AuthCustomButton(
               onPressed: () async {
                 if (formKey.currentState!.validate()) {
                   formKey.currentState!.save();
@@ -140,10 +141,11 @@ class _AuthFormState extends State<AuthForm> {
       String userName = data[0]['name'];
       Constant.currentUser =
           UserModel(email: email, name: userName, password: password);
-      SharedPreferences db = await SharedPreferences.getInstance();
-      db.setString('currentUser', Constant.currentUser!.toJson());
+      sl
+          .get<SharedPreferences>()
+          .setString('currentUser', Constant.currentUser!.toJson());
       changeButtonLoadingState(false);
-      goToHomePage();
+      widget.goToHomePage();
     } on AuthException {
       changeButtonLoadingState(false);
       Toast.show('Invalid email or password', duration: 2);
@@ -163,10 +165,12 @@ class _AuthFormState extends State<AuthForm> {
           .insert({'email': email, 'name': name, 'password': password});
       Constant.currentUser =
           UserModel(email: email, name: name, password: password);
-      SharedPreferences db = await SharedPreferences.getInstance();
-      db.setString('currentUser', Constant.currentUser!.toJson());
+
+      sl
+          .get<SharedPreferences>()
+          .setString('currentUser', Constant.currentUser!.toJson());
       changeButtonLoadingState(false);
-      goToHomePage();
+      widget.goToHomePage();
     } on AuthException catch (error) {
       changeButtonLoadingState(false);
       Toast.show(error.message, duration: 2);
@@ -180,11 +184,5 @@ class _AuthFormState extends State<AuthForm> {
     context
         .read<SignInLoadingBloc>()
         .add(ChangeLoadingState(isLoading: isLoading));
-  }
-
-  void goToHomePage() {
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => const MainPage(),
-    ));
   }
 }

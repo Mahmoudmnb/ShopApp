@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shop_app/featurs/main_page/main_page.dart';
 import 'package:sizer_pro/sizer.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../../core/data_base.dart';
+import '../../../injection.dart';
 import '../blocs/auth_blocs.dart';
 import '../widgets/auth_widgets.dart';
 
@@ -10,6 +14,23 @@ class AuthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void goToHomePage() async {
+      sl.get<SharedPreferences>().setBool('isFirstTime', false);
+      MyDataBase myDataBase = MyDataBase();
+      myDataBase.createTable().then((value) {
+        myDataBase.createReviewTable().then((value) {
+          myDataBase.createSearchHistoryTable().then((value) {
+            myDataBase.insertReviewTable().then((value) {
+              myDataBase.insertData().then((value) {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => const MainPage(),
+                ));
+              });
+            });
+          });
+        });
+      });
+    }
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -31,9 +52,7 @@ class AuthPage extends StatelessWidget {
                           style: GoogleFonts.dmSans(fontSize: 9.sp),
                         ),
                         onPressed: () {
-                          // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          //   builder: (context) => const HomePage(),
-                          // ));
+                          goToHomePage();
                         },
                       ),
                     ],
@@ -64,7 +83,7 @@ class AuthPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const AuthForm(),
+                  AuthForm(goToHomePage: goToHomePage),
                   SizedBox(height: 1.h),
                   const AlternativeSignIn(),
                   const Expanded(child: SizedBox.shrink()),

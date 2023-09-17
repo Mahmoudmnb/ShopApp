@@ -37,7 +37,7 @@ class SwitchBetweenTwoTextWithRotation extends StatelessWidget {
         opacity: !isFirestText ? 0 : 1,
         child: Center(
           child: AnimatedRotation(
-            turns: isFirestText ? 360 : -360 * math.pi,
+            turns: isFirestText ? 1 : -1,
             duration: Constant.duration,
             child: Text(
               secondText,

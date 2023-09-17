@@ -4,8 +4,9 @@ import 'package:shop_app/core/constant.dart';
 import 'package:shop_app/featurs/auth/blocs/auth_blocs.dart';
 import 'package:sizer_pro/sizer.dart';
 
-class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, required this.text, required this.onPressed});
+class AuthCustomButton extends StatelessWidget {
+  const AuthCustomButton(
+      {super.key, required this.text, required this.onPressed});
   final Widget text;
   final void Function() onPressed;
   @override
