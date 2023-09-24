@@ -61,8 +61,8 @@ class SearchCubit extends Cubit<SearchState> {
   }
 
   //! mnb
-  List discount = [10, 15, 20, 30, 50, 70];
-  List colors = [
+  List<int> discount = [10, 15, 20, 30, 50, 70];
+  List<Color> colors = [
     const Color(0xFF181E27),
     const Color(0xFF44565C),
     const Color(0xFF6D4F44),
@@ -75,6 +75,12 @@ class SearchCubit extends Cubit<SearchState> {
   ];
   String selectedCategory = 'All';
   List<Map<String, dynamic>> searchHistory = [];
+  bool isCategoryViewSearch = false;
+  void changeCategoryViewSearch(bool value) {
+    isCategoryViewSearch = value;
+    emit(IsCategoryViewSearch());
+  }
+
   Future<List<Map<String, dynamic>>> search(String search) async {
     List<Map<String, dynamic>> searchResult =
         await sl.get<DataSource>().searchProducts(
@@ -95,7 +101,7 @@ class SearchCubit extends Cubit<SearchState> {
     emit(SearchHistory(searchHistory: searchHistory));
   }
 
-  void reset(String searchWord) {
+  Future<void> reset(String searchWord, bool isSearchAfter) async {
     minPrice = 0;
     maxPrice = 100;
     valuesOfFilterPrice = const SfRangeValues(0, 100);
@@ -114,10 +120,42 @@ class SearchCubit extends Cubit<SearchState> {
     ];
     selectedCategory = 'All';
     emit(ResetFilter());
-    search(searchWord);
+    if (isSearchAfter) {
+      await search(searchWord);
+    }
   }
 
-  void setFavorateProduct(int id, bool value) {
-    sl.get<DataSource>().setFavorateProduct(id, value);
+  Future<void> setFavorateProduct(int id, bool value) async {
+    await sl.get<DataSource>().setFavorateProduct(id, value);
+  }
+
+  void setSelectedCategory(String value) {
+    selectedCategory = value;
+    emit(SetSelectedCategory());
+  }
+
+  Future<List<Map<String, dynamic>>> searchInCategory(
+      String? searchWord, String categoryName) async {
+    var data = await sl.get<DataSource>().searchInCategory(
+        minPrice: minPrice,
+        maxPrice: maxPrice,
+        searchWord: searchWord,
+        discountFilter: filterDiscount,
+        selectedCategory: selectedCategory,
+        ratingFilter: filterRating,
+        colorFilter: filterColors);
+    emit(SaveState(categoryProducts: data));
+    return data;
+  }
+
+  Future<List<Map<String, dynamic>>> searchInDiscounts(String? searchWord) {
+    return sl.get<DataSource>().searchInDiscountProducts(
+        minPrice: minPrice,
+        maxPrice: maxPrice,
+        searchWord: searchWord,
+        discountFilter: filterDiscount,
+        ratingFilter: filterRating,
+        selectedCategory: selectedCategory,
+        colorFilter: filterColors);
   }
 }

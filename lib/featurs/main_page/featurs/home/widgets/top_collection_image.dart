@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer_pro/sizer.dart';
 
 class TopCollectionImage extends StatelessWidget {
@@ -27,21 +26,19 @@ class TopCollectionImage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    'Beach ',
-                    style: GoogleFonts.dmSans(
-                        color: Colors.white,
-                        fontSize: 7.sp,
-                        fontWeight: FontWeight.bold),
-                  ),
+                  Text('Beach ',
+                      style: TextStyle(
+                          fontFamily: 'DM Sans',
+                          color: Colors.white,
+                          fontSize: 7.sp,
+                          fontWeight: FontWeight.bold)),
                   const SizedBox(height: 3),
-                  Text(
-                    'Collection',
-                    style: GoogleFonts.dmSans(
-                        color: Colors.white,
-                        fontSize: 7.sp,
-                        fontWeight: FontWeight.bold),
-                  ),
+                  Text('Collection',
+                      style: TextStyle(
+                          fontFamily: 'DM Sans',
+                          color: Colors.white,
+                          fontSize: 7.sp,
+                          fontWeight: FontWeight.bold)),
                 ],
               )),
           SizedBox(width: 3.w),

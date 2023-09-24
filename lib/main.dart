@@ -4,15 +4,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer_pro/sizer.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'package:shop_app/featurs/auth/models/user_model.dart';
-import 'package:shop_app/featurs/auth/pages/splash_screen.dart';
-import 'package:shop_app/featurs/main_page/main_page.dart';
-
 import 'core/constant.dart';
 import 'featurs/auth/blocs/auth_blocs.dart';
+import 'featurs/auth/models/user_model.dart';
+import 'featurs/auth/pages/splash_screen.dart';
+import 'featurs/main_page/cubit/main_page_cubit.dart';
 import 'featurs/main_page/featurs/home/blocs/discount/discount_products_bloc.dart';
 import 'featurs/main_page/featurs/products_view/cubits/product_screen/cubit.dart';
 import 'featurs/main_page/featurs/search/cubit/sreach_cubit.dart';
+import 'featurs/main_page/main_page.dart';
 import 'injection.dart';
 
 Future<void> main(List<String> args) async {
@@ -50,6 +50,9 @@ Future<void> main(List<String> args) async {
     BlocProvider(
       create: (context) => ProductCubit(),
     ),
+    BlocProvider(
+      create: (context) => MainPageCubit(),
+    ),
   ], child: const MyApp()));
 }
 
@@ -62,7 +65,10 @@ class MyApp extends StatelessWidget {
       builder: (context, orientation, deviceType) => MaterialApp(
           debugShowCheckedModeBanner: false,
           home: sl.get<SharedPreferences>().getBool('isFirstTime') == null
-              ? const SplashScreen()
+              ? SplashScreen(
+                  deviceHeight: 100.h,
+                  deviceWidth: 100.w,
+                )
               : const MainPage()),
     );
   }

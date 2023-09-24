@@ -4,8 +4,32 @@ import 'local_data_source.dart';
 class DataSource {
   LocalDataSource localDataSource;
   DataSource({required this.localDataSource});
+  Future<List<Map<String, Object?>>> searchInCategory({
+    required double minPrice,
+    required double maxPrice,
+    String? searchWord,
+    required List<bool> discountFilter,
+    required String selectedCategory,
+    required List<bool> ratingFilter,
+    required List<bool> colorFilter,
+  }) async {
+    return localDataSource.searchInCategory(
+      discountfilter: discountFilter,
+      minPrice: minPrice,
+      maxPrice: maxPrice,
+      searchWord: searchWord,
+      selectedCategory: selectedCategory,
+      ratingFilter: ratingFilter,
+      colorFilter: colorFilter,
+    );
+  }
+
   Future<Map<String, dynamic>> getProductById(int id) async {
     return localDataSource.getProductById(id);
+  }
+
+  Future<List<Map<String, dynamic>>> getDiscountsProducts() {
+    return localDataSource.getDiscountProduct();
   }
 
   Future<List<Map<String, dynamic>>> getSimilarProducts(
@@ -17,8 +41,23 @@ class DataSource {
     return localDataSource.getReviews(id);
   }
 
-  Future<List<Map<String, Object?>>> getDiscountProducts() {
-    return localDataSource.getDiscountProducts();
+  Future<List<Map<String, Object?>>> searchInDiscountProducts({
+    required double minPrice,
+    required double maxPrice,
+    String? searchWord,
+    required String selectedCategory,
+    required List<bool> discountFilter,
+    required List<bool> ratingFilter,
+    required List<bool> colorFilter,
+  }) {
+    return localDataSource.searchInDiscountProducts(
+        minPrice: minPrice,
+        maxPrice: maxPrice,
+        searchWord: searchWord,
+        discountFilter: discountFilter,
+        ratingFilter: ratingFilter,
+        colorFilter: colorFilter,
+        selectedCategory: selectedCategory);
   }
 
   Future<List<Map<String, Object?>>> searchProducts({

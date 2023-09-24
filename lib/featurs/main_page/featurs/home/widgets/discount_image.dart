@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer_pro/sizer.dart';
 
 class DisCountImage extends StatelessWidget {
@@ -49,8 +48,10 @@ class DisCountImage extends StatelessWidget {
                 width: 38.w,
                 child: Text(
                   '$discount %',
-                  style:
-                      GoogleFonts.dmSans(fontSize: 7.sp, color: Colors.white),
+                  style: TextStyle(
+                      fontFamily: 'DM Sans',
+                      fontSize: 7.sp,
+                      color: Colors.white),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -61,7 +62,8 @@ class DisCountImage extends StatelessWidget {
           children: [
             Text(
               ' $makerCompany',
-              style: GoogleFonts.dmSans(
+              style: TextStyle(
+                  fontFamily: 'DM Sans',
                   color: const Color(0xff393939),
                   fontSize: 5.sp,
                   fontWeight: FontWeight.bold),
@@ -69,16 +71,20 @@ class DisCountImage extends StatelessWidget {
             ),
             Text(
               '$price\$',
-              style: GoogleFonts.dmSans(
-                  color: const Color(0xffD57676), fontSize: 5.sp),
+              style: TextStyle(
+                  fontFamily: 'DM Sans',
+                  color: const Color(0xffD57676),
+                  fontSize: 5.sp),
               overflow: TextOverflow.ellipsis,
             ),
           ],
         ),
         Text(
           ' $productName',
-          style: GoogleFonts.dmSans(
-              color: const Color(0xff828282), fontSize: 4.sp),
+          style: TextStyle(
+              fontFamily: 'DM Sans',
+              color: const Color(0xff828282),
+              fontSize: 4.sp),
           overflow: TextOverflow.ellipsis,
         ),
       ],

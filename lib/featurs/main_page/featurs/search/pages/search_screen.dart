@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer_pro/sizer.dart';
 
 import '../../../../../injection.dart';
+import '../../../cubit/main_page_cubit.dart';
 import '../../../data_source/data_source.dart';
 import '../cubit/sreach_cubit.dart';
+import '../widgets/category_card.dart';
 import '../widgets/end_drawer.dart';
 import '../widgets/popular_search.dart';
 import '../widgets/recent_search.dart';
@@ -33,11 +35,13 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.read<MainPageCubit>().changePageIndex(1);
     var cubit = SearchCubit.get(context);
     return Scaffold(
       endDrawer: EndDrawer(
         searchWord: searchController.text,
         fromPage: 'SearchPage',
+        searchController: searchController,
       ),
       drawer: const Drawer(),
       body: SafeArea(
@@ -68,8 +72,9 @@ class _SearchScreenState extends State<SearchScreen> {
                           textAlign: TextAlign.start,
                           decoration: InputDecoration(
                               hintText: "Search",
-                              hintStyle:
-                                  const TextStyle(color: Color(0xFF9B9B9B)),
+                              hintStyle: const TextStyle(
+                                  color: Color(0xFF9B9B9B),
+                                  fontFamily: 'Tenor Sans'),
                               prefixIcon: IconButton(
                                 onPressed: () {
                                   FocusScope.of(context).unfocus();
@@ -156,50 +161,83 @@ class _SearchScreenState extends State<SearchScreen> {
                                 "Categories",
                                 style: TextStyle(
                                     color: const Color(0xFF6D6D6D),
+                                    fontFamily: 'Tenor Sans',
                                     fontSize: 10.sp),
                               ),
                             ),
                             SizedBox(
                               height: 3.h,
                             ),
-                            GridView.builder(
+                            GridView(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
-                              itemCount: 8,
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 4,
                                       childAspectRatio: 0.78,
-                                      crossAxisSpacing: 3.h,
-                                      mainAxisSpacing: 20),
-                              itemBuilder: (context, index) => Column(
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: const Color(0xFF3D3D3D),
-                                            width: 1.5),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: const Icon(Icons.insert_emoticon),
-                                  ),
-                                  const Text("Shirts"),
-                                ],
-                              ),
+                                      crossAxisSpacing: 1.h,
+                                      mainAxisSpacing: 5),
+                              children: [
+                                CategoryCard(
+                                  categroyName: 'Shirt',
+                                  categoryImageUrl: 'assets/icons/shirt.png',
+                                  searchCubit: cubit,
+                                  searchWord: searchController.text,
+                                ),
+                                CategoryCard(
+                                  categroyName: 'Sweaters',
+                                  categoryImageUrl: 'assets/icons/Sweaters.png',
+                                  searchCubit: cubit,
+                                  searchWord: searchController.text,
+                                ),
+                                CategoryCard(
+                                  categroyName: 'T-shirts',
+                                  categoryImageUrl: 'assets/icons/T-shirts.png',
+                                  searchCubit: cubit,
+                                  searchWord: searchController.text,
+                                ),
+                                CategoryCard(
+                                  categroyName: 'Jackets',
+                                  categoryImageUrl: 'assets/icons/Jackets.png',
+                                  searchCubit: cubit,
+                                  searchWord: searchController.text,
+                                ),
+                                CategoryCard(
+                                  categroyName: 'Shorts',
+                                  categoryImageUrl: 'assets/icons/Shorts.png',
+                                  searchCubit: cubit,
+                                  searchWord: searchController.text,
+                                ),
+                                CategoryCard(
+                                  categroyName: 'Pants',
+                                  categoryImageUrl: 'assets/icons/Pants.png',
+                                  searchCubit: cubit,
+                                  searchWord: searchController.text,
+                                ),
+                                CategoryCard(
+                                  categroyName: 'Suits',
+                                  categoryImageUrl: 'assets/icons/Suits.png',
+                                  searchCubit: cubit,
+                                  searchWord: searchController.text,
+                                ),
+                                CategoryCard(
+                                  categroyName: 'Sportswear',
+                                  categoryImageUrl:
+                                      'assets/icons/Sportswear.png',
+                                  searchCubit: cubit,
+                                  searchWord: searchController.text,
+                                ),
+                              ],
                             ),
-                            SizedBox(
-                              height: 3.h,
-                            ),
+                            SizedBox(height: 2.h),
                             Text(
                               "Collections",
                               style: TextStyle(
+                                  fontFamily: 'Tenor Sans',
                                   fontSize: 10.sp,
                                   color: const Color(0xFF6D6D6D)),
                             ),
-                            const SizedBox(
-                              height: 30,
-                            ),
+                            SizedBox(height: 4.h),
                             ListView.separated(
                               physics: const NeverScrollableScrollPhysics(),
                               separatorBuilder: (context, index) =>
@@ -236,6 +274,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   moveToSearchResultPage(
       List<Map<String, dynamic>> searchProduts, SearchCubit cubit) {
+    cubit.isSearch = false;
     Navigator.of(context)
         .push(MaterialPageRoute(
       builder: (context) => SearchResultScreen(

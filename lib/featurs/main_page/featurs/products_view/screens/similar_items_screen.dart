@@ -12,15 +12,19 @@ class SimilarItemsScreen extends StatelessWidget {
   final ProductCubit productCubit;
   final ProductModel product;
   final String searchWord;
+  final String categoryName;
   final SearchCubit searchCubit;
   final List<Map<String, dynamic>> similarProducts;
+  final String fromPage;
 
   const SimilarItemsScreen(
       {super.key,
+      required this.fromPage,
       required this.similarProducts,
       required this.searchCubit,
       required this.product,
       required this.searchWord,
+      required this.categoryName,
       required this.productCubit});
 
   @override
@@ -31,6 +35,8 @@ class SimilarItemsScreen extends StatelessWidget {
           searchWord: searchWord,
           product: productModel,
           searchCubit: searchCubit,
+          fromPage: fromPage,
+          categoryName: categoryName,
           cubit: BlocProvider.of<ProductCubit>(context),
         ),
       ));

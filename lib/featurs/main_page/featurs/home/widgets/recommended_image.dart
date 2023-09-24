@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer_pro/sizer.dart';
 
 class RecommendedImage extends StatelessWidget {
@@ -39,14 +38,13 @@ class RecommendedImage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                productNamge,
-                style: GoogleFonts.dmSans(fontSize: 5.sp),
-              ),
-              Text(
-                productPrice,
-                style: GoogleFonts.dmSans(fontSize: 5.sp, color: Colors.grey),
-              )
+              Text(productNamge,
+                  style: TextStyle(fontFamily: 'DM Sans', fontSize: 5.sp)),
+              Text(productPrice,
+                  style: TextStyle(
+                      fontFamily: 'DM Sans',
+                      fontSize: 5.sp,
+                      color: Colors.grey))
             ],
           )
         ],

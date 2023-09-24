@@ -1,5 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/featurs/main_page/data_source/data_source.dart';
+import 'package:shop_app/featurs/main_page/featurs/home/blocs/discount/discount_products_bloc.dart';
+import 'package:shop_app/injection.dart';
 import 'package:sizer_pro/sizer.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
@@ -8,11 +13,24 @@ import '../cubit/sreach_cubit.dart';
 class EndDrawer extends StatelessWidget {
   final String searchWord;
   final String fromPage;
+  final String? oldCategoryName;
+  final TextEditingController searchController;
   const EndDrawer(
-      {super.key, required this.searchWord, required this.fromPage});
+      {super.key,
+      required this.searchController,
+      this.oldCategoryName,
+      required this.searchWord,
+      required this.fromPage});
   @override
   Widget build(BuildContext context) {
     var cubit = SearchCubit.get(context);
+    void hidTextFromField() {
+      searchController.text = '';
+      context
+          .read<DiscountProductsBloc>()
+          .add(ChangeIsSearchEvent(isSearch: false));
+    }
+
     Widget sb({double width = 0, double height = 0}) {
       return SizedBox(
         height: height,
@@ -32,7 +50,7 @@ class EndDrawer extends StatelessWidget {
               children: [
                 Text(
                   "Filter",
-                  style: TextStyle(fontSize: 10.sp),
+                  style: TextStyle(fontSize: 10.sp, fontFamily: 'DM Sans'),
                 ),
                 Image(
                   image: const AssetImage('assets/images/Filter_big.png'),
@@ -49,8 +67,10 @@ class EndDrawer extends StatelessWidget {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
                 "Category",
-                style:
-                    TextStyle(color: const Color(0xFF7E7E7E), fontSize: 6.sp),
+                style: TextStyle(
+                    color: const Color(0xFF7E7E7E),
+                    fontSize: 6.sp,
+                    fontFamily: 'DM Sans'),
               ),
               sb(height: fromPage == 'SearchPage' ? 1.h : 2.h),
               Container(
@@ -64,12 +84,14 @@ class EndDrawer extends StatelessWidget {
                     String selectedCategory = cubit.selectedCategory;
                     if (state is ResetFilter) {
                       selectedCategory = cubit.selectedCategory;
+                    } else if (state is SetSelectedCategory) {
+                      selectedCategory = cubit.selectedCategory;
                     }
                     return DropdownButton(
                       underline: Container(),
                       isExpanded: true,
                       onChanged: (value) {
-                        cubit.selectedCategory = value!;
+                        cubit.setSelectedCategory(value!);
                       },
                       value: selectedCategory,
                       hint: const Text("Choose category"),
@@ -102,6 +124,41 @@ class EndDrawer extends StatelessWidget {
                             // Category = 'Aprrtie';
                           },
                         ),
+                        DropdownMenuItem(
+                          value: "sweaters",
+                          child: const Text("Sweaters"),
+                          onTap: () {
+                            // Category = 'Aprrtie';
+                          },
+                        ),
+                        DropdownMenuItem(
+                          value: "t-shirts",
+                          child: const Text("T-Shirts"),
+                          onTap: () {
+                            // Category = 'Aprrtie';
+                          },
+                        ),
+                        DropdownMenuItem(
+                          value: "jackets",
+                          child: const Text("Jackets"),
+                          onTap: () {
+                            // Category = 'Aprrtie';
+                          },
+                        ),
+                        DropdownMenuItem(
+                          value: "shorts",
+                          child: const Text("Shorts"),
+                          onTap: () {
+                            // Category = 'Aprrtie';
+                          },
+                        ),
+                        DropdownMenuItem(
+                          value: "sportswear",
+                          child: const Text("SportsWear"),
+                          onTap: () {
+                            // Category = 'Aprrtie';
+                          },
+                        ),
                       ],
                     );
                   },
@@ -110,8 +167,10 @@ class EndDrawer extends StatelessWidget {
               sb(height: fromPage == 'SearchPage' ? 1.h : 2.h),
               Text(
                 "Price",
-                style:
-                    TextStyle(color: const Color(0xFF7E7E7E), fontSize: 6.sp),
+                style: TextStyle(
+                    color: const Color(0xFF7E7E7E),
+                    fontSize: 6.sp,
+                    fontFamily: 'DM Sans'),
               ),
               BlocBuilder<SearchCubit, SearchState>(
                 builder: (context, state) {
@@ -137,8 +196,10 @@ class EndDrawer extends StatelessWidget {
               ),
               Text(
                 "Colors",
-                style:
-                    TextStyle(color: const Color(0xFF7E7E7E), fontSize: 6.sp),
+                style: TextStyle(
+                    color: const Color(0xFF7E7E7E),
+                    fontSize: 6.sp,
+                    fontFamily: 'DM Sans'),
               ),
               sb(height: fromPage == 'SearchPage' ? 1.h : 2.h),
               BlocBuilder<SearchCubit, SearchState>(
@@ -176,8 +237,10 @@ class EndDrawer extends StatelessWidget {
               sb(height: fromPage == 'SearchPage' ? 1.h : 2.h),
               Text(
                 "Rating",
-                style:
-                    TextStyle(color: const Color(0xFF7E7E7E), fontSize: 6.sp),
+                style: TextStyle(
+                    color: const Color(0xFF7E7E7E),
+                    fontSize: 6.sp,
+                    fontFamily: 'DM Sans'),
               ),
               sb(height: fromPage == 'SearchPage' ? 1.h : 2.h),
               BlocBuilder<SearchCubit, SearchState>(
@@ -226,6 +289,7 @@ class EndDrawer extends StatelessWidget {
                                 Text(
                                   '${index + 1}',
                                   style: TextStyle(
+                                    fontFamily: 'DM Sans',
                                     color: filterRating[index]
                                         ? Colors.white
                                         : const Color(0xFF33302E),
@@ -241,8 +305,10 @@ class EndDrawer extends StatelessWidget {
               sb(height: fromPage == 'SearchPage' ? 1.h : 2.h),
               Text(
                 "Discount",
-                style:
-                    TextStyle(color: const Color(0xFF7E7E7E), fontSize: 6.sp),
+                style: TextStyle(
+                    color: const Color(0xFF7E7E7E),
+                    fontSize: 6.sp,
+                    fontFamily: 'DM Sans'),
               ),
               sb(height: fromPage == 'SearchPage' ? 1.h : 2.h),
               BlocBuilder<SearchCubit, SearchState>(
@@ -284,6 +350,7 @@ class EndDrawer extends StatelessWidget {
                                 child: Text(
                               '${cubit.discount[index]}%',
                               style: TextStyle(
+                                fontFamily: 'DM Sans',
                                 color: filterDiscount[index]
                                     ? Colors.white
                                     : const Color(0xFF33302E),
@@ -299,18 +366,76 @@ class EndDrawer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   MaterialButton(
-                      onPressed: () {
-                        cubit.reset(searchWord);
+                      onPressed: () async {
+                        if (fromPage == 'categoryView') {
+                          await cubit.reset(searchWord, false);
+                          cubit.setSelectedCategory(
+                              oldCategoryName!.toLowerCase());
+                          cubit.changeCategoryViewSearch(false);
+                          await cubit
+                              .searchInCategory(null, oldCategoryName!)
+                              .then((value) {
+                            log(value.toString());
+                          });
+                          searchController.text = '';
+                        }
+                        if (fromPage == 'seeAll') {
+                          cubit.reset(searchWord, false);
+                          cubit.setSelectedCategory('All');
+                          hidTextFromField();
+                          sl
+                              .get<DataSource>()
+                              .getDiscountsProducts()
+                              .then((allDiscountProducts) {
+                            context.read<DiscountProductsBloc>().add(
+                                GetAllDiscountEvent(
+                                    allDiscountProducts: allDiscountProducts));
+                          });
+                        } else {
+                          await cubit.reset(searchWord, true);
+                        }
                       },
                       child: const Text('Reset')),
                   MaterialButton(
-                      onPressed: () {
-                        cubit.search(searchWord);
+                      onPressed: () async {
+                        if (fromPage == 'categoryView') {
+                          log(fromPage);
+                          if (searchWord.isEmpty) {
+                            var data = await cubit.searchInCategory(
+                                null, cubit.selectedCategory);
+                            log(data.toString());
+                          } else {
+                            var data = await cubit.searchInCategory(
+                                searchWord, cubit.selectedCategory);
+                            log(data.toString());
+                          }
+                        }
+                        if (fromPage == 'seeAll') {
+                          if (searchWord.isEmpty) {
+                            await cubit
+                                .searchInDiscounts(null)
+                                .then((searchResult) {
+                              context.read<DiscountProductsBloc>().add(
+                                  SearchInDiscount(searchResult: searchResult));
+                            });
+                          } else {
+                            log(searchWord);
+                            await cubit
+                                .searchInDiscounts(searchWord)
+                                .then((searchResult) {
+                              context.read<DiscountProductsBloc>().add(
+                                  SearchInDiscount(searchResult: searchResult));
+                            });
+                          }
+                        } else {
+                          cubit.search(searchWord);
+                        }
                       },
                       color: const Color(0xFF33302E),
                       child: const Text(
                         'Apply',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(
+                            color: Colors.white, fontFamily: 'DM Sans'),
                       ))
                 ],
               ),

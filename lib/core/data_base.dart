@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/core/constant.dart';
 import 'package:sqflite/sqflite.dart';
@@ -8,8 +7,8 @@ import 'package:sqflite/sqflite.dart';
 class MyDataBase {
   Future<void> createReviewTable() async {
     String path = await getDatabasesPath();
-    String dataBasePath = join(path, 'reviews.db');
-    Database db = await openDatabase(
+    String dataBasePath = '$path/reviews.db';
+    await openDatabase(
       dataBasePath,
       version: 1,
       onCreate: (db, version) async {
@@ -17,7 +16,7 @@ class MyDataBase {
             'CREATE TABLE reviews (id INTEGER PRIMARY KEY , description TEXT NOT NULL , stars INTEGER NOT NULL , date TEXT NOT NULL , userName TEXT NOT NULL , userImage TEXT , productId INTEGER NOT NULL )');
       },
     );
-    print('created');
+    log('created');
   }
 
   Future<void> insertReviewTable() async {
@@ -30,8 +29,8 @@ class MyDataBase {
 
   Future<void> createTable() async {
     String path = await getDatabasesPath();
-    String dataBasePath = join(path, 'prducts.db');
-    Database db = await openDatabase(
+    String dataBasePath = '$path/prducts.db';
+    await openDatabase(
       dataBasePath,
       version: 1,
       onCreate: (db, version) async {
@@ -41,14 +40,14 @@ class MyDataBase {
         sh.setString('DataBasePath', dataBasePath);
       },
     );
-    print('created');
+    log('created');
   }
 
   Future<void> createSearchHistoryTable() async {
     String path = await getDatabasesPath();
-    String dataBasePath = join(path, 'searchHistory.db');
+    String dataBasePath = '$path/searchHistory.db';
     try {
-      Database db = await openDatabase(
+      await openDatabase(
         dataBasePath,
         version: 1,
         onCreate: (db, version) async {
@@ -56,11 +55,10 @@ class MyDataBase {
               'CREATE TABLE searchHistory (id INTEGER PRIMARY KEY , word TEXT NOT NULL , count INTEGER NOT NULL )');
         },
       );
-      print('created');
+      log('created');
     } catch (e) {
-      print(e);
+      log(e.toString());
     }
-    print('created');
   }
 
   static String dateToString(DateTime date) {

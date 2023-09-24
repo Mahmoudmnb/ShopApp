@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/featurs/main_page/cubit/main_page_cubit.dart';
+import 'package:shop_app/featurs/main_page/featurs/home/pages/home_pages.dart';
+import 'package:shop_app/featurs/main_page/featurs/search/cubit/sreach_cubit.dart';
 import 'package:sizer_pro/sizer.dart';
 
 import '../blocs/discount/discount_products_bloc.dart';
@@ -16,6 +19,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<MainPageCubit>().changePageIndex(0);
     context
         .read<DiscountProductsBloc>()
         .add(GetDiscountProducts(discountProducts: disCountProducts));
@@ -32,7 +36,21 @@ class HomePage extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        CollectionsSpacer(onTap: () {}, collectoinTitle: 'Discount'),
+        CollectionsSpacer(
+            onTap: () {
+              context
+                  .read<SearchCubit>()
+                  .searchInDiscounts(null)
+                  .then((disCountProducts) {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => SeeAllProductsPage(
+                      searchWord: '',
+                      categoryName: 'Discount',
+                      categoryProducts: disCountProducts),
+                ));
+              });
+            },
+            collectoinTitle: 'Discount'),
         //! Discount products
         Container(
             padding: EdgeInsets.only(left: 1.w, top: 1.h),

@@ -48,6 +48,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
       endDrawer: EndDrawer(
         searchWord: searchController.text,
         fromPage: 'SearchResult',
+        searchController: searchController,
       ),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 3.w),
@@ -125,7 +126,9 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                   return Text(
                     "$length items founded",
                     style: TextStyle(
-                        color: const Color(0xFF979797), fontSize: 7.sp),
+                        fontFamily: 'Tenor Sans',
+                        color: const Color(0xFF979797),
+                        fontSize: 7.sp),
                   );
                 },
               ),
@@ -178,6 +181,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                                 .pushReplacement(MaterialPageRoute(
                               builder: (context) => ProductScreen(
                                 searchCubit: cubit,
+                                fromPage: 'SearchReasults',
                                 searchWord: searchController.text,
                                 product: product,
                                 cubit: BlocProvider.of<ProductCubit>(context),
@@ -213,10 +217,10 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                                         color: Colors.pink,
                                         onPressed: () {
                                           cubit.setFavorateProduct(
-                                              product.id, !product.isFavorate);
+                                              product.id, !product.isFavorite);
                                           cubit.search(searchController.text);
                                         },
-                                        icon: Icon(product.isFavorate
+                                        icon: Icon(product.isFavorite
                                             ? Icons.favorite
                                             : Icons.favorite_outline)),
                                   ),
@@ -231,12 +235,14 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                               children: [
                                 Text(
                                   product.makerCompany,
-                                  style: TextStyle(fontSize: 6.sp),
+                                  style: TextStyle(
+                                      fontSize: 6.sp, fontFamily: 'Tenor Sans'),
                                 ),
                                 const Spacer(),
                                 Text(
                                   "${product.price} \$",
                                   style: TextStyle(
+                                      fontFamily: 'Tenor Sans',
                                       color: const Color(0xFFD57676),
                                       fontSize: 5.sp),
                                 )
@@ -249,7 +255,9 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                             child: Text(
                               product.name,
                               maxLines: 1,
-                              style: const TextStyle(color: Color(0xFF828282)),
+                              style: const TextStyle(
+                                  fontFamily: 'Tenor Sans',
+                                  color: Color(0xFF828282)),
                             ),
                           )
                         ],

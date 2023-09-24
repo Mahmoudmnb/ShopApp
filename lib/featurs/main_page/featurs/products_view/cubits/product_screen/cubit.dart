@@ -12,9 +12,9 @@ class ProductCubit extends Cubit<ProductStates> {
   int indexOfColor = 0;
   int indexOfSize = 0;
   int amountOfProduct = 1;
-  void changeFavorite(int id) {
+  Future<void> changeFavorite(int id) async {
     isFavorite = !isFavorite;
-    setFavorateProductInDataBase(id, isFavorite);
+    await setFavorateProductInDataBase(id, isFavorite).then((value) {});
     emit(ChangeProductFavoriteState());
   }
 

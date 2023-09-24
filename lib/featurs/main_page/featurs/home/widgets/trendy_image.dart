@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer_pro/sizer.dart';
 
 class TrendyImage extends StatelessWidget {
@@ -40,13 +39,12 @@ class TrendyImage extends StatelessWidget {
           const SizedBox(height: 5),
           Text(
             productName,
-            style: GoogleFonts.dmSans(fontSize: 4.sp),
+            style: TextStyle(fontFamily: 'DM Sans', fontSize: 4.sp),
             overflow: TextOverflow.ellipsis,
           ),
-          Text(
-            price,
-            style: GoogleFonts.dmSans(color: Colors.grey, fontSize: 6.sp),
-          ),
+          Text(price,
+              style: TextStyle(
+                  fontFamily: 'DM Sans', color: Colors.grey, fontSize: 6.sp)),
         ],
       ),
     );

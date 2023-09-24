@@ -41,14 +41,18 @@ class CustomListTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // !username
-                  Text(
-                    username,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 7.sp,
-                      fontFamily: 'Tenor Sans',
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.20,
+                  SizedBox(
+                    width: 35.w,
+                    child: Text(
+                      username,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 6.sp,
+                        fontFamily: 'Tenor Sans',
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 1.20,
+                      ),
                     ),
                   ),
                   // !date
