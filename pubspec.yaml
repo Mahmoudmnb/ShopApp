@@ -30,7 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  sizer_pro:  
+  sizer_pro:
+  sizer: 
   flutter_bloc: ^8.1.3
   supabase_flutter: ^1.6.2
   google_sign_in: 
