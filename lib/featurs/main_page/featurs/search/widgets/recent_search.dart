@@ -22,7 +22,10 @@ class RecentSearch extends StatelessWidget {
           width: double.infinity,
           child: Text(
             "Recent search",
-            style: TextStyle(color: const Color(0xFF888888), fontSize: 8.sp),
+            style: TextStyle(
+                color: const Color(0xFF888888),
+                fontSize: 8.sp,
+                fontFamily: 'DM Sans'),
           ),
         ),
         SizedBox(height: 3.h),
@@ -56,7 +59,8 @@ class RecentSearch extends StatelessWidget {
                       ),
                       Text(
                         searchHistory[index]['word'],
-                        style: const TextStyle(color: Color(0xFF515151)),
+                        style: const TextStyle(
+                            color: Color(0xFF515151), fontFamily: 'DM Sans'),
                       ),
                       const Spacer(),
                       GestureDetector(

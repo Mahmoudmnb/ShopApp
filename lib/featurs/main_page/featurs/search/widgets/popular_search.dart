@@ -15,7 +15,10 @@ class PopularSearch extends StatelessWidget {
           width: double.infinity,
           child: Text(
             "Popular search",
-            style: TextStyle(color: const Color(0xFF888888), fontSize: 8.sp),
+            style: TextStyle(
+                color: const Color(0xFF888888),
+                fontSize: 8.sp,
+                fontFamily: 'DM Sans'),
           ),
         ),
         const SizedBox(

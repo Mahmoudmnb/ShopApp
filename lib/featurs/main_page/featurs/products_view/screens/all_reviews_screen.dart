@@ -63,17 +63,16 @@ class AllReviewsScreen extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
-                // shrinkWrap: true,
                 itemCount: reviews.length,
                 itemBuilder: (context, index) {
                   ReviewModel review = ReviewModel.fromMap(reviews[index]);
                   return Padding(
                     padding:
-                        const EdgeInsets.only(left: 15, right: 15, bottom: 15),
+                        const EdgeInsets.only(left: 15, right: 10, bottom: 15),
                     child: CustomListTile(
                       //* this width (100% - 120) becasue this card has a custom padding :)
                       //* (bannan don't kill me please ^_^)
-                      width: 68.w,
+                      width: 75.w,
                       username: review.userName,
                       date: getOffsetDate(review.date),
                       description: review.description,

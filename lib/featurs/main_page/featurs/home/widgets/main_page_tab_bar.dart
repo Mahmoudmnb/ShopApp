@@ -10,6 +10,11 @@ class MainPageTabBar extends StatelessWidget {
     return Container(
       height: 7.h,
       decoration: const BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey, offset: Offset(0, -1), blurRadius: 10),
+            BoxShadow(color: Colors.white, offset: Offset(0, 0)),
+          ],
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(15), topRight: Radius.circular(15))),
       child: TabBar(

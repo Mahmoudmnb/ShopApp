@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer_pro/sizer.dart';
 
 class CollectionsSpacer extends StatelessWidget {
@@ -14,25 +13,23 @@ class CollectionsSpacer extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 3.w),
       child: Row(
         children: [
-          Text(
-            collectoinTitle,
-            style: GoogleFonts.dmSans(
-              fontSize: 8.sp,
-              color: const Color(0xff6D6D6D),
-            ),
-          ),
+          Text(collectoinTitle,
+              style: TextStyle(
+                fontFamily: 'DM Sans',
+                fontSize: 8.sp,
+                color: const Color(0xff6D6D6D),
+              )),
           const Spacer(),
           GestureDetector(
             onTap: onTap,
             child: Row(
               children: [
-                Text(
-                  'See All',
-                  style: GoogleFonts.dmSans(
-                    fontSize: 7.sp,
-                    color: const Color(0xff6D6D6D),
-                  ),
-                ),
+                Text('See All',
+                    style: TextStyle(
+                      fontFamily: 'DM Sans',
+                      fontSize: 7.sp,
+                      color: const Color(0xff6D6D6D),
+                    )),
                 const SizedBox(width: 5),
                 const Icon(
                   Icons.arrow_forward,

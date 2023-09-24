@@ -10,13 +10,18 @@ import '../product_view_widgets.dart';
 class SimilarProductsCard extends StatelessWidget {
   final ProductModel product;
   final String searchWord;
+  final String categoryName;
   final SearchCubit searchCubit;
   final ProductCubit cubit;
+  final String fromPage;
+
   const SimilarProductsCard(
       {super.key,
+      required this.fromPage,
       required this.cubit,
       required this.product,
       required this.searchCubit,
+      required this.categoryName,
       required this.searchWord});
 
   @override
@@ -58,19 +63,26 @@ class SimilarProductsCard extends StatelessWidget {
                       letterSpacing: 0.05,
                     ),
                   ),
-                  onPressed: () {
-                    cubit.getSimilarProducts(product);
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => SimilarItemsScreen(
-                          searchCubit: searchCubit,
-                          product: product,
-                          searchWord: searchWord,
-                          similarProducts: cubit.similarProducts,
-                          productCubit: cubit,
-                        ),
-                      ),
-                    );
+                  onPressed: () async {
+                    cubit.getProductById(product.id).then((product) {
+                      cubit
+                          .getSimilarProducts(ProductModel.fromMap(product))
+                          .then((value) {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => SimilarItemsScreen(
+                              fromPage: fromPage,
+                              categoryName: categoryName,
+                              searchCubit: searchCubit,
+                              product: ProductModel.fromMap(product),
+                              searchWord: searchWord,
+                              similarProducts: cubit.similarProducts,
+                              productCubit: cubit,
+                            ),
+                          ),
+                        );
+                      });
+                    });
                   },
                 ),
               ),
@@ -96,7 +108,7 @@ class SimilarProductsCard extends StatelessWidget {
                     ProductModel product =
                         ProductModel.fromMap(cubit.similarProducts[index]);
                     return CustomCard(
-                      width: 33.w,
+                      width: 35.w,
                       height: 27.h,
                       product: product,
                     );

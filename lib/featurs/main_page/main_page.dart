@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer_pro/sizer.dart';
 
 import '../../injection.dart';
+import 'cubit/main_page_cubit.dart';
 import 'data_source/data_source.dart';
 import 'featurs/home/pages/home_page.dart';
 import 'featurs/home/widgets/main_page_drawer.dart';
@@ -38,7 +40,7 @@ class _MainPageState extends State<MainPage>
       appBar: _appBar,
       body: TabBarView(controller: tabController, children: [
         FutureBuilder(
-          future: sl.get<DataSource>().getDiscountProducts(),
+          future: sl.get<DataSource>().getDiscountsProducts(),
           builder: (context, snapshot) => snapshot.hasData
               ? HomePage(disCountProducts: snapshot.data!)
               : const SizedBox.shrink(),
@@ -83,9 +85,18 @@ class _MainPageState extends State<MainPage>
       )
     ],
     centerTitle: true,
-    title: Text(
-      'Home',
-      style: GoogleFonts.dmSans(fontSize: 12.sp),
+    title: BlocBuilder<MainPageCubit, MainPageState>(
+      builder: (context, state) {
+        int pageIndex = context.read<MainPageCubit>().pageIndex;
+        return Text(
+          pageIndex == 0
+              ? 'Home'
+              : pageIndex == 1
+                  ? 'Discover'
+                  : 'I dont know',
+          style: GoogleFonts.dmSans(fontSize: 12.sp),
+        );
+      },
     ),
   );
 }

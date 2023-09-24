@@ -6,6 +6,375 @@ import '../../../core/constant.dart';
 import '../featurs/home/models/product_model.dart';
 
 class LocalDataSource {
+  Future<List<Map<String, Object?>>> searchInCategory({
+    String? searchWord,
+    required double minPrice,
+    required double maxPrice,
+    required String selectedCategory,
+    required List<bool> discountfilter,
+    required List<bool> ratingFilter,
+    required List<bool> colorFilter,
+  }) async {
+    const List<String> hexaColors = [
+      '0xFF181E27',
+      '0xFF44565C',
+      '0xFF6D4F44',
+      '0xFF6D6D6D',
+      '0xFF7E7E7E',
+      '0xFFCE8722',
+      '0xFFDC4447',
+      '0xFFDFA8A9',
+      '0xFFE4E4E4'
+    ];
+    Database db = await openDatabase(Constant.productDataBasePath);
+    List<Map<String, dynamic>> searchResult = [];
+    List<Map<String, dynamic>> allProducts = [];
+    if (searchWord == null) {
+      try {
+        if (selectedCategory == 'All') {
+          allProducts = await db.rawQuery(
+              'SELECT * FROM  products WHERE price >= $minPrice AND price<=$maxPrice');
+        } else {
+          allProducts = await db.rawQuery(
+              "SELECT * FROM  products WHERE price >= $minPrice AND price<=$maxPrice AND category == '$selectedCategory'");
+        }
+        searchResult = allProducts.where((element) {
+          if ((colorFilter[0] &&
+                  element['colors'].toString().contains(hexaColors[0])) ||
+              (colorFilter[1] &&
+                  element['colors'].toString().contains(hexaColors[1])) ||
+              (colorFilter[2] &&
+                  element['colors'].toString().contains(hexaColors[2])) ||
+              (colorFilter[3] &&
+                  element['colors'].toString().contains(hexaColors[3])) ||
+              (colorFilter[4] &&
+                  element['colors'].toString().contains(hexaColors[4])) ||
+              (colorFilter[5] &&
+                  element['colors'].toString().contains(hexaColors[5])) ||
+              (colorFilter[6] &&
+                  element['colors'].toString().contains(hexaColors[6])) ||
+              (colorFilter[7] &&
+                  element['colors'].toString().contains(hexaColors[7])) ||
+              (colorFilter[8] &&
+                  element['colors'].toString().contains(hexaColors[8]))) {
+            if ((discountfilter[0] && element['discount'] == 10) ||
+                (discountfilter[1] && element['discount'] == 15) ||
+                (discountfilter[2] && element['discount'] == 20) ||
+                (discountfilter[3] && element['discount'] == 30) ||
+                (discountfilter[4] && element['discount'] == 50) ||
+                (discountfilter[5] && element['discount'] == 70)) {
+              if ((ratingFilter[0] && element['rating'] == 1) ||
+                  (ratingFilter[1] && element['rating'] == 2) ||
+                  (ratingFilter[2] && element['rating'] == 3) ||
+                  (ratingFilter[3] && element['rating'] == 4) ||
+                  (ratingFilter[4] && element['rating'] == 5)) {
+                return true;
+              } else {
+                bool key = false;
+                for (var element in ratingFilter) {
+                  if (element) {
+                    key = true;
+                  }
+                }
+                if (key) {
+                  return false;
+                } else {
+                  return true;
+                }
+              }
+            } else {
+              bool key = false;
+              for (var element in discountfilter) {
+                if (element) {
+                  key = true;
+                }
+              }
+              if (key) {
+                return false;
+              } else {
+                if ((ratingFilter[0] && element['rating'] == 1) ||
+                    (ratingFilter[1] && element['rating'] == 2) ||
+                    (ratingFilter[2] && element['rating'] == 3) ||
+                    (ratingFilter[3] && element['rating'] == 4) ||
+                    (ratingFilter[4] && element['rating'] == 5)) {
+                  return true;
+                } else {
+                  bool key = false;
+                  for (var element in ratingFilter) {
+                    if (element) {
+                      key = true;
+                    }
+                  }
+                  if (key) {
+                    return false;
+                  } else {
+                    return true;
+                  }
+                }
+              }
+            }
+          } else {
+            bool key = false;
+            for (var element in colorFilter) {
+              if (element) {
+                key = true;
+              }
+            }
+            if (key) {
+              return false;
+            } else {
+              if ((discountfilter[0] && element['discount'] == 10) ||
+                  (discountfilter[1] && element['discount'] == 15) ||
+                  (discountfilter[2] && element['discount'] == 20) ||
+                  (discountfilter[3] && element['discount'] == 30) ||
+                  (discountfilter[4] && element['discount'] == 50) ||
+                  (discountfilter[5] && element['discount'] == 70)) {
+                if ((ratingFilter[0] && element['rating'] == 1) ||
+                    (ratingFilter[1] && element['rating'] == 2) ||
+                    (ratingFilter[2] && element['rating'] == 3) ||
+                    (ratingFilter[3] && element['rating'] == 4) ||
+                    (ratingFilter[4] && element['rating'] == 5)) {
+                  return true;
+                } else {
+                  bool key = false;
+                  for (var element in ratingFilter) {
+                    if (element) {
+                      key = true;
+                    }
+                  }
+                  if (key) {
+                    return false;
+                  } else {
+                    return true;
+                  }
+                }
+              } else {
+                bool key = false;
+                for (var element in discountfilter) {
+                  if (element) {
+                    key = true;
+                  }
+                }
+                if (key) {
+                  return false;
+                } else {
+                  if ((ratingFilter[0] && element['rating'] == 1) ||
+                      (ratingFilter[1] && element['rating'] == 2) ||
+                      (ratingFilter[2] && element['rating'] == 3) ||
+                      (ratingFilter[3] && element['rating'] == 4) ||
+                      (ratingFilter[4] && element['rating'] == 5)) {
+                    return true;
+                  } else {
+                    bool key = false;
+                    for (var element in ratingFilter) {
+                      if (element) {
+                        key = true;
+                      }
+                    }
+                    if (key) {
+                      return false;
+                    } else {
+                      return true;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }).toList();
+      } catch (e) {
+        log(e.toString());
+      }
+    } else {
+      try {
+        if (selectedCategory == 'All') {
+          allProducts = await db.rawQuery(
+              'SELECT * FROM  products WHERE price >= $minPrice AND price<=$maxPrice');
+        } else {
+          allProducts = await db.rawQuery(
+              "SELECT * FROM  products WHERE price >= $minPrice AND price<=$maxPrice AND category == '$selectedCategory'");
+        }
+        searchResult = allProducts.where((element) {
+          if ((colorFilter[0] &&
+                  element['colors'].toString().contains(hexaColors[0])) ||
+              (colorFilter[1] &&
+                  element['colors'].toString().contains(hexaColors[1])) ||
+              (colorFilter[2] &&
+                  element['colors'].toString().contains(hexaColors[2])) ||
+              (colorFilter[3] &&
+                  element['colors'].toString().contains(hexaColors[3])) ||
+              (colorFilter[4] &&
+                  element['colors'].toString().contains(hexaColors[4])) ||
+              (colorFilter[5] &&
+                  element['colors'].toString().contains(hexaColors[5])) ||
+              (colorFilter[6] &&
+                  element['colors'].toString().contains(hexaColors[6])) ||
+              (colorFilter[7] &&
+                  element['colors'].toString().contains(hexaColors[7])) ||
+              (colorFilter[8] &&
+                  element['colors'].toString().contains(hexaColors[8]))) {
+            if ((element['name'])
+                    .toString()
+                    .toLowerCase()
+                    .contains(searchWord.toLowerCase()) ||
+                (element['discription'])
+                    .toString()
+                    .toLowerCase()
+                    .contains(searchWord.toLowerCase()) ||
+                (element['makerCompany'])
+                    .toString()
+                    .toLowerCase()
+                    .contains(searchWord.toLowerCase())) {
+              if ((discountfilter[0] && element['discount'] == 10) ||
+                  (discountfilter[1] && element['discount'] == 15) ||
+                  (discountfilter[2] && element['discount'] == 20) ||
+                  (discountfilter[3] && element['discount'] == 30) ||
+                  (discountfilter[4] && element['discount'] == 50) ||
+                  (discountfilter[5] && element['discount'] == 70)) {
+                if ((ratingFilter[0] && element['rating'] == 1) ||
+                    (ratingFilter[1] && element['rating'] == 2) ||
+                    (ratingFilter[2] && element['rating'] == 3) ||
+                    (ratingFilter[3] && element['rating'] == 4) ||
+                    (ratingFilter[4] && element['rating'] == 5)) {
+                  return true;
+                } else {
+                  bool key = false;
+                  for (var element in ratingFilter) {
+                    if (element) {
+                      key = true;
+                    }
+                  }
+                  if (key) {
+                    return false;
+                  } else {
+                    return true;
+                  }
+                }
+              } else {
+                bool key = false;
+                for (var element in discountfilter) {
+                  if (element) {
+                    key = true;
+                  }
+                }
+                if (key) {
+                  return false;
+                } else {
+                  if ((ratingFilter[0] && element['rating'] == 1) ||
+                      (ratingFilter[1] && element['rating'] == 2) ||
+                      (ratingFilter[2] && element['rating'] == 3) ||
+                      (ratingFilter[3] && element['rating'] == 4) ||
+                      (ratingFilter[4] && element['rating'] == 5)) {
+                    return true;
+                  } else {
+                    bool key = false;
+                    for (var element in ratingFilter) {
+                      if (element) {
+                        key = true;
+                      }
+                    }
+                    if (key) {
+                      return false;
+                    } else {
+                      return true;
+                    }
+                  }
+                }
+              }
+            } else {
+              return false;
+            }
+          } else {
+            bool key = false;
+            for (var element in colorFilter) {
+              if (element) {
+                key = true;
+              }
+            }
+            if (key) {
+              return false;
+            } else {
+              if ((element['name'])
+                      .toString()
+                      .toLowerCase()
+                      .contains(searchWord.toLowerCase()) ||
+                  (element['discription'])
+                      .toString()
+                      .toLowerCase()
+                      .contains(searchWord.toLowerCase()) ||
+                  (element['makerCompany'])
+                      .toString()
+                      .toLowerCase()
+                      .contains(searchWord.toLowerCase())) {
+                if ((discountfilter[0] && element['discount'] == 10) ||
+                    (discountfilter[1] && element['discount'] == 15) ||
+                    (discountfilter[2] && element['discount'] == 20) ||
+                    (discountfilter[3] && element['discount'] == 30) ||
+                    (discountfilter[4] && element['discount'] == 50) ||
+                    (discountfilter[5] && element['discount'] == 70)) {
+                  if ((ratingFilter[0] && element['rating'] == 1) ||
+                      (ratingFilter[1] && element['rating'] == 2) ||
+                      (ratingFilter[2] && element['rating'] == 3) ||
+                      (ratingFilter[3] && element['rating'] == 4) ||
+                      (ratingFilter[4] && element['rating'] == 5)) {
+                    return true;
+                  } else {
+                    bool key = false;
+                    for (var element in ratingFilter) {
+                      if (element) {
+                        key = true;
+                      }
+                    }
+                    if (key) {
+                      return false;
+                    } else {
+                      return true;
+                    }
+                  }
+                } else {
+                  bool key = false;
+                  for (var element in discountfilter) {
+                    if (element) {
+                      key = true;
+                    }
+                  }
+                  if (key) {
+                    return false;
+                  } else {
+                    if ((ratingFilter[0] && element['rating'] == 1) ||
+                        (ratingFilter[1] && element['rating'] == 2) ||
+                        (ratingFilter[2] && element['rating'] == 3) ||
+                        (ratingFilter[3] && element['rating'] == 4) ||
+                        (ratingFilter[4] && element['rating'] == 5)) {
+                      return true;
+                    } else {
+                      bool key = false;
+                      for (var element in ratingFilter) {
+                        if (element) {
+                          key = true;
+                        }
+                      }
+                      if (key) {
+                        return false;
+                      } else {
+                        return true;
+                      }
+                    }
+                  }
+                }
+              } else {
+                return false;
+              }
+            }
+          }
+        }).toList();
+      } catch (e) {
+        log(e.toString());
+      }
+    }
+    return searchResult;
+  }
+
   Future<Map<String, dynamic>> getProductById(int id) async {
     Database db = await openDatabase(Constant.productDataBasePath);
     List<Map<String, dynamic>> products =
@@ -29,7 +398,7 @@ class LocalDataSource {
     return db.rawQuery('SELECT * FROM reviews WHERE productId == $id');
   }
 
-  Future<List<Map<String, Object?>>> getDiscountProducts() async {
+  Future<List<Map<String, dynamic>>> getDiscountProduct() async {
     Database db = await openDatabase(Constant.productDataBasePath);
     List<Map<String, Object?>> data = [];
     try {
@@ -39,6 +408,375 @@ class LocalDataSource {
       log(e.toString());
     }
     return data;
+  }
+
+  Future<List<Map<String, Object?>>> searchInDiscountProducts({
+    required double minPrice,
+    required double maxPrice,
+    String? searchWord,
+    required String selectedCategory,
+    required List<bool> discountFilter,
+    required List<bool> ratingFilter,
+    required List<bool> colorFilter,
+  }) async {
+    const List<String> hexaColors = [
+      '0xFF181E27',
+      '0xFF44565C',
+      '0xFF6D4F44',
+      '0xFF6D6D6D',
+      '0xFF7E7E7E',
+      '0xFFCE8722',
+      '0xFFDC4447',
+      '0xFFDFA8A9',
+      '0xFFE4E4E4'
+    ];
+    Database db = await openDatabase(Constant.productDataBasePath);
+    List<Map<String, dynamic>> searchResult = [];
+    List<Map<String, dynamic>> allProducts = [];
+    if (searchWord == null) {
+      try {
+        if (selectedCategory == 'All') {
+          allProducts = await db.rawQuery(
+              'SELECT * FROM  products WHERE price >= $minPrice AND price<=$maxPrice AND discount > 0 ORDER BY price');
+        } else {
+          allProducts = await db.rawQuery(
+              "SELECT * FROM  products WHERE price >= $minPrice AND price<=$maxPrice AND category == '$selectedCategory' AND discount > 0 ORDER BY price");
+        }
+        searchResult = allProducts.where((element) {
+          if ((colorFilter[0] &&
+                  element['colors'].toString().contains(hexaColors[0])) ||
+              (colorFilter[1] &&
+                  element['colors'].toString().contains(hexaColors[1])) ||
+              (colorFilter[2] &&
+                  element['colors'].toString().contains(hexaColors[2])) ||
+              (colorFilter[3] &&
+                  element['colors'].toString().contains(hexaColors[3])) ||
+              (colorFilter[4] &&
+                  element['colors'].toString().contains(hexaColors[4])) ||
+              (colorFilter[5] &&
+                  element['colors'].toString().contains(hexaColors[5])) ||
+              (colorFilter[6] &&
+                  element['colors'].toString().contains(hexaColors[6])) ||
+              (colorFilter[7] &&
+                  element['colors'].toString().contains(hexaColors[7])) ||
+              (colorFilter[8] &&
+                  element['colors'].toString().contains(hexaColors[8]))) {
+            if ((discountFilter[0] && element['discount'] == 10) ||
+                (discountFilter[1] && element['discount'] == 15) ||
+                (discountFilter[2] && element['discount'] == 20) ||
+                (discountFilter[3] && element['discount'] == 30) ||
+                (discountFilter[4] && element['discount'] == 50) ||
+                (discountFilter[5] && element['discount'] == 70)) {
+              if ((ratingFilter[0] && element['rating'] == 1) ||
+                  (ratingFilter[1] && element['rating'] == 2) ||
+                  (ratingFilter[2] && element['rating'] == 3) ||
+                  (ratingFilter[3] && element['rating'] == 4) ||
+                  (ratingFilter[4] && element['rating'] == 5)) {
+                return true;
+              } else {
+                bool key = false;
+                for (var element in ratingFilter) {
+                  if (element) {
+                    key = true;
+                  }
+                }
+                if (key) {
+                  return false;
+                } else {
+                  return true;
+                }
+              }
+            } else {
+              bool key = false;
+              for (var element in discountFilter) {
+                if (element) {
+                  key = true;
+                }
+              }
+              if (key) {
+                return false;
+              } else {
+                if ((ratingFilter[0] && element['rating'] == 1) ||
+                    (ratingFilter[1] && element['rating'] == 2) ||
+                    (ratingFilter[2] && element['rating'] == 3) ||
+                    (ratingFilter[3] && element['rating'] == 4) ||
+                    (ratingFilter[4] && element['rating'] == 5)) {
+                  return true;
+                } else {
+                  bool key = false;
+                  for (var element in ratingFilter) {
+                    if (element) {
+                      key = true;
+                    }
+                  }
+                  if (key) {
+                    return false;
+                  } else {
+                    return true;
+                  }
+                }
+              }
+            }
+          } else {
+            bool key = false;
+            for (var element in colorFilter) {
+              if (element) {
+                key = true;
+              }
+            }
+            if (key) {
+              return false;
+            } else {
+              if ((discountFilter[0] && element['discount'] == 10) ||
+                  (discountFilter[1] && element['discount'] == 15) ||
+                  (discountFilter[2] && element['discount'] == 20) ||
+                  (discountFilter[3] && element['discount'] == 30) ||
+                  (discountFilter[4] && element['discount'] == 50) ||
+                  (discountFilter[5] && element['discount'] == 70)) {
+                if ((ratingFilter[0] && element['rating'] == 1) ||
+                    (ratingFilter[1] && element['rating'] == 2) ||
+                    (ratingFilter[2] && element['rating'] == 3) ||
+                    (ratingFilter[3] && element['rating'] == 4) ||
+                    (ratingFilter[4] && element['rating'] == 5)) {
+                  return true;
+                } else {
+                  bool key = false;
+                  for (var element in ratingFilter) {
+                    if (element) {
+                      key = true;
+                    }
+                  }
+                  if (key) {
+                    return false;
+                  } else {
+                    return true;
+                  }
+                }
+              } else {
+                bool key = false;
+                for (var element in discountFilter) {
+                  if (element) {
+                    key = true;
+                  }
+                }
+                if (key) {
+                  return false;
+                } else {
+                  if ((ratingFilter[0] && element['rating'] == 1) ||
+                      (ratingFilter[1] && element['rating'] == 2) ||
+                      (ratingFilter[2] && element['rating'] == 3) ||
+                      (ratingFilter[3] && element['rating'] == 4) ||
+                      (ratingFilter[4] && element['rating'] == 5)) {
+                    return true;
+                  } else {
+                    bool key = false;
+                    for (var element in ratingFilter) {
+                      if (element) {
+                        key = true;
+                      }
+                    }
+                    if (key) {
+                      return false;
+                    } else {
+                      return true;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }).toList();
+      } catch (e) {
+        log(e.toString());
+      }
+    } else {
+      try {
+        if (selectedCategory == 'All') {
+          allProducts = await db.rawQuery(
+              'SELECT * FROM  products WHERE price >= $minPrice AND price<=$maxPrice AND discount > 0 ');
+        } else {
+          allProducts = await db.rawQuery(
+              "SELECT * FROM  products WHERE price >= $minPrice AND price<=$maxPrice AND category == '$selectedCategory' AND discount > 0");
+        }
+        searchResult = allProducts.where((element) {
+          if ((colorFilter[0] &&
+                  element['colors'].toString().contains(hexaColors[0])) ||
+              (colorFilter[1] &&
+                  element['colors'].toString().contains(hexaColors[1])) ||
+              (colorFilter[2] &&
+                  element['colors'].toString().contains(hexaColors[2])) ||
+              (colorFilter[3] &&
+                  element['colors'].toString().contains(hexaColors[3])) ||
+              (colorFilter[4] &&
+                  element['colors'].toString().contains(hexaColors[4])) ||
+              (colorFilter[5] &&
+                  element['colors'].toString().contains(hexaColors[5])) ||
+              (colorFilter[6] &&
+                  element['colors'].toString().contains(hexaColors[6])) ||
+              (colorFilter[7] &&
+                  element['colors'].toString().contains(hexaColors[7])) ||
+              (colorFilter[8] &&
+                  element['colors'].toString().contains(hexaColors[8]))) {
+            if ((element['name'])
+                    .toString()
+                    .toLowerCase()
+                    .contains(searchWord.toLowerCase()) ||
+                (element['discription'])
+                    .toString()
+                    .toLowerCase()
+                    .contains(searchWord.toLowerCase()) ||
+                (element['makerCompany'])
+                    .toString()
+                    .toLowerCase()
+                    .contains(searchWord.toLowerCase())) {
+              if ((discountFilter[0] && element['discount'] == 10) ||
+                  (discountFilter[1] && element['discount'] == 15) ||
+                  (discountFilter[2] && element['discount'] == 20) ||
+                  (discountFilter[3] && element['discount'] == 30) ||
+                  (discountFilter[4] && element['discount'] == 50) ||
+                  (discountFilter[5] && element['discount'] == 70)) {
+                if ((ratingFilter[0] && element['rating'] == 1) ||
+                    (ratingFilter[1] && element['rating'] == 2) ||
+                    (ratingFilter[2] && element['rating'] == 3) ||
+                    (ratingFilter[3] && element['rating'] == 4) ||
+                    (ratingFilter[4] && element['rating'] == 5)) {
+                  return true;
+                } else {
+                  bool key = false;
+                  for (var element in ratingFilter) {
+                    if (element) {
+                      key = true;
+                    }
+                  }
+                  if (key) {
+                    return false;
+                  } else {
+                    return true;
+                  }
+                }
+              } else {
+                bool key = false;
+                for (var element in discountFilter) {
+                  if (element) {
+                    key = true;
+                  }
+                }
+                if (key) {
+                  return false;
+                } else {
+                  if ((ratingFilter[0] && element['rating'] == 1) ||
+                      (ratingFilter[1] && element['rating'] == 2) ||
+                      (ratingFilter[2] && element['rating'] == 3) ||
+                      (ratingFilter[3] && element['rating'] == 4) ||
+                      (ratingFilter[4] && element['rating'] == 5)) {
+                    return true;
+                  } else {
+                    bool key = false;
+                    for (var element in ratingFilter) {
+                      if (element) {
+                        key = true;
+                      }
+                    }
+                    if (key) {
+                      return false;
+                    } else {
+                      return true;
+                    }
+                  }
+                }
+              }
+            } else {
+              return false;
+            }
+          } else {
+            bool key = false;
+            for (var element in colorFilter) {
+              if (element) {
+                key = true;
+              }
+            }
+            if (key) {
+              return false;
+            } else {
+              if ((element['name'])
+                      .toString()
+                      .toLowerCase()
+                      .contains(searchWord.toLowerCase()) ||
+                  (element['discription'])
+                      .toString()
+                      .toLowerCase()
+                      .contains(searchWord.toLowerCase()) ||
+                  (element['makerCompany'])
+                      .toString()
+                      .toLowerCase()
+                      .contains(searchWord.toLowerCase())) {
+                if ((discountFilter[0] && element['discount'] == 10) ||
+                    (discountFilter[1] && element['discount'] == 15) ||
+                    (discountFilter[2] && element['discount'] == 20) ||
+                    (discountFilter[3] && element['discount'] == 30) ||
+                    (discountFilter[4] && element['discount'] == 50) ||
+                    (discountFilter[5] && element['discount'] == 70)) {
+                  if ((ratingFilter[0] && element['rating'] == 1) ||
+                      (ratingFilter[1] && element['rating'] == 2) ||
+                      (ratingFilter[2] && element['rating'] == 3) ||
+                      (ratingFilter[3] && element['rating'] == 4) ||
+                      (ratingFilter[4] && element['rating'] == 5)) {
+                    return true;
+                  } else {
+                    bool key = false;
+                    for (var element in ratingFilter) {
+                      if (element) {
+                        key = true;
+                      }
+                    }
+                    if (key) {
+                      return false;
+                    } else {
+                      return true;
+                    }
+                  }
+                } else {
+                  bool key = false;
+                  for (var element in discountFilter) {
+                    if (element) {
+                      key = true;
+                    }
+                  }
+                  if (key) {
+                    return false;
+                  } else {
+                    if ((ratingFilter[0] && element['rating'] == 1) ||
+                        (ratingFilter[1] && element['rating'] == 2) ||
+                        (ratingFilter[2] && element['rating'] == 3) ||
+                        (ratingFilter[3] && element['rating'] == 4) ||
+                        (ratingFilter[4] && element['rating'] == 5)) {
+                      return true;
+                    } else {
+                      bool key = false;
+                      for (var element in ratingFilter) {
+                        if (element) {
+                          key = true;
+                        }
+                      }
+                      if (key) {
+                        return false;
+                      } else {
+                        return true;
+                      }
+                    }
+                  }
+                }
+              } else {
+                return false;
+              }
+            }
+          }
+        }).toList();
+      } catch (e) {
+        log(e.toString());
+      }
+    }
+    return searchResult;
   }
 
   Future<List<Map<String, Object?>>> searchProducts({
@@ -290,7 +1028,7 @@ class LocalDataSource {
             "UPDATE products  SET isFavorate = 'false' WHERE id == $id ");
       }
     } catch (e) {
-      print(e);
+      log('created');
     }
   }
 }

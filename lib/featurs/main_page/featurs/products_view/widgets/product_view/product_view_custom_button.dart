@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer_pro/sizer.dart';
 
 class ProductViewCustomButton extends StatelessWidget {
   const ProductViewCustomButton({
@@ -13,8 +14,8 @@ class ProductViewCustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 130,
-      height: 45,
+      // width: 130,
+      height: 10.h,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF252525),

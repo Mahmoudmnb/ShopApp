@@ -1,169 +1,113 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:shop_app/featurs/auth/pages/auth_page.dart';
+import 'package:shop_app/featurs/auth/pages/steper_screen.dart';
 import 'package:sizer_pro/sizer.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  final double deviceHeight;
+  final double deviceWidth;
+  const SplashScreen({
+    super.key,
+    required this.deviceWidth,
+    required this.deviceHeight,
+  });
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  late PageController pageController;
+  double height = 0;
+  int duraton = 700;
+  double logoWidth = 15.w;
+  double logoHeight = 15.w;
+  double opacity = 0;
+  Color color = Colors.grey;
   @override
   void initState() {
-    pageController = PageController();
+    start();
     super.initState();
   }
 
-  @override
-  void dispose() {
-    pageController.dispose();
-    super.dispose();
+  void start() {
+    Timer.periodic(const Duration(milliseconds: 50), (timer) {
+      height = widget.deviceHeight * 0.6;
+      timer.cancel();
+      setState(() {});
+    });
+    Timer.periodic(const Duration(milliseconds: 1600), (timer) {
+      height = widget.deviceHeight * 0.4;
+      color = Colors.transparent;
+      timer.cancel();
+      setState(() {});
+    });
+    Timer.periodic(const Duration(milliseconds: 2000), (timer) {
+      height = widget.deviceHeight * 0.5;
+      logoWidth = widget.deviceWidth * 0.8;
+      logoHeight = widget.deviceHeight * 0.08;
+      opacity = 1;
+      timer.cancel();
+      setState(() {});
+    });
+    Timer.periodic(const Duration(milliseconds: 2800), (timer) {
+      Navigator.of(context).pushReplacement(PageRouteBuilder(
+          transitionDuration: const Duration(milliseconds: 1500),
+          pageBuilder: (context, animation, secondaryAnimation) {
+            return ScaleTransition(
+                scale:animation,
+                child: const SteperScreen());
+          }));
+      timer.cancel();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(children: [
-        PageView(
-          controller: pageController,
-          children: [
-            Container(
-              alignment: Alignment.bottomLeft,
-              padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 6.h),
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(
-                        'assets/images/splash1.png',
-                      ),
-                      fit: BoxFit.cover)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Have a charming  look!',
-                    style: GoogleFonts.tiroGurmukhi(
-                        color: Colors.white, fontSize: 9.sp),
-                  ),
-                  const SizedBox(height: 15),
-                  Text(
-                    'Step into a world of timeless style and unparalleled sophistication with our application',
-                    style: GoogleFonts.tiroGurmukhi(
-                        color: Colors.white, fontSize: 6.sp),
-                  ),
-                  SizedBox(height: 15.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                            builder: (context) => const AuthPage(),
-                          ));
-                        },
-                        style: ButtonStyle(
-                            padding: const MaterialStatePropertyAll(
-                                EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 5)),
-                            backgroundColor: MaterialStatePropertyAll(
-                                const Color(0xffB3B3B3).withOpacity(0.31))),
-                        child: Text(
-                          'Skip',
-                          style: GoogleFonts.bentham(
-                              color: Colors.white.withOpacity(0.73),
-                              fontSize: 10.sp),
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          pageController.animateToPage(1,
-                              duration: const Duration(milliseconds: 500),
-                              curve: Curves.linear);
-                        },
-                        style: ButtonStyle(
-                            padding: const MaterialStatePropertyAll(
-                                EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 5)),
-                            backgroundColor: MaterialStatePropertyAll(
-                                const Color(0xffB3B3B3).withOpacity(0.31))),
-                        child: Text(
-                          'Next',
-                          style: GoogleFonts.bentham(
-                              color: Colors.white.withOpacity(0.73),
-                              fontSize: 10.sp),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
+      body: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  stops: const [
+                0.6,
+                1
+              ],
+                  colors: [
+                const Color(0xffFFEAD7),
+                Colors.black.withOpacity(0.3)
+              ])),
+          child: Column(
+            children: [
+              AnimatedContainer(
+                height: height,
+                duration: Duration(milliseconds: duraton),
               ),
-            ),
-            Container(
-              alignment: Alignment.bottomLeft,
-              padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 6.h),
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(
-                        'assets/images/splash2.png',
-                      ),
-                      fit: BoxFit.cover)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Find your perfect style',
-                    style: GoogleFonts.tiroGurmukhi(
-                        color: Colors.white, fontSize: 9.sp),
-                  ),
-                  const SizedBox(height: 15),
-                  Text(
-                    'With a huge collection of elegant clothes, you must find what you need',
-                    style: GoogleFonts.tiroGurmukhi(
-                        color: Colors.white, fontSize: 6.sp),
-                  ),
-                  SizedBox(height: 15.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                            builder: (context) => const AuthPage(),
-                          ));
-                        },
-                        style: ButtonStyle(
-                            padding: const MaterialStatePropertyAll(
-                                EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 5)),
-                            backgroundColor: MaterialStatePropertyAll(
-                                const Color(0xffB3B3B3).withOpacity(0.31))),
-                        child: Text(
-                          'Let’s start',
-                          style: GoogleFonts.bentham(
-                              color: Colors.white.withOpacity(0.73),
-                              fontSize: 10.sp),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-        Positioned(
-            bottom: 18.h,
-            left: 43.w,
-            child: SmoothPageIndicator(controller: pageController, count: 2))
-      ]),
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 500),
+                padding: const EdgeInsets.all(5),
+                width: logoWidth,
+                height: logoHeight,
+                alignment: Alignment.centerLeft,
+                decoration: BoxDecoration(
+                    color: color, borderRadius: BorderRadius.circular(50)),
+                child: logoWidth == 80
+                    ? null
+                    : ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: AnimatedOpacity(
+                          duration: const Duration(milliseconds: 500),
+                          opacity: opacity,
+                          child: Image.asset(
+                            'assets/images/splash_logo.png',
+                            height: 80,
+                            width: widget.deviceWidth * 0.78,
+                            fit: BoxFit.contain,
+                          ),
+                        )),
+              )
+            ],
+          )),
     );
   }
 }

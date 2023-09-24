@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer_pro/sizer.dart';
 
 class MainPageDrawer extends StatefulWidget {
@@ -37,10 +36,8 @@ class _MainPageDrawerState extends State<MainPageDrawer> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(
-                    'Filter',
-                    style: GoogleFonts.dmSans(fontSize: 10.sp),
-                  ),
+                  Text('Filter',
+                      style: TextStyle(fontFamily: 'DM Sans', fontSize: 10.sp)),
                   const Icon(Icons.swap_calls)
                 ],
               ),
@@ -50,10 +47,9 @@ class _MainPageDrawerState extends State<MainPageDrawer> {
               thickness: 3,
             ),
             SizedBox(height: 1.h),
-            Text(
-              'Category',
-              style: GoogleFonts.dmSans(fontSize: 9.sp, color: Colors.grey),
-            ),
+            Text('Category',
+                style: TextStyle(
+                    fontFamily: 'DM Sans', fontSize: 9.sp, color: Colors.grey)),
             SizedBox(height: 2.h),
             SizedBox(
               width: 63.w,

@@ -19,7 +19,7 @@ class AddToCartBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 15, top: 8, right: 15, left: 15),
+      padding: const EdgeInsets.only(bottom: 15, top: 8, right: 15, left: 10),
       color: Colors.white,
       width: 100.w,
       height: 10.h,
@@ -47,9 +47,7 @@ class AddToCartBottomSheet extends StatelessWidget {
                                 letterSpacing: 1.0,
                                 wordSpacing: 1),
                           ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
+                          SizedBox(height: 1.h),
                           Text(
                             isDiscount
                                 ? '${(1 - product.disCount / 100) * product.price} \$'
@@ -82,14 +80,15 @@ class AddToCartBottomSheet extends StatelessWidget {
                     ],
                   ),
           ]),
+          SizedBox(width: hidden ? 0 : 3.w),
           Expanded(
             child: ProductViewCustomButton(
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Image(image: AssetImage('assets/images/icon.png')),
-                  const SizedBox(width: 4),
+                  SizedBox(width: 2.w),
                   Text(
                     'Add to cart',
                     style: TextStyle(

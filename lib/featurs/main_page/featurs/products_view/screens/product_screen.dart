@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/featurs/main_page/featurs/home/pages/home_pages.dart';
+import 'package:shop_app/featurs/main_page/featurs/search/pages/category_view_page.dart';
 import 'package:sizer_pro/sizer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -17,13 +19,16 @@ class ProductScreen extends StatefulWidget {
   final String searchWord;
   final SearchCubit searchCubit;
   final ProductCubit cubit;
-
+  final String fromPage;
+  final String? categoryName;
   const ProductScreen(
       {super.key,
       required this.searchWord,
+      required this.fromPage,
       required this.product,
       required this.searchCubit,
-      required this.cubit});
+      required this.cubit,
+      this.categoryName});
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -60,7 +65,7 @@ class _ProductScreenState extends State<ProductScreen> {
     imagesUrl = product.imgUrl.split('|');
     isDiscount = product.disCount > 0;
     cubit = widget.cubit;
-    cubit.isFavorite = product.isFavorate;
+    cubit.isFavorite = product.isFavorite;
     getAvrOfStars(cubit.reviws);
     super.initState();
   }
@@ -75,14 +80,7 @@ class _ProductScreenState extends State<ProductScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        await widget.searchCubit.search(widget.searchWord.trim()).then((value) {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => SearchResultScreen(
-                searchWord: widget.searchWord,
-                fromPage: 'ProductView',
-                searchProducts: value),
-          ));
-        });
+        backToSomePage();
         return false;
       },
       child: SafeArea(
@@ -111,17 +109,7 @@ class _ProductScreenState extends State<ProductScreen> {
                     child: CustomIconButton(
                       icon: const Icon(Icons.arrow_back_ios_rounded),
                       onPressed: () async {
-                        await widget.searchCubit
-                            .search(widget.searchWord.trim())
-                            .then((value) {
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                            builder: (context) => SearchResultScreen(
-                                searchWord: widget.searchWord,
-                                fromPage: 'ProductView',
-                                searchProducts: value),
-                          ));
-                        });
+                        backToSomePage();
                       },
                     ),
                   ),
@@ -141,8 +129,8 @@ class _ProductScreenState extends State<ProductScreen> {
                                 : Icons.favorite_outline_rounded,
                             color: isFavorate ? const Color(0xFFFF6E6E) : null,
                           ),
-                          onPressed: () {
-                            cubit.changeFavorite(product.id);
+                          onPressed: () async {
+                            cubit.changeFavorite(product.id).then((value) {});
                           },
                         );
                       },
@@ -187,6 +175,10 @@ class _ProductScreenState extends State<ProductScreen> {
                       //* this widget is very good it is like model bottom sheet
                       //* and more flexible and you have to use it with [Stack]
                       child: ProductDetails(
+                        categoryName: widget.fromPage == 'SearchReasults'
+                            ? ''
+                            : widget.categoryName!,
+                        fromPage: widget.fromPage,
                         colors: colors,
                         sizes: sizes,
                         cubit: cubit,
@@ -230,6 +222,72 @@ class _ProductScreenState extends State<ProductScreen> {
       avrOfStars = totalStars / reviews.length * 1.0;
     } else {
       avrOfStars = 0;
+    }
+  }
+
+  void backToSomePage() async {
+    if (widget.fromPage == 'SearchReasults') {
+      await widget.searchCubit.search(widget.searchWord.trim()).then((value) {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => SearchResultScreen(
+              searchWord: widget.searchWord,
+              fromPage: 'ProductView',
+              searchProducts: value),
+        ));
+      });
+    } else if (widget.fromPage == 'CategoryProducts') {
+      if (widget.searchWord != '') {
+        await widget.searchCubit
+            .searchInCategory(
+                widget.searchWord, widget.categoryName!.toLowerCase())
+            .then((value) {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => CategoryViewPage(
+              categoryName: widget.categoryName!,
+              categoryProducts: value,
+              searchWord: widget.searchWord,
+            ),
+          ));
+        });
+      } else {
+        await widget.searchCubit
+            .searchInCategory(null, widget.categoryName!.toLowerCase())
+            .then((value) {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => CategoryViewPage(
+              searchWord: widget.searchWord,
+              categoryName: widget.categoryName!.toLowerCase(),
+              categoryProducts: value,
+            ),
+          ));
+        });
+      }
+    } else if (widget.fromPage == 'seeAll') {
+      if (widget.searchWord != '') {
+        context
+            .read<SearchCubit>()
+            .searchInDiscounts(widget.searchWord)
+            .then((categoryProducts) {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => SeeAllProductsPage(
+                searchWord: widget.searchWord,
+                categoryName: 'Discount ',
+                categoryProducts: categoryProducts),
+          ));
+        });
+      } else {
+        context
+            .read<SearchCubit>()
+            .searchInDiscounts(null)
+            .then((categoryProducts) {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => SeeAllProductsPage(
+                searchWord: widget.searchWord,
+                categoryName: 'Discount ',
+                categoryProducts: categoryProducts),
+          ));
+        });
+      }
     }
   }
 }

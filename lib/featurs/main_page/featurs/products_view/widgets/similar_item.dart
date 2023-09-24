@@ -9,7 +9,9 @@ class SimilarItem extends StatefulWidget {
   final ProductModel product;
   final ProductCubit productCubit;
   const SimilarItem(
-      {super.key, required this.product, required this.productCubit});
+      {super.key,
+      required this.product,
+      required this.productCubit});
 
   @override
   State<SimilarItem> createState() => _SimilarItemState();
@@ -19,7 +21,7 @@ class _SimilarItemState extends State<SimilarItem> {
   late bool isFavorate;
   @override
   void initState() {
-    isFavorate = widget.product.isFavorate;
+    isFavorate = widget.product.isFavorite;
     super.initState();
   }
 
@@ -43,7 +45,7 @@ class _SimilarItemState extends State<SimilarItem> {
               ),
               onPressed: () {
                 widget.productCubit.setFavorateProductInDataBase(
-                    widget.product.id, !widget.product.isFavorate);
+                    widget.product.id, !widget.product.isFavorite);
                 setState(() {
                   isFavorate = !isFavorate;
                 });

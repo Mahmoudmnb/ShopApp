@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/featurs/main_page/main_page.dart';
 import 'package:sizer_pro/sizer.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../core/data_base.dart';
 import '../../../injection.dart';
 import '../blocs/auth_blocs.dart';
@@ -31,6 +30,7 @@ class AuthPage extends StatelessWidget {
         });
       });
     }
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -47,10 +47,9 @@ class AuthPage extends StatelessWidget {
                       TextButton(
                         style: TextButton.styleFrom(
                             foregroundColor: const Color(0xFF2E2E2E)),
-                        child: Text(
-                          'Skip',
-                          style: GoogleFonts.dmSans(fontSize: 9.sp),
-                        ),
+                        child: Text('Skip',
+                            style: TextStyle(
+                                fontFamily: 'DM Sans', fontSize: 9.sp)),
                         onPressed: () {
                           goToHomePage();
                         },
@@ -78,7 +77,8 @@ class AuthPage extends StatelessWidget {
                               isFirestText: isSignUp,
                               firstText: 'Sign In',
                               secondText: 'Sign Up',
-                              textStyle: GoogleFonts.dmSans(fontSize: 10.sp));
+                              textStyle: TextStyle(
+                                  fontFamily: 'DM Sans', fontSize: 10.sp));
                         },
                       ),
                     ],
@@ -103,19 +103,20 @@ class AuthPage extends StatelessWidget {
                                 isFirestText: isSignUp,
                                 firstText: '     Don\'t have an account?',
                                 secondText: 'Already have an account?',
-                                textStyle: GoogleFonts.dmSans()),
+                                textStyle:
+                                    const TextStyle(fontFamily: 'DM Sans')),
                             SizedBox(width: 1.w),
                             TextButton(
                               style: TextButton.styleFrom(
                                   foregroundColor: const Color(0xFF646464)),
                               child: SwitchBetweenTwoTextWithRotation(
-                                firstText: 'Sign Up',
-                                isFirestText: isSignUp,
-                                secondText: 'Sign IN',
-                                textStyle: GoogleFonts.dmSans(
-                                    decoration: TextDecoration.underline,
-                                    fontSize: 14),
-                              ),
+                                  firstText: 'Sign Up',
+                                  isFirestText: isSignUp,
+                                  secondText: 'Sign IN',
+                                  textStyle: const TextStyle(
+                                      fontFamily: 'DM Sans',
+                                      decoration: TextDecoration.underline,
+                                      fontSize: 14)),
                               onPressed: () {
                                 if (state is SignUpBlocInitial) {
                                   context.read<SignUpBloc>().add(

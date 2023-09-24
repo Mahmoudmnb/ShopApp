@@ -26,3 +26,17 @@ class FilterRatringState extends SearchState {}
 class FilterDiscountState extends SearchState {}
 
 class ResetFilter extends SearchState {}
+
+class GetCategoryProducts extends SearchState {
+  final List<Map<String, dynamic>> categoryProducts;
+  GetCategoryProducts({required this.categoryProducts});
+}
+
+class SetSelectedCategory extends SearchState {}
+
+class IsCategoryViewSearch extends SearchState {}
+
+class SaveState extends SearchState {
+  final List<Map<String, dynamic>> categoryProducts;
+  SaveState({required this.categoryProducts});
+}

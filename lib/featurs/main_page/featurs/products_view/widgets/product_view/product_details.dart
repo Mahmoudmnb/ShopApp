@@ -16,9 +16,13 @@ class ProductDetails extends StatelessWidget {
   final List<Color> colors;
   final List<Map<String, dynamic>> similarProducts;
   final String searchWord;
+  final String categoryName;
   final SearchCubit searchCubit;
+  final String fromPage;
+
   const ProductDetails(
       {super.key,
+      required this.fromPage,
       required this.cubit,
       required this.product,
       required this.getAvrOfStars,
@@ -27,7 +31,8 @@ class ProductDetails extends StatelessWidget {
       required this.avrOfStars,
       required this.similarProducts,
       required this.searchCubit,
-      required this.searchWord});
+      required this.searchWord,
+      required this.categoryName});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +55,7 @@ class ProductDetails extends StatelessWidget {
                 alignment: Alignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 3.w),
+                    padding: EdgeInsets.only(left: 3.w, right: 1.w),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -114,7 +119,7 @@ class ProductDetails extends StatelessWidget {
                               ],
                             ),
                             Container(
-                              width: 20.w,
+                              width: 18.w,
                               height: 5.h,
                               decoration: BoxDecoration(
                                 color: const Color(0xFFEEEEEE),
@@ -277,6 +282,8 @@ class ProductDetails extends StatelessWidget {
               ),
               SizedBox(height: 2.h),
               SimilarProductsCard(
+                categoryName: categoryName,
+                fromPage: fromPage,
                 cubit: cubit,
                 searchCubit: searchCubit,
                 searchWord: searchWord,

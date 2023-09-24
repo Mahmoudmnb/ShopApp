@@ -9,6 +9,13 @@ class DiscountProductsBloc
     on<DiscountProductsEvent>((event, emit) {
       if (event is GetDiscountProducts) {
         emit(DiscountProductsData(discountProducts: event.discountProducts));
+      } else if (event is ChangeIsSearchEvent) {
+        emit(IsSearchState(isSearch: event.isSearch));
+      } else if (event is SearchInDiscount) {
+        emit(SearchInDiscountResult(searchResult: event.searchResult));
+      } else if (event is GetAllDiscountEvent) {
+        emit(AllDiscountProductState(
+            allDiscountProducts: event.allDiscountProducts));
       }
     });
   }

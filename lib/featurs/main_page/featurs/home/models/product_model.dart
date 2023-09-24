@@ -11,7 +11,7 @@ class ProductModel {
   String imgUrl;
   int disCount;
   String date;
-  bool isFavorate;
+  bool isFavorite;
   String? category;
   ProductModel(
       {required this.imgUrl,
@@ -24,13 +24,13 @@ class ProductModel {
       required this.price,
       required this.date,
       required this.disCount,
-      required this.isFavorate,
-       this.category});
+      required this.isFavorite,
+      this.category});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'category': category,
-      'isFavorate': isFavorate,
+      'isFavorate': isFavorite,
       'date': date,
       'disCount': disCount,
       'imgUrl': imgUrl,
@@ -47,9 +47,9 @@ class ProductModel {
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
       category: map['category'],
-      isFavorate: map['isFavorate'] == 'true' ? true : false,
+      isFavorite: map['isFavorate'] == 'true' ? true : false,
       date: map['date'] as String,
-      disCount: map['discount'] as int,
+      disCount: map['discount'] ?? 0,
       imgUrl: map['imgUrl'] as String,
       id: map['id'] as int,
       price: double.parse(map['price'].toString()),
