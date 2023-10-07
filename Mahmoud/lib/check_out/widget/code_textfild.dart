@@ -1,0 +1,33 @@
+import 'package:flutter/material.dart';
+import 'package:sizer_pro/sizer.dart';
+
+class CodeTextFeild extends StatefulWidget {
+  const CodeTextFeild({super.key});
+
+  @override
+  State<CodeTextFeild> createState() => _CodeTextFeildState();
+}
+
+class _CodeTextFeildState extends State<CodeTextFeild> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          color: const Color(0xFFF7F7F8),
+          borderRadius: BorderRadius.circular(5)),
+      child: TextField(
+          decoration: InputDecoration(
+              border: InputBorder.none,
+              suffixIcon: Container(
+                padding: EdgeInsets.only(top: 2.h),
+                child: Text(
+                  'Validate',
+                  style: TextStyle(color: Color(0xFF76D5AD)),
+                ),
+              ),
+              hintText: 'Have a code? type it here...',
+              hintStyle:
+                  TextStyle(color: Color(0xFFCBCDD8), fontFamily: 'DM Sans'))),
+    );
+  }
+}
