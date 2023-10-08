@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../home/models/product_model.dart';
 import '../../../search/cubit/sreach_cubit.dart';
@@ -27,7 +27,7 @@ class SimilarProductsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 100.w,
+      width: 393.w,
       color: const Color(0xFFFAFAFA),
       child: Column(
         children: [
@@ -35,12 +35,12 @@ class SimilarProductsCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 5.w),
+                padding: EdgeInsets.only(left: 19.5.w),
                 child: Text(
                   'Similar Items',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 7.sp,
+                    fontSize: 16.sp,
                     fontFamily: 'Tenor Sans',
                     fontWeight: FontWeight.w600,
                     height: 1.06,
@@ -49,7 +49,7 @@ class SimilarProductsCard extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(right: 5.w),
+                padding: EdgeInsets.only(right: 19.5.w),
                 child: TextButton(
                   style: TextButton.styleFrom(
                     foregroundColor: const Color(0xFF9B9B9B),
@@ -57,7 +57,7 @@ class SimilarProductsCard extends StatelessWidget {
                   child: Text(
                     'See All',
                     style: TextStyle(
-                      fontSize: 6.sp,
+                      fontSize: 14.sp,
                       fontFamily: 'DM Sans',
                       fontWeight: FontWeight.w500,
                       letterSpacing: 0.05,
@@ -88,14 +88,14 @@ class SimilarProductsCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 1.h),
+          SizedBox(height: 8.5.h),
           Row(
             children: [
               SizedBox(
-                width: 100.w,
-                height: 30.h,
+                width: 355.w,
+                height: 174.h,
                 child: ListView.separated(
-                  padding: EdgeInsets.symmetric(horizontal: 4.w),
+                  padding: EdgeInsets.symmetric(horizontal: 15.w),
                   shrinkWrap: true,
                   itemCount: cubit.similarProducts.length < 6
                       ? cubit.similarProducts.length
@@ -108,8 +108,8 @@ class SimilarProductsCard extends StatelessWidget {
                     ProductModel product =
                         ProductModel.fromMap(cubit.similarProducts[index]);
                     return CustomCard(
-                      width: 35.w,
-                      height: 27.h,
+                      width: 136.5.w,
+                      height: 229.5.h,
                       product: product,
                     );
                   },

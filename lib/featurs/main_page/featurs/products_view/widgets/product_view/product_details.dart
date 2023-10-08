@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sizer_pro/sizer.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../home/models/product_model.dart';
 import '../../../search/cubit/sreach_cubit.dart';
 import '../../cubits/product_screen/cubit.dart';
@@ -44,7 +43,8 @@ class ProductDetails extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         controller: scrollController,
         child: Container(
-          width: 100.w,
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          width: 393.w,
           decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
@@ -55,22 +55,22 @@ class ProductDetails extends StatelessWidget {
                 alignment: Alignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 3.w, right: 1.w),
+                    padding: EdgeInsets.only(left: 11.w, right: 3.9.w),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 3.h),
+                        SizedBox(height: 25.5.h),
                         Center(
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
                               color: const Color(0xFFDFDFDF),
                             ),
-                            width: 30.w,
-                            height: 0.6.h,
+                            width: 100.w,
+                            height: 5.1.h,
                           ),
                         ),
-                        SizedBox(height: 2.h),
+                        SizedBox(height: 17.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -85,10 +85,10 @@ class ProductDetails extends StatelessWidget {
                                     letterSpacing: .5,
                                     fontFamily: 'Tenor Sans',
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 6.5.sp,
+                                    fontSize: 24.sp,
                                   ),
                                 ),
-                                SizedBox(width: 1.w),
+                                SizedBox(width: 3.w),
                                 Text.rich(
                                   TextSpan(
                                     children: [
@@ -98,7 +98,7 @@ class ProductDetails extends StatelessWidget {
                                               right: 3.0, bottom: 1),
                                           child: Icon(
                                             Icons.star,
-                                            size: 6.sp,
+                                            size: 14.sp,
                                             color: const Color(0xFFFFC120),
                                           ),
                                         ),
@@ -108,7 +108,7 @@ class ProductDetails extends StatelessWidget {
                                         text: avrOfStars.toStringAsFixed(2),
                                         style: TextStyle(
                                           color: const Color(0xFF6D6D6D),
-                                          fontSize: 4.5.sp,
+                                          fontSize: 12.sp,
                                           letterSpacing: .2,
                                           fontFamily: 'DM Sans',
                                         ),
@@ -119,8 +119,8 @@ class ProductDetails extends StatelessWidget {
                               ],
                             ),
                             Container(
-                              width: 18.w,
-                              height: 5.h,
+                              width: 70.w,
+                              height: 42.5.h,
                               decoration: BoxDecoration(
                                 color: const Color(0xFFEEEEEE),
                                 borderRadius: BorderRadius.circular(30),
@@ -163,14 +163,14 @@ class ProductDetails extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(height: 1.h),
+                        // SizedBox(height: 3.h),
                         Padding(
                           padding: const EdgeInsets.only(left: 2),
                           child: Text(
                             product.makerCompany,
                             style: TextStyle(
                               color: const Color(0xFF9B9B9B),
-                              fontSize: 7.sp,
+                              fontSize: 16.sp,
                               fontFamily: 'Tenor Sans',
                               fontWeight: FontWeight.w400,
                               height: 1.06,
@@ -178,9 +178,9 @@ class ProductDetails extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: 3.h),
+                        SizedBox(height: 22.h),
                         SizedBox(
-                          width: 98.w,
+                          width: 382.2.w,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -191,18 +191,18 @@ class ProductDetails extends StatelessWidget {
                                     'Color',
                                     style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 7.sp,
+                                      fontSize: 16.sp,
                                       fontFamily: 'Tenor Sans',
                                       fontWeight: FontWeight.bold,
                                       height: 1.06,
                                       letterSpacing: 1,
                                     ),
                                   ),
-                                  SizedBox(height: 2.h),
+                                  SizedBox(height: 17.h),
                                   // !Color
                                   SizedBox(
-                                    height: 3.4.h,
-                                    width: 40.w,
+                                    height: 22,
+                                    width: 170.w,
                                     child: SetColor(
                                       colors: colors,
                                     ),
@@ -217,47 +217,49 @@ class ProductDetails extends StatelessWidget {
                                     'Size',
                                     style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 7.sp,
+                                      fontSize: 16.sp,
                                       fontFamily: 'Tenor Sans',
                                       fontWeight: FontWeight.bold,
                                       height: 1.06,
                                       letterSpacing: 1,
                                     ),
                                   ),
-                                  SizedBox(height: 2.h),
+                                  SizedBox(height: 17.h),
                                   //! Size
                                   SizedBox(
-                                    height: 3.4.h,
-                                    width: 35.w,
+                                    height: 22,
+                                    width: 136.5.w,
                                     child: SetSize(sizes: sizes),
                                   ),
                                 ],
                               ),
-                              SizedBox(width: 1.h),
+                              SizedBox(width: 8.5.h),
                             ],
                           ),
                         ),
-                        SizedBox(height: 4.h),
+                        SizedBox(height: 25.h),
                         Text(
                           'Description',
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: 7.sp,
+                            fontSize: 16.sp,
                             fontFamily: 'Tenor Sans',
                             fontWeight: FontWeight.bold,
                             height: 1.06,
                             letterSpacing: 1,
                           ),
                         ),
-                        SizedBox(height: 2.h),
+                        SizedBox(height: 20.h),
                         SizedBox(
-                          width: 100.w,
+                          height: 68.h,
+                          width: 393.w,
                           child: Text(
                             product.discription,
                             style: TextStyle(
+                              // overflow: TextOverflow.ellipsis,
                               wordSpacing: 1,
                               color: const Color(0xFF6C6C6C),
-                              fontSize: 6.sp,
+                              fontSize: 16.sp,
                               fontFamily: 'Tenor Sans',
                               fontWeight: FontWeight.w400,
                               height: 1.06,
@@ -265,12 +267,12 @@ class ProductDetails extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: 3.h),
+                        SizedBox(height: 25.h),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 3.w),
+                          padding: EdgeInsets.symmetric(horizontal: 11.7.w),
                           child: const Divider(),
                         ),
-                        SizedBox(height: 2.h),
+                        SizedBox(height: 17.h),
                         ReviewsCard(
                             cubit: cubit,
                             avrOfStars: avrOfStars,
