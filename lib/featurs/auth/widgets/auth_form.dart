@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/core/constant.dart';
 import 'package:shop_app/core/internet_info.dart';
 import 'package:shop_app/featurs/auth/models/user_model.dart';
 import 'package:shop_app/injection.dart';
-import 'package:sizer_pro/sizer.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:toast/toast.dart';
 
@@ -58,27 +58,27 @@ class _AuthFormState extends State<AuthForm> {
             key: formKey,
             child: Column(
               children: [
-                SizedBox(height: 1.h),
+                SizedBox(height: 8.5.h),
                 CustomTextField(
                   hintText: 'Enter your name',
                   controller: nameCon,
                 ),
-                SizedBox(height: 1.h),
+                SizedBox(height: 8.5.h),
                 CustomTextField(
                   hintText: 'Email address',
                   controller: emailCon,
                 ),
-                SizedBox(height: 1.h),
+                SizedBox(height: 8.5.h),
                 CustomTextField(
                   hintText: 'Password',
                   controller: passwordCon,
                 ),
-                SizedBox(height: 1.h),
+                SizedBox(height: 8.5.h),
                 CustomTextField(
                   hintText: 'Confirm Password',
                   controller: confirmPasswordcon,
                 ),
-                SizedBox(height: 3.h),
+                SizedBox(height: 25.5.h),
               ],
             )),
         BlocBuilder<SignUpBloc, SignUpBlocState>(
@@ -119,15 +119,15 @@ class _AuthFormState extends State<AuthForm> {
                       ? const CircularProgressIndicator()
                       : SwitchBetweenTwoTextWithRotation(
                           isFirestText: isSignUP,
-                          firstText: 'SIGN IN',
-                          secondText: 'SING UP',
-                          textStyle: GoogleFonts.dmSans(fontSize: 8.sp));
+                          firstText: 'LOG IN',
+                          secondText: 'SIGN UP',
+                          textStyle: GoogleFonts.dmSans(fontSize: 16.sp));
                 },
               ),
             );
           },
         ),
-        SizedBox(height: 1.h),
+        SizedBox(height: 8.5.h),
       ],
     );
   }

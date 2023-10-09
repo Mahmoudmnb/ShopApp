@@ -20,7 +20,7 @@ class AddToCartBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 15, top: 8, right: 15, left: 10),
+      padding: const EdgeInsets.only(bottom: 15, top: 8, right: 20, left: 20),
       color: Colors.white,
       width: 393.w,
       height: 85.h,

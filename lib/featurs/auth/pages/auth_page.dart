@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/featurs/main_page/main_page.dart';
-import 'package:sizer_pro/sizer.dart';
 import '../../../core/data_base.dart';
 import '../../../injection.dart';
 import '../blocs/auth_blocs.dart';
@@ -32,40 +32,67 @@ class AuthPage extends StatelessWidget {
     }
 
     return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: SizedBox(
-            height: 96.h,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 4.4.w),
-              child: Column(
-                children: [
-                  SizedBox(height: 1.h),
-                  Row(
-                    children: [
-                      const Spacer(),
-                      TextButton(
-                        style: TextButton.styleFrom(
-                            foregroundColor: const Color(0xFF2E2E2E)),
-                        child: Text('Skip',
-                            style: TextStyle(
-                                fontFamily: 'DM Sans', fontSize: 9.sp)),
-                        onPressed: () {
-                          goToHomePage();
-                        },
-                      ),
-                    ],
-                  ),
-                  Image.asset(
-                    'assets/images/logo.png',
-                    height: 20.h,
-                    width: 20.h,
-                  ),
-                  SizedBox(height: 1.h),
-                  Row(
-                    children: [
-                      SizedBox(width: 1.h),
-                      BlocBuilder<SignUpBloc, SignUpBlocState>(
+      child: ScreenUtilInit(
+        designSize: const Size(393, 852),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, _) => Scaffold(
+          body: SingleChildScrollView(
+            child: SizedBox(
+              height: 816.h,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 17.5.w),
+                child: Column(
+                  children: [
+                    SizedBox(height: 8.5.h),
+                    Row(
+                      children: [
+                        const Spacer(),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                              foregroundColor: const Color(0xFF2E2E2E)),
+                          child: Text('Skip',
+                              style: TextStyle(
+                                  fontFamily: 'DM Sans', fontSize: 22.sp)),
+                          onPressed: () {
+                            goToHomePage();
+                          },
+                        ),
+                      ],
+                    ),
+                    Image.asset(
+                      'assets/images/logo.png',
+                      height: 170.h,
+                      width: 170.h,
+                    ),
+                    SizedBox(height: 8.5.h),
+                    Row(
+                      children: [
+                        SizedBox(width: 8.5.h),
+                        BlocBuilder<SignUpBloc, SignUpBlocState>(
+                          builder: (context, state) {
+                            bool isSignUp = false;
+                            if (state is SignUpBlocInitial) {
+                              isSignUp = true;
+                            } else if (state is IsSignUp) {
+                              isSignUp = state.isSignUp;
+                            }
+                            return SwitchBetweenTwoTextWithRotation(
+                                isFirestText: isSignUp,
+                                firstText: 'Sign In',
+                                secondText: 'Sign Up',
+                                textStyle: TextStyle(
+                                    fontFamily: 'DM Sans', fontSize: 24.sp));
+                          },
+                        ),
+                      ],
+                    ),
+                    AuthForm(goToHomePage: goToHomePage),
+                    SizedBox(height: 8.5.h),
+                    const AlternativeSignIn(),
+                    const Expanded(child: SizedBox.shrink()),
+                    SizedBox(
+                      child: BlocBuilder<SignUpBloc, SignUpBlocState>(
                         builder: (context, state) {
                           bool isSignUp = false;
                           if (state is SignUpBlocInitial) {
@@ -73,68 +100,46 @@ class AuthPage extends StatelessWidget {
                           } else if (state is IsSignUp) {
                             isSignUp = state.isSignUp;
                           }
-                          return SwitchBetweenTwoTextWithRotation(
-                              isFirestText: isSignUp,
-                              firstText: 'Sign In',
-                              secondText: 'Sign Up',
-                              textStyle: TextStyle(
-                                  fontFamily: 'DM Sans', fontSize: 10.sp));
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SwitchBetweenTwoText(
+                                  isFirestText: isSignUp,
+                                  firstText: '     Don\'t have an account?',
+                                  secondText: 'Already have an account?',
+                                  textStyle:
+                                      const TextStyle(fontFamily: 'DM Sans')),
+                              SizedBox(width: 4.w),
+                              TextButton(
+                                style: TextButton.styleFrom(
+                                    foregroundColor: const Color(0xFF646464)),
+                                child: SwitchBetweenTwoTextWithRotation(
+                                    firstText: 'Sign Up',
+                                    isFirestText: isSignUp,
+                                    secondText: 'Sign IN',
+                                    textStyle: const TextStyle(
+                                        fontFamily: 'DM Sans',
+                                        decoration: TextDecoration.underline,
+                                        fontSize: 14)),
+                                onPressed: () {
+                                  if (state is SignUpBlocInitial) {
+                                    context.read<SignUpBloc>().add(
+                                        ChangeBetweenSignUpOrSignIn(
+                                            isSignUp: false));
+                                  } else if (state is IsSignUp) {
+                                    context.read<SignUpBloc>().add(
+                                        ChangeBetweenSignUpOrSignIn(
+                                            isSignUp: !state.isSignUp));
+                                  }
+                                },
+                              ),
+                            ],
+                          );
                         },
                       ),
-                    ],
-                  ),
-                  AuthForm(goToHomePage: goToHomePage),
-                  SizedBox(height: 1.h),
-                  const AlternativeSignIn(),
-                  const Expanded(child: SizedBox.shrink()),
-                  SizedBox(
-                    child: BlocBuilder<SignUpBloc, SignUpBlocState>(
-                      builder: (context, state) {
-                        bool isSignUp = false;
-                        if (state is SignUpBlocInitial) {
-                          isSignUp = true;
-                        } else if (state is IsSignUp) {
-                          isSignUp = state.isSignUp;
-                        }
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SwitchBetweenTwoText(
-                                isFirestText: isSignUp,
-                                firstText: '     Don\'t have an account?',
-                                secondText: 'Already have an account?',
-                                textStyle:
-                                    const TextStyle(fontFamily: 'DM Sans')),
-                            SizedBox(width: 1.w),
-                            TextButton(
-                              style: TextButton.styleFrom(
-                                  foregroundColor: const Color(0xFF646464)),
-                              child: SwitchBetweenTwoTextWithRotation(
-                                  firstText: 'Sign Up',
-                                  isFirestText: isSignUp,
-                                  secondText: 'Sign IN',
-                                  textStyle: const TextStyle(
-                                      fontFamily: 'DM Sans',
-                                      decoration: TextDecoration.underline,
-                                      fontSize: 14)),
-                              onPressed: () {
-                                if (state is SignUpBlocInitial) {
-                                  context.read<SignUpBloc>().add(
-                                      ChangeBetweenSignUpOrSignIn(
-                                          isSignUp: false));
-                                } else if (state is IsSignUp) {
-                                  context.read<SignUpBloc>().add(
-                                      ChangeBetweenSignUpOrSignIn(
-                                          isSignUp: !state.isSignUp));
-                                }
-                              },
-                            ),
-                          ],
-                        );
-                      },
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
