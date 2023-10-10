@@ -93,7 +93,7 @@ class AddToCartBottomSheet extends StatelessWidget {
                     'Add to cart',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 6.sp,
+                      fontSize: 5.sp,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w600,
                       height: 1,

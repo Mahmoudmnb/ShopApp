@@ -48,7 +48,7 @@ class CategoryCard extends StatelessWidget {
           Expanded(
             child: Text(
               categroyName,
-              style: TextStyle(fontSize: 4.2.sp,fontFamily: 'Tenor Sans'),
+              style: TextStyle(fontSize: 4.sp, fontFamily: 'Tenor Sans'),
             ),
           ),
         ],

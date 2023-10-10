@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/core/data_base.dart';
+import 'package:shop_app/core/constant.dart';
 import 'package:sizer_pro/sizer.dart';
 
 import '../../cubits/product_screen/cubit.dart';
@@ -141,7 +141,7 @@ class ReviewsCard extends StatelessWidget {
   }
 
   String getOffsetDate(String date) {
-    DateTime dateTime = MyDataBase.stringToDate(date);
+    DateTime dateTime = Constant.stringToDate(date);
     DateTime currentDatetime = DateTime.now();
     if (dateTime.year != currentDatetime.year) {
       return '${currentDatetime.year - dateTime.year} year ago';

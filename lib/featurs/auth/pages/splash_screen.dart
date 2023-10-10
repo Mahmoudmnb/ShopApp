@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:shop_app/core/constant.dart';
 import 'package:shop_app/featurs/auth/pages/steper_screen.dart';
 import 'package:sizer_pro/sizer.dart';
 
@@ -51,11 +52,13 @@ class _SplashScreenState extends State<SplashScreen> {
     });
     Timer.periodic(const Duration(milliseconds: 2800), (timer) {
       Navigator.of(context).pushReplacement(PageRouteBuilder(
-          transitionDuration: const Duration(milliseconds: 1500),
+          transitionDuration: const Duration(milliseconds: 1200),
           pageBuilder: (context, animation, secondaryAnimation) {
-            return ScaleTransition(
-                scale:animation,
-                child: const SteperScreen());
+            Animation<Offset> offset = Tween<Offset>(
+                    begin: const Offset(1, 0), end: const Offset(0, 0))
+                .animate(animation);
+            return SlideTransition(
+                position: offset, child: const SteperScreen());
           }));
       timer.cancel();
     });
@@ -63,6 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Constant.getDeviceSize(context);
     return Scaffold(
       body: Container(
           decoration: BoxDecoration(

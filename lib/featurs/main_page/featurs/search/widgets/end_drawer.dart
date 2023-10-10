@@ -2,12 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/featurs/main_page/data_source/data_source.dart';
-import 'package:shop_app/featurs/main_page/featurs/home/blocs/discount/discount_products_bloc.dart';
-import 'package:shop_app/injection.dart';
 import 'package:sizer_pro/sizer.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
+import '../../../../../injection.dart';
+import '../../../data_source/data_source.dart';
+import '../../home/blocs/discount/discount_products_bloc.dart';
 import '../cubit/sreach_cubit.dart';
 
 class EndDrawer extends StatelessWidget {
@@ -41,7 +41,7 @@ class EndDrawer extends StatelessWidget {
     return Drawer(
       child: Container(
         padding: EdgeInsets.only(
-            top: fromPage == 'SearchPage' ? 1.h : 5.h, left: 1.w, right: 1.w),
+            top: fromPage == 'SearchPage' ? 0 : 5.h, left: 1.w, right: 1.w),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 3.w),
@@ -59,7 +59,7 @@ class EndDrawer extends StatelessWidget {
               ],
             ),
           ),
-          sb(height: fromPage == 'SearchPage' ? 1.h : 2.h),
+          sb(height: fromPage == 'SearchPage' ? 0 : 2.h),
           const Divider(thickness: 1),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -361,7 +361,7 @@ class EndDrawer extends StatelessWidget {
                   );
                 },
               ),
-              sb(height: fromPage == 'SearchPage' ? 1.h : 2.h),
+              sb(height: fromPage == 'SearchPage' ? 0.5.h : 2.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -411,7 +411,7 @@ class EndDrawer extends StatelessWidget {
                           }
                         }
                         if (fromPage == 'seeAll') {
-                          if (searchWord.isEmpty) {
+                          if (searchWord == '') {
                             await cubit
                                 .searchInDiscounts(null)
                                 .then((searchResult) {

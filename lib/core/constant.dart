@@ -1,7 +1,38 @@
-import 'package:shop_app/core/data_base.dart';
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../featurs/auth/models/user_model.dart';
+import '../injection.dart';
 
 class Constant {
+  static String dateToString(DateTime date) {
+    return '${date.hour}:${date.minute}:${date.second}|${date.day}/${date.month}/${date.year}';
+  }
+
+  static DateTime stringToDate(String strDate) {
+    var d = strDate.split('|');
+    var time = d[0].split(':');
+    var date = d[1].split('/');
+    return DateTime(int.parse(date[2]), int.parse(date[1]), int.parse(date[0]),
+        int.parse(time[0]), int.parse(time[1]), int.parse(time[2]));
+  }
+
+  static void getDeviceSize(BuildContext ctx) {
+    deviceHeight = MediaQuery.of(ctx).size.height -
+        (MediaQuery.of(ctx).padding.top + MediaQuery.of(ctx).padding.bottom);
+    deviceWidth = MediaQuery.of(ctx).size.width -
+        (MediaQuery.of(ctx).padding.left + MediaQuery.of(ctx).padding.right);
+    sl.get<SharedPreferences>().setDouble('deviceHeight', deviceHeight);
+    sl.get<SharedPreferences>().setDouble('deviceWidth', deviceWidth);
+  }
+
+  static void setDeviceSize() {
+    deviceHeight = sl.get<SharedPreferences>().getDouble('deviceHeight') ?? 0;
+    deviceWidth = sl.get<SharedPreferences>().getDouble('deviceWidth') ?? 0;
+  }
+
+  static double deviceWidth = 0;
+  static double deviceHeight = 0;
   static UserModel? currentUser;
   static String supabaseUrl = 'https://eujauxjltyekeqyohodz.supabase.co';
   static String supabaseAnonkey =
@@ -14,6 +45,8 @@ class Constant {
       '/data/user/0/com.example.shop_app/databases/searchHistory.db';
   static String reviewsDataBasePath =
       '/data/user/0/com.example.shop_app/databases/reviews.db';
+  static String ordersDataBasePath =
+      '/data/user/0/com.example.shop_app/databases/orders.db';
   static List<Map<String, dynamic>> data = [
     {
       'name': 'white cotton shirt',
@@ -25,7 +58,7 @@ class Constant {
           'A classic crewneck men\'s T-shirt made from soft cotton fabric, featuring a minimalist design and a comfortable fit for everyday wear.',
       'imgUrl': 'assets/images/7.jpg|assets/images/10.jpg|assets/images/9.jpg ',
       'discount': 0,
-      'date': MyDataBase.dateToString(DateTime.now()),
+      'date': dateToString(DateTime.now()),
       'rating': 2,
       'category': 'shirt',
       'isFavorate': 0
@@ -39,7 +72,7 @@ class Constant {
       'discription': 'a very good striped cotton shirt',
       'imgUrl': 'assets/images/10.jpg|assets/images/9.jpg',
       'discount': 0,
-      'date': MyDataBase.dateToString(DateTime.now()),
+      'date': dateToString(DateTime.now()),
       'rating': 5,
       'category': 'shirt',
       'isFavorate': 0
@@ -53,7 +86,7 @@ class Constant {
       'discription': 'a very good Grey cotton shirt',
       'imgUrl': 'assets/images/9.jpg',
       'discount': 0,
-      'date': MyDataBase.dateToString(DateTime.now()),
+      'date': dateToString(DateTime.now()),
       'rating': 3,
       'category': 'pants',
       'isFavorate': 0
@@ -68,7 +101,7 @@ class Constant {
           'A classic crewneck men\'s T-shirt made from soft cotton fabric, ',
       'imgUrl': 'assets/images/13.jpg|assets/images/11.jpg|assets/images/9.jpg',
       'discount': 20,
-      'date': MyDataBase.dateToString(DateTime.now()),
+      'date': dateToString(DateTime.now()),
       'rating': 5,
       'category': 'shirt',
       'isFavorate': 0
@@ -84,7 +117,7 @@ class Constant {
       'imgUrl':
           'assets/images/11.jpg|assets/images/13.jpg|assets/images/11.jpg|assets/images/9.jpg',
       'discount': 50,
-      'date': MyDataBase.dateToString(DateTime.now()),
+      'date': dateToString(DateTime.now()),
       'isFavorate': 0
     },
     {
@@ -97,7 +130,7 @@ class Constant {
           'A classic crewneck men\'s T-shirt made from soft cotton fabric, featuring a minimalist design and a comfortable fit for everyday wear.',
       'imgUrl': 'assets/images/1.png',
       'discount': 30,
-      'date': MyDataBase.dateToString(DateTime.now()),
+      'date': dateToString(DateTime.now()),
       'isFavorate': 0
     },
   ];
@@ -105,8 +138,7 @@ class Constant {
   static List<Map<String, dynamic>> reviews = [
     {
       'userName': 'mahmoud',
-      'date': MyDataBase.dateToString(
-          DateTime.now().add(const Duration(hours: 10))),
+      'date': dateToString(DateTime.now().add(const Duration(hours: 10))),
       'description':
           'Greate shirt ,perfect fit the design is stylish and versatil',
       'stars': 5,
@@ -115,8 +147,7 @@ class Constant {
     },
     {
       'userName': 'ahmad',
-      'date':
-          MyDataBase.dateToString(DateTime.now().add(const Duration(days: 10))),
+      'date': dateToString(DateTime.now().add(const Duration(days: 10))),
       'description': 'Greate shirt ,perfect fit ',
       'stars': 2,
       'userImage': 'assets/images/1.png',
@@ -124,8 +155,7 @@ class Constant {
     },
     {
       'userName': 'fatema',
-      'date': MyDataBase.dateToString(
-          DateTime.now().add(const Duration(minutes: 10))),
+      'date': dateToString(DateTime.now().add(const Duration(minutes: 10))),
       'description':
           'Greate shirt ,perfect fit the design is stylish and versatil and ites very very very very very very very very very very  good',
       'stars': 5,
@@ -134,7 +164,7 @@ class Constant {
     },
     {
       'userName': 'mohammad',
-      'date': MyDataBase.dateToString(DateTime.now()),
+      'date': dateToString(DateTime.now()),
       'description': 'very   good',
       'stars': 1,
       'userImage': 'assets/images/7.jpg',
@@ -142,8 +172,7 @@ class Constant {
     },
     {
       'userName': 'bahaa',
-      'date': MyDataBase.dateToString(
-          DateTime.now().add(const Duration(days: 100))),
+      'date': dateToString(DateTime.now().add(const Duration(days: 100))),
       'description': 'not pad',
       'stars': 1,
       'userImage': 'assets/images/2.png',
@@ -151,8 +180,7 @@ class Constant {
     },
     {
       'userName': 'abooooood',
-      'date': MyDataBase.dateToString(
-          DateTime.now().add(const Duration(minutes: 10))),
+      'date': dateToString(DateTime.now().add(const Duration(minutes: 10))),
       'description': ' its so bad and awful',
       'stars': 0,
       'userImage': 'assets/images/9.jpg',
@@ -160,8 +188,7 @@ class Constant {
     },
     {
       'userName': 'ahmad',
-      'date':
-          MyDataBase.dateToString(DateTime.now().add(const Duration(days: 10))),
+      'date': dateToString(DateTime.now().add(const Duration(days: 10))),
       'description': 'Greate shirt ,perfect fit ',
       'stars': 2,
       'userImage': 'assets/images/1.png',
@@ -169,8 +196,7 @@ class Constant {
     },
     {
       'userName': 'fatema',
-      'date': MyDataBase.dateToString(
-          DateTime.now().add(const Duration(minutes: 10))),
+      'date': dateToString(DateTime.now().add(const Duration(minutes: 10))),
       'description':
           'Greate shirt ,perfect fit the design is stylish and versatil and ites very very very very very very very very very very  good',
       'stars': 5,
@@ -179,7 +205,7 @@ class Constant {
     },
     {
       'userName': 'mohammad',
-      'date': MyDataBase.dateToString(DateTime.now()),
+      'date': dateToString(DateTime.now()),
       'description': 'very   good',
       'stars': 1,
       'userImage': 'assets/images/7.jpg',
@@ -187,8 +213,7 @@ class Constant {
     },
     {
       'userName': 'bahaa',
-      'date': MyDataBase.dateToString(
-          DateTime.now().add(const Duration(days: 100))),
+      'date': dateToString(DateTime.now().add(const Duration(days: 100))),
       'description': 'not pad',
       'stars': 1,
       'userImage': 'assets/images/2.png',
@@ -196,8 +221,7 @@ class Constant {
     },
     {
       'userName': 'abooooood',
-      'date': MyDataBase.dateToString(
-          DateTime.now().add(const Duration(minutes: 10))),
+      'date': dateToString(DateTime.now().add(const Duration(minutes: 10))),
       'description': ' its so bad and awful',
       'stars': 0,
       'userImage': 'assets/images/9.jpg',
@@ -205,8 +229,7 @@ class Constant {
     },
     {
       'userName': 'bahaa',
-      'date': MyDataBase.dateToString(
-          DateTime.now().add(const Duration(days: 100))),
+      'date': dateToString(DateTime.now().add(const Duration(days: 100))),
       'description': 'not pad',
       'stars': 1,
       'userImage': 'assets/images/2.png',
@@ -214,8 +237,7 @@ class Constant {
     },
     {
       'userName': 'bahaa',
-      'date': MyDataBase.dateToString(
-          DateTime.now().add(const Duration(days: 100))),
+      'date': dateToString(DateTime.now().add(const Duration(days: 100))),
       'description': 'not pad',
       'stars': 1,
       'userImage': 'assets/images/2.png',
@@ -223,8 +245,7 @@ class Constant {
     },
     {
       'userName': 'bahaa',
-      'date': MyDataBase.dateToString(
-          DateTime.now().add(const Duration(days: 100))),
+      'date': dateToString(DateTime.now().add(const Duration(days: 100))),
       'description': 'not pad',
       'stars': 1,
       'userImage': 'assets/images/2.png',
@@ -232,8 +253,7 @@ class Constant {
     },
     {
       'userName': 'bahaa',
-      'date': MyDataBase.dateToString(
-          DateTime.now().add(const Duration(days: 100))),
+      'date': dateToString(DateTime.now().add(const Duration(days: 100))),
       'description': 'not pad',
       'stars': 1,
       'userImage': 'assets/images/2.png',
@@ -241,8 +261,7 @@ class Constant {
     },
     {
       'userName': 'abooooood',
-      'date': MyDataBase.dateToString(
-          DateTime.now().add(const Duration(minutes: 10))),
+      'date': dateToString(DateTime.now().add(const Duration(minutes: 10))),
       'description': ' its so bad and awful',
       'stars': 0,
       'userImage': 'assets/images/9.jpg',
@@ -250,8 +269,7 @@ class Constant {
     },
     {
       'userName': 'bahaa',
-      'date': MyDataBase.dateToString(
-          DateTime.now().add(const Duration(days: 100))),
+      'date': dateToString(DateTime.now().add(const Duration(days: 100))),
       'description': 'not pad',
       'stars': 1,
       'userImage': 'assets/images/2.png',
@@ -259,8 +277,7 @@ class Constant {
     },
     {
       'userName': 'bahaa',
-      'date': MyDataBase.dateToString(
-          DateTime.now().add(const Duration(days: 100))),
+      'date': dateToString(DateTime.now().add(const Duration(days: 100))),
       'description': 'not pad',
       'stars': 1,
       'userImage': 'assets/images/2.png',
@@ -268,8 +285,7 @@ class Constant {
     },
     {
       'userName': 'bahaa',
-      'date': MyDataBase.dateToString(
-          DateTime.now().add(const Duration(days: 100))),
+      'date': dateToString(DateTime.now().add(const Duration(days: 100))),
       'description': 'not pad',
       'stars': 1,
       'userImage': 'assets/images/2.png',
@@ -277,8 +293,7 @@ class Constant {
     },
     {
       'userName': 'bahaa',
-      'date': MyDataBase.dateToString(
-          DateTime.now().add(const Duration(days: 100))),
+      'date': dateToString(DateTime.now().add(const Duration(days: 100))),
       'description': 'not pad',
       'stars': 1,
       'userImage': 'assets/images/2.png',
@@ -286,8 +301,7 @@ class Constant {
     },
     {
       'userName': 'abooooood',
-      'date': MyDataBase.dateToString(
-          DateTime.now().add(const Duration(minutes: 10))),
+      'date': dateToString(DateTime.now().add(const Duration(minutes: 10))),
       'description': ' its so bad and awful',
       'stars': 0,
       'userImage': 'assets/images/9.jpg',
@@ -295,8 +309,7 @@ class Constant {
     },
     {
       'userName': 'bahaa',
-      'date': MyDataBase.dateToString(
-          DateTime.now().add(const Duration(days: 100))),
+      'date': dateToString(DateTime.now().add(const Duration(days: 100))),
       'description': 'not pad',
       'stars': 1,
       'userImage': 'assets/images/2.png',
@@ -304,8 +317,7 @@ class Constant {
     },
     {
       'userName': 'bahaa',
-      'date': MyDataBase.dateToString(
-          DateTime.now().add(const Duration(days: 100))),
+      'date': dateToString(DateTime.now().add(const Duration(days: 100))),
       'description': 'not pad',
       'stars': 1,
       'userImage': 'assets/images/2.png',
@@ -313,8 +325,7 @@ class Constant {
     },
     {
       'userName': 'bahaa',
-      'date': MyDataBase.dateToString(
-          DateTime.now().add(const Duration(days: 100))),
+      'date': dateToString(DateTime.now().add(const Duration(days: 100))),
       'description': 'not pad',
       'stars': 1,
       'userImage': 'assets/images/2.png',

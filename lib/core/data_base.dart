@@ -5,6 +5,20 @@ import 'package:shop_app/core/constant.dart';
 import 'package:sqflite/sqflite.dart';
 
 class MyDataBase {
+  Future<void> createOrdersTable() async {
+    String path = await getDatabasesPath();
+    String dataBasePath = '$path/orders.db';
+    await openDatabase(
+      dataBasePath,
+      version: 1,
+      onCreate: (db, version) async {
+        db.execute(
+            'CREATE TABLE orders (id INTEGER PRIMARY KEY , text orderDate TEXT NOT NULL , dueDate TEXT NOT NULL , quantity INTEGER NOT NULL , subtotal DOUBLE NOT NULL , trackingNumber TEXT NOT NULL , isPandeing BOOLEAN NOT NULL)');
+      },
+    );
+    log('orders table created');
+  }
+
   Future<void> createReviewTable() async {
     String path = await getDatabasesPath();
     String dataBasePath = '$path/reviews.db';
@@ -59,18 +73,6 @@ class MyDataBase {
     } catch (e) {
       log(e.toString());
     }
-  }
-
-  static String dateToString(DateTime date) {
-    return '${date.hour}:${date.minute}:${date.second}|${date.day}/${date.month}/${date.year}';
-  }
-
-  static DateTime stringToDate(String strDate) {
-    var d = strDate.split('|');
-    var time = d[0].split(':');
-    var date = d[1].split('/');
-    return DateTime(int.parse(date[2]), int.parse(date[1]), int.parse(date[0]),
-        int.parse(time[0]), int.parse(time[1]), int.parse(time[2]));
   }
 
   Future<void> insertData() async {

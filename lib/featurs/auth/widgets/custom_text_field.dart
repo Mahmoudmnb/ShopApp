@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer_pro/sizer.dart';
 
 import '../blocs/auth_blocs.dart';
@@ -129,7 +128,7 @@ class CustomTextField extends StatelessWidget {
                                               : const SizedBox.shrink(),
                                     )
                                   : null,
-                          hintStyle: GoogleFonts.dmSans(fontSize: 6.sp),
+                          hintStyle: TextStyle(fontSize: 6.sp,fontFamily: 'DM Sans'),
                           hintText: hintText,
                           border: const UnderlineInputBorder(
                             borderSide: BorderSide(

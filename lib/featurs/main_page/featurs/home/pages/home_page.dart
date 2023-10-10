@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/featurs/main_page/cubit/main_page_cubit.dart';
-import 'package:shop_app/featurs/main_page/featurs/home/pages/home_pages.dart';
-import 'package:shop_app/featurs/main_page/featurs/search/cubit/sreach_cubit.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../cubit/main_page_cubit.dart';
+import '../../search/cubit/sreach_cubit.dart';
 import '../blocs/discount/discount_products_bloc.dart';
 import '../models/product_model.dart';
 import '../widgets/collections_spacer.dart';
@@ -12,6 +11,7 @@ import '../widgets/discount_image.dart';
 import '../widgets/recommended_image.dart';
 import '../widgets/top_collection_image.dart';
 import '../widgets/trendy_image.dart';
+import 'home_pages.dart';
 
 class HomePage extends StatelessWidget {
   final List<Map<String, Object?>> disCountProducts;

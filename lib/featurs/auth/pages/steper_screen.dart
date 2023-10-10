@@ -62,10 +62,7 @@ class _SteperScreenState extends State<SteperScreen> {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                            builder: (context) => const AuthPage(),
-                          ));
+                          navigateToAuthPage(context);
                         },
                         style: ButtonStyle(
                             padding: const MaterialStatePropertyAll(
@@ -82,8 +79,8 @@ class _SteperScreenState extends State<SteperScreen> {
                       ElevatedButton(
                         onPressed: () {
                           pageController.animateToPage(1,
-                              duration: const Duration(milliseconds: 700),
-                              curve: Curves.linear);
+                              duration: const Duration(milliseconds: 1000),
+                              curve: Curves.ease);
                         },
                         style: ButtonStyle(
                             padding: const MaterialStatePropertyAll(
@@ -136,10 +133,7 @@ class _SteperScreenState extends State<SteperScreen> {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                            builder: (context) => const AuthPage(),
-                          ));
+                          navigateToAuthPage(context);
                         },
                         style: ButtonStyle(
                             padding: const MaterialStatePropertyAll(
@@ -166,5 +160,16 @@ class _SteperScreenState extends State<SteperScreen> {
             child: SmoothPageIndicator(controller: pageController, count: 2))
       ]),
     );
+  }
+
+  void navigateToAuthPage(BuildContext context) {
+    Navigator.of(context).pushReplacement(PageRouteBuilder(
+        transitionDuration: const Duration(milliseconds: 500),
+        pageBuilder: (context, animation, secondaryAnimation) {
+          Animation<Offset> offset =
+              Tween<Offset>(begin: const Offset(1, 0), end: const Offset(0, 0))
+                  .animate(animation);
+          return SlideTransition(position: offset, child: const AuthPage());
+        }));
   }
 }

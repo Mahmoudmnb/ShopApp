@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/core/constant.dart';
 import 'package:shop_app/core/internet_info.dart';
@@ -121,7 +120,7 @@ class _AuthFormState extends State<AuthForm> {
                           isFirestText: isSignUP,
                           firstText: 'SIGN IN',
                           secondText: 'SING UP',
-                          textStyle: GoogleFonts.dmSans(fontSize: 8.sp));
+                          textStyle: TextStyle(fontFamily: 'DM Sans', fontSize: 8.sp));
                 },
               ),
             );

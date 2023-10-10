@@ -1,14 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../injection.dart';
 import 'cubit/main_page_cubit.dart';
 import 'data_source/data_source.dart';
 import 'featurs/home/pages/home_page.dart';
-import 'featurs/home/widgets/main_page_drawer.dart';
 import 'featurs/home/widgets/main_page_tab_bar.dart';
+import 'featurs/orders/screen/order_screen.dart';
+import 'featurs/profile/profile/screen/profile_screen.dart';
 import 'featurs/search/pages/search_screen.dart';
 
 class MainPage extends StatefulWidget {
@@ -38,25 +40,23 @@ class _MainPageState extends State<MainPage>
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: _appBar,
-      body: TabBarView(controller: tabController, children: [
-        FutureBuilder(
-          future: sl.get<DataSource>().getDiscountsProducts(),
-          builder: (context, snapshot) => snapshot.hasData
-              ? HomePage(disCountProducts: snapshot.data!)
-              : const SizedBox.shrink(),
-        ),
-        const SearchScreen(),
-        const Center(
-          child: Text('Purches'),
-        ),
-        const Center(
-          child: Text('Profile'),
-        )
-      ]),
+      body: TabBarView(
+        controller: tabController,
+        children: [
+          FutureBuilder(
+            future: sl.get<DataSource>().getDiscountsProducts(),
+            builder: (context, snapshot) => snapshot.hasData
+                ? HomePage(disCountProducts: snapshot.data!)
+                : const SizedBox.shrink(),
+          ),
+          const SearchScreen(),
+          const OrdersScreen(),
+          const ProfileScreen(),
+        ],
+      ),
       bottomNavigationBar: MainPageTabBar(
         tabController: tabController,
       ),
-      drawer: const MainPageDrawer(),
     );
   }
 
@@ -70,6 +70,7 @@ class _MainPageState extends State<MainPage>
         Builder(
           builder: (context) => IconButton(
               onPressed: () async {
+                log(MediaQuery.of(context).textScaleFactor.toString());
                 // Scaffold.of(context).openDrawer();
               },
               icon: const Icon(Icons.density_medium_rounded)),
@@ -89,13 +90,16 @@ class _MainPageState extends State<MainPage>
       builder: (context, state) {
         int pageIndex = context.read<MainPageCubit>().pageIndex;
         return Text(
-          pageIndex == 0
-              ? 'Home'
-              : pageIndex == 1
-                  ? 'Discover'
-                  : 'I dont know',
-          style: GoogleFonts.dmSans(fontSize: 12.sp),
-        );
+            pageIndex == 0
+                ? 'Home'
+                : pageIndex == 1
+                    ? 'Discover'
+                    : pageIndex == 2
+                        ? 'My Orders'
+                        : 'profile',
+            style: TextStyle(
+                fontFamily: 'DM Sans',
+                fontSize: MediaQuery.of(context).textScaleFactor * 30));
       },
     ),
   );

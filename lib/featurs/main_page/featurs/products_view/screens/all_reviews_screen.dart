@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/core/constant.dart';
 import 'package:sizer_pro/sizer.dart';
 
-import '../../../../../core/data_base.dart';
 import '../models/review_model.dart';
 import '../widgets/product_view_widgets.dart';
 
@@ -90,7 +90,7 @@ class AllReviewsScreen extends StatelessWidget {
   }
 
   String getOffsetDate(String date) {
-    DateTime dateTime = MyDataBase.stringToDate(date);
+    DateTime dateTime = Constant.stringToDate(date);
     DateTime currentDatetime = DateTime.now();
     if (dateTime.year != currentDatetime.year) {
       return '${currentDatetime.year - dateTime.year} year ago';

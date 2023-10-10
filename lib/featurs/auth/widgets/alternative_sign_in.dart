@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer_pro/sizer.dart';
 
 import '../blocs/auth_blocs.dart';
@@ -29,7 +28,8 @@ class AlternativeSignIn extends StatelessWidget {
                   child: Center(
                       child: Text(
                     'Or sign In with',
-                    style: GoogleFonts.dmSans(
+                    style: TextStyle(
+                      fontFamily: 'DM Sans',
                       color: Colors.black.withOpacity(0.6),
                       fontSize: 5.sp,
                     ),
@@ -44,11 +44,15 @@ class AlternativeSignIn extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SocialButton(onTap: () {}, imageUrl: 'assets/images/linkedin_logo.png'),
+                    SocialButton(
+                        onTap: () {},
+                        imageUrl: 'assets/images/linkedin_logo.png'),
                     SocialButton(
                         onTap: () {},
                         imageUrl: 'assets/images/google_logo.png'),
-                    SocialButton(onTap: () {}, imageUrl: 'assets/images/facebook_logo.png'),
+                    SocialButton(
+                        onTap: () {},
+                        imageUrl: 'assets/images/facebook_logo.png'),
                   ],
                 ),
               ),
