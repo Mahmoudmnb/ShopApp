@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../home/models/product_model.dart';
 import 'product_view_custom_button.dart';
@@ -9,20 +9,21 @@ class AddToCartBottomSheet extends StatelessWidget {
   final ProductModel product;
   final bool hidden;
   final double widthOfPrice;
-  const AddToCartBottomSheet(
-      {super.key,
-      required this.isDiscount,
-      required this.product,
-      required this.hidden,
-      required this.widthOfPrice});
+  const AddToCartBottomSheet({
+    super.key,
+    required this.isDiscount,
+    required this.product,
+    required this.hidden,
+    required this.widthOfPrice,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 15, top: 8, right: 15, left: 10),
+      padding: const EdgeInsets.only(bottom: 15, top: 8, right: 20, left: 20),
       color: Colors.white,
-      width: 100.w,
-      height: 10.h,
+      width: 393.w,
+      height: 85.h,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -42,18 +43,18 @@ class AddToCartBottomSheet extends StatelessWidget {
                             'Total Price',
                             style: TextStyle(
                                 color: const Color(0xFFAAAAAA),
-                                fontSize: 5.sp,
+                                fontSize: 10.sp,
                                 fontFamily: 'DM Mono',
                                 letterSpacing: 1.0,
                                 wordSpacing: 1),
                           ),
-                          SizedBox(height: 1.h),
+                          SizedBox(height: 8.5.h),
                           Text(
                             isDiscount
                                 ? '${(1 - product.disCount / 100) * product.price} \$'
                                 : product.price.toString(),
                             style: TextStyle(
-                              fontSize: 6.sp,
+                              fontSize: 18.sp,
                               fontFamily: 'DM Sans',
                               fontWeight: FontWeight.w700,
                               height: 1,
@@ -71,7 +72,7 @@ class AddToCartBottomSheet extends StatelessWidget {
                                 decorationColor:
                                     const Color(0xFF000000).withOpacity(.57),
                                 color: const Color(0xFFD47676),
-                                fontSize: 14,
+                                fontSize: 12.sp,
                                 fontFamily: 'DM Sans',
                                 fontWeight: FontWeight.w700,
                                 height: 1,
@@ -80,7 +81,7 @@ class AddToCartBottomSheet extends StatelessWidget {
                     ],
                   ),
           ]),
-          SizedBox(width: hidden ? 0 : 3.w),
+          SizedBox(width: hidden ? 0 : 11.w),
           Expanded(
             child: ProductViewCustomButton(
               child: Row(
@@ -88,12 +89,12 @@ class AddToCartBottomSheet extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Image(image: AssetImage('assets/images/icon.png')),
-                  SizedBox(width: 2.w),
+                  SizedBox(width: 7.5.w),
                   Text(
                     'Add to cart',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 5.sp,
+                      fontSize: 6.sp,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w600,
                       height: 1,

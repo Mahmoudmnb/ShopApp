@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shop_app/core/constant.dart';
 import 'package:shop_app/featurs/auth/blocs/auth_blocs.dart';
-import 'package:sizer_pro/sizer.dart';
 
 class AuthCustomButton extends StatelessWidget {
   const AuthCustomButton(
@@ -17,20 +17,21 @@ class AuthCustomButton extends StatelessWidget {
           duration: Constant.duration,
           width: state is IsLoading
               ? state.isLoading
-                  ? 9.h
-                  : 40.w
-              : 40.w,
-          height: 6.h,
+                  ? 76.h
+                  : 156.w
+              : 156.w,
+          height: 51.h,
           child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF252525),
-              ),
-              onPressed: state is IsLoading
-                  ? state.isLoading
-                      ? null
-                      : onPressed
-                  : onPressed,
-              child: text),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF252525),
+            ),
+            onPressed: state is IsLoading
+                ? state.isLoading
+                    ? null
+                    : onPressed
+                : onPressed,
+            child: text,
+          ),
         );
       },
     );

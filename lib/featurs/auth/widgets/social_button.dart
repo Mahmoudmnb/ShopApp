@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SocialButton extends StatelessWidget {
   const SocialButton({super.key, required this.onTap, required this.imageUrl});
@@ -37,7 +37,7 @@ class SocialButton extends StatelessWidget {
           // }
         },
         child: Padding(
-          padding: EdgeInsets.only(left: 8.w, right: 8.w),
+          padding: EdgeInsets.only(left: 40.w, right: 40.w),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(100),
             child: Image.asset(

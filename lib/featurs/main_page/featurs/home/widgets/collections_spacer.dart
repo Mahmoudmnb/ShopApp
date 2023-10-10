@@ -4,8 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CollectionsSpacer extends StatelessWidget {
   final String collectoinTitle;
   final Function() onTap;
-  const CollectionsSpacer(
-      {super.key, required this.onTap, required this.collectoinTitle});
+  const CollectionsSpacer({
+    super.key,
+    required this.onTap,
+    required this.collectoinTitle,
+  });
 
   @override
   Widget build(BuildContext context) {

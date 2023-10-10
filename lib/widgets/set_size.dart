@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../cubits/product_screen/cubit.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:shop_app/cubits/product_screen/cubit.dart';
 
 class SetSize extends StatelessWidget {
   const SetSize({super.key, required this.sizes});
@@ -46,7 +43,7 @@ class SetSize extends StatelessWidget {
               ),
             ),
           ),
-          separatorBuilder: (context, index) =>  SizedBox(width: 15.w),
+          separatorBuilder: (context, index) => const SizedBox(width: 15),
           itemCount: sizes.length,
         );
       },
