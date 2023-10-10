@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sanadprojecttest/Elegance/orders/cubit/orders_cubit.dart';
 import 'package:sanadprojecttest/Elegance/orders/widgets/order_card.dart';
-import 'package:sizer_pro/sizer.dart';
 
 import '../model/card_model.dart';
-
 
 class MyOrders extends StatelessWidget {
   const MyOrders({super.key});
   @override
   Widget build(BuildContext context) {
-    List <CardModel> Pending = [
+    List<CardModel> Pending = [
       CardModel(
           KingOfOrder: 'Pending',
           Quantity: 2,
@@ -72,18 +71,17 @@ class MyOrders extends StatelessWidget {
           dueDate: DateTime(2023, 9, 20)),
     ];
     return BlocConsumer<OrdersCubit, OrdersState>(
-      listener: (context, state) {
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         var cubit = OrdersCubit.get(context);
         return Scaffold(
           body: Column(
             children: [
               SizedBox(
-                height: 2.h,
+                height: 18.h,
               ),
               Container(
-                margin: EdgeInsets.symmetric(vertical: 2.h),
+                margin: EdgeInsets.symmetric(vertical: 15.h),
                 child: Row(
                   children: [
                     GestureDetector(
@@ -91,7 +89,7 @@ class MyOrders extends StatelessWidget {
                         margin: const EdgeInsets.all(8),
                         child: Icon(
                           Icons.menu,
-                          size: 7.w,
+                          size: 25.w,
                         ),
                       ),
                     ),
@@ -100,7 +98,7 @@ class MyOrders extends StatelessWidget {
                         margin: const EdgeInsets.all(8),
                         child: Icon(
                           Icons.shopping_cart_outlined,
-                          size: 8.w,
+                          size: 25.w,
                         ),
                       ),
                     ),
@@ -108,10 +106,10 @@ class MyOrders extends StatelessWidget {
                         child: Text(
                       "My Orders",
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 12.sp),
+                      style: TextStyle(fontSize: 18.sp),
                     )),
                     SizedBox(
-                      width: 10.w,
+                      width: 40.w,
                     ),
                     GestureDetector(
                       child: Container(
@@ -122,12 +120,12 @@ class MyOrders extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 6.w),
+                padding: EdgeInsets.symmetric(horizontal: 30.w),
                 child: Column(
                   children: [
                     const Divider(),
                     SizedBox(
-                      height: 1.h,
+                      height: 8.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -137,8 +135,8 @@ class MyOrders extends StatelessWidget {
                             cubit.changeKingOfOrder('Pending');
                           },
                           child: Container(
-                            padding: EdgeInsets.only(bottom: 1.h),
-                            width: 44.w,
+                            padding: EdgeInsets.only(bottom: 8.h),
+                            width: 150.w,
                             decoration: BoxDecoration(
                                 border: cubit.kindOfOrder == "Pending"
                                     ? const Border(
@@ -150,7 +148,7 @@ class MyOrders extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: "DM Sans",
-                                  fontSize: 10.sp,
+                                  fontSize: 18.sp,
                                   color: cubit.kindOfOrder == "Pending"
                                       ? const Color(0xFF3D3D3D)
                                       : const Color(0xFF9B9B9B),
@@ -168,8 +166,8 @@ class MyOrders extends StatelessWidget {
                             cubit.changeKingOfOrder('Delivered');
                           },
                           child: Container(
-                            padding: EdgeInsets.only(bottom: 1.h),
-                            width: 44.w,
+                            padding: EdgeInsets.only(bottom: 8.h),
+                            width: 150.w,
                             decoration: BoxDecoration(
                                 border: cubit.kindOfOrder == "Delivered"
                                     ? const Border(
@@ -181,7 +179,7 @@ class MyOrders extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: "DM Sans",
-                                  fontSize: 10.sp,
+                                  fontSize: 18.sp,
                                   color: cubit.kindOfOrder == "Delivered"
                                       ? const Color(0xFF3D3D3D)
                                       : const Color(0xFF9B9B9B),
@@ -201,10 +199,10 @@ class MyOrders extends StatelessWidget {
               ),
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 6.w),
+                  padding: EdgeInsets.symmetric(horizontal: 25.w),
                   child: ListView.separated(
                     separatorBuilder: (context, index) => SizedBox(
-                      height: 2.h,
+                      height: 15.h,
                     ),
                     // shrinkWrap: true,
                     itemCount: cubit.kindOfOrder == "Pending"

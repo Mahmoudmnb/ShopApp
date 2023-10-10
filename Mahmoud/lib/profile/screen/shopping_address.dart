@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sanadprojecttest/profile/model/shopping_address_model.dart';
 import 'package:sanadprojecttest/profile/widgets/shopping_address_card.dart';
-import 'package:sizer_pro/sizer.dart';
 
 class ShoppingAddress extends StatelessWidget {
   ShoppingAddress({super.key});
@@ -15,7 +15,7 @@ class ShoppingAddress extends StatelessWidget {
     ];
     return Scaffold(
         body: Container(
-            padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 10.h),
+            padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 60.h),
             child: Column(
               children: [
                 Row(
@@ -25,22 +25,22 @@ class ShoppingAddress extends StatelessWidget {
                           Navigator.of(context).pop();
                         },
                         child: Image(
-                          height: 11.w,
-                          width: 11.w,
+                          height: 40.w,
+                          width: 40.w,
                           image: const AssetImage("assets/images/backicon.png"),
                         )),
                     SizedBox(
-                      width: 2.w,
+                      width: 8.w,
                     ),
                     Text(
                       "Shopping Address",
                       style:
-                          TextStyle(fontSize: 10.sp, fontFamily: 'Tenor Sans'),
+                          TextStyle(fontSize: 16.sp, fontFamily: 'Tenor Sans'),
                     )
                   ],
                 ),
                 SizedBox(
-                  height: 5.h,
+                  height: 40.h,
                 ),
                 Expanded(
                   child: ListView.separated(
@@ -58,7 +58,7 @@ class ShoppingAddress extends StatelessWidget {
                 ),
                 Container(
                   width: double.infinity,
-                  padding: EdgeInsets.symmetric(vertical: 1.6.h),
+                  padding: EdgeInsets.symmetric(vertical: 13.h),
                   decoration: BoxDecoration(
                       color: Colors.black,
                       borderRadius: BorderRadius.circular(10)),
@@ -69,11 +69,11 @@ class ShoppingAddress extends StatelessWidget {
                         color: Colors.white,
                         fontFamily: 'DM Sans',
                         fontWeight: FontWeight.bold,
-                        fontSize: 8.sp),
+                        fontSize: 16.sp),
                   ),
                 ),
                 SizedBox(
-                  height: 4.h,
+                  height: 16.h,
                 )
               ],
             )));

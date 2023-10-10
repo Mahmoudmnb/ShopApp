@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sanadprojecttest/check_out/cubit/check_out_cubit.dart';
-import 'package:sizer_pro/sizer.dart';
 
 class CheckOutAddressCard extends StatelessWidget {
   final String title;
@@ -25,15 +25,15 @@ class CheckOutAddressCard extends StatelessWidget {
                 color: Colors.black.withOpacity(0.04))
           ], color: Colors.white, borderRadius: BorderRadius.circular(5)),
           child: MaterialButton(
-            padding:
-                EdgeInsets.only(left: 2.w, top: 1.h, right: 4.w, bottom: 2.h),
+            padding: EdgeInsets.only(
+                left: 10.w, top: 8.h, right: 20.w, bottom: 16.h),
             onPressed: () {
               cubit.changeAddress(title);
             },
             child: Row(
               children: [
                 Container(
-                  padding: EdgeInsets.only(bottom: 2.h),
+                  padding: EdgeInsets.only(bottom: 15.h),
                   child: Radio(
                       activeColor: Colors.black,
                       value: title,
@@ -47,23 +47,22 @@ class CheckOutAddressCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 1.h,
+                      height: 8.h,
                     ),
                     Text(
                       title,
                       style: TextStyle(
-                          fontSize: 8.sp,
+                          fontSize: 17.sp,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'DM Sans'),
                     ),
                     SizedBox(
-                      height: .5.h,
+                      height: 4.h,
                     ),
                     Text(
                       description,
                       style: const TextStyle(
-                          color: Color(0xFF828282),
-                          fontFamily: 'Tenor Sans'),
+                          color: Color(0xFF828282), fontFamily: 'Tenor Sans'),
                     ),
                   ],
                 ),

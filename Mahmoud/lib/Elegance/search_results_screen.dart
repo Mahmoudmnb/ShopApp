@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sanadprojecttest/Elegance/end_drawer.dart';
-import 'package:sizer_pro/sizer.dart';
 
 import 'cubit/sreach_cubit.dart';
 

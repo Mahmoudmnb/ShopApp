@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sanadprojecttest/check_out/screens/first_step.dart';
-import 'package:sizer_pro/sizer.dart';
 
 import '../widget/point.dart';
 
@@ -11,7 +11,7 @@ class CheckOutScreen3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 10.h),
+        padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 60.h),
         child: Column(children: [
           Row(
             children: [
@@ -20,30 +20,30 @@ class CheckOutScreen3 extends StatelessWidget {
                     Navigator.of(context).pop();
                   },
                   child: Image(
-                    height: 11.w,
-                    width: 11.w,
+                    height: 40.w,
+                    width: 40.w,
                     image: const AssetImage("assets/images/backicon.png"),
                   )),
               SizedBox(
-                width: 2.w,
+                width: 10.w,
               ),
               Text(
                 "Check out",
-                style: TextStyle(fontSize: 10.sp, fontFamily: 'Tenor Sans'),
+                style: TextStyle(fontSize: 18.sp, fontFamily: 'Tenor Sans'),
               )
             ],
           ),
           SizedBox(
-            height: 2.h,
+            height: 15.h,
           ),
           Row(
             children: [
               const Spacer(),
               Image(
-                  height: 3.h,
+                  height: 24.h,
                   image: const AssetImage('assets/images/location.png')),
               SizedBox(
-                width: 2.w,
+                width: 10.w,
               ),
               const Point(),
               const Point(),
@@ -51,13 +51,13 @@ class CheckOutScreen3 extends StatelessWidget {
               const Point(),
               const Point(),
               SizedBox(
-                width: 2.w,
+                width: 10.w,
               ),
               Image(
-                  height: 2.h,
+                  height: 18.h,
                   image: const AssetImage('assets/images/card.png')),
               SizedBox(
-                width: 2.w,
+                width: 10.w,
               ),
               const Point(),
               const Point(),
@@ -65,32 +65,32 @@ class CheckOutScreen3 extends StatelessWidget {
               const Point(),
               const Point(),
               SizedBox(
-                width: 2.w,
+                width: 10.w,
               ),
               Image(
-                  height: 3.h,
+                  height: 24.h,
                   image: const AssetImage('assets/images/check_out.png')),
               const Spacer(),
             ],
           ),
           SizedBox(
-            height: 5.h,
+            height: 40.h,
           ),
           Text(
             "Order Completed",
             style: TextStyle(
                 fontFamily: "DM Sans",
                 fontWeight: FontWeight.w600,
-                fontSize: 10.sp),
+                fontSize: 18.sp),
           ),
           SizedBox(
-            height: 5.h,
+            height: 40.h,
           ),
           Image(
-              height: 15.h,
+              height: 120.h,
               image: AssetImage('assets/images/check-circle.png')),
           SizedBox(
-            height: 10.h,
+            height: 80.h,
           ),
           const Text(
             "Thank you for your purchase.",
@@ -110,10 +110,10 @@ class CheckOutScreen3 extends StatelessWidget {
                   (route) => false);
             },
             child: Container(
-              margin: EdgeInsets.symmetric(vertical: 3.h, horizontal: 5.w),
+              margin: EdgeInsets.symmetric(vertical: 24.h, horizontal: 25.w),
               width: double.infinity,
               padding: EdgeInsets.symmetric(
-                vertical: 1.6.h,
+                vertical: 13.h,
               ),
               decoration: BoxDecoration(
                   color: Colors.black, borderRadius: BorderRadius.circular(10)),
@@ -124,7 +124,7 @@ class CheckOutScreen3 extends StatelessWidget {
                     color: Colors.white,
                     fontFamily: 'DM Sans',
                     fontWeight: FontWeight.bold,
-                    fontSize: 8.sp),
+                    fontSize: 16.sp),
               ),
             ),
           ),

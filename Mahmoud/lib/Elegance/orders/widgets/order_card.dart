@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sanadprojecttest/Elegance/orders/model/card_model.dart';
-import 'package:sizer_pro/sizer.dart';
 
 class BuildOrderCard extends StatelessWidget {
   final CardModel card;
@@ -10,7 +10,7 @@ class BuildOrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 15.h),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
@@ -35,7 +35,7 @@ class BuildOrderCard extends StatelessWidget {
               ]),
         ),
         SizedBox(
-          height: 1.h,
+          height: 8.h,
         ),
         Row(
           children: [
@@ -47,21 +47,21 @@ class BuildOrderCard extends StatelessWidget {
                     "Order date",
                     style: TextStyle(
                         fontFamily: 'Tenor Sans',
-                        color: Color(0xFF828282),
-                        fontSize: 5.5.sp),
+                        color: const Color(0xFF828282),
+                        fontSize: 13.sp),
                   ),
                   SizedBox(
-                    width: 2.w,
+                    width: 8.w,
                   ),
                   Text(
                     "${card.orderDate.day}/${card.orderDate.month}/${card.orderDate.year}",
-                    style: TextStyle(color: Colors.black, fontSize: 5.sp),
+                    style: TextStyle(color: Colors.black, fontSize: 13.sp),
                   ),
                 ],
               ),
             ),
             SizedBox(
-              width: 2.w,
+              width: 8.w,
             ),
             Expanded(
               // flex: 4,
@@ -72,14 +72,14 @@ class BuildOrderCard extends StatelessWidget {
                     style: TextStyle(
                         fontFamily: 'Tenor Sans',
                         color: const Color(0xFF828282),
-                        fontSize: 5.5.sp),
+                        fontSize: 13.sp),
                   ),
                   SizedBox(
-                    width: 2.w,
+                    width: 8.w,
                   ),
                   Text(
                     "${card.dueDate.day}/${card.dueDate.month}/${card.dueDate.year}",
-                    style: TextStyle(color: Colors.black, fontSize: 5.sp),
+                    style: TextStyle(color: Colors.black, fontSize: 13.sp),
                   ),
                 ],
               ),
@@ -87,7 +87,7 @@ class BuildOrderCard extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 1.h,
+          height: 8.h,
         ),
         Row(
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -102,7 +102,7 @@ class BuildOrderCard extends StatelessWidget {
                         fontFamily: 'Tenor Sans', color: Color(0xFF828282)),
                   ),
                   SizedBox(
-                    width: 2.w,
+                    width: 8.w,
                   ),
                   Text(
                     "${card.Quantity}",
@@ -113,7 +113,7 @@ class BuildOrderCard extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: 2.w,
+              width: 8.w,
             ),
             Expanded(
               // flex: 4,
@@ -125,7 +125,7 @@ class BuildOrderCard extends StatelessWidget {
                         fontFamily: 'Tenor Sans', color: Color(0xFF828282)),
                   ),
                   SizedBox(
-                    width: 2.w,
+                    width: 8.w,
                   ),
                   Text(
                     "${card.Subtotal}\$",
@@ -138,7 +138,7 @@ class BuildOrderCard extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 1.h,
+          height: 8.h,
         ),
         Row(
           children: [
@@ -148,7 +148,7 @@ class BuildOrderCard extends StatelessWidget {
                   TextStyle(fontFamily: 'Tenor Sans', color: Color(0xFF828282)),
             ),
             SizedBox(
-              width: 2.w,
+              width: 8.w,
             ),
             Text(
               card.TrackingNumber,
@@ -158,7 +158,7 @@ class BuildOrderCard extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 1.h,
+          height: 8.h,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -168,18 +168,18 @@ class BuildOrderCard extends StatelessWidget {
               style: TextStyle(
                   fontFamily: 'Tenor Sans',
                   color: card.KingOfOrder == "Pending"
-                      ?const Color(0xFFD57676)
-                      :const Color(0xFF76D5AD),
-                  fontSize: 8.sp),
+                      ? const Color(0xFFD57676)
+                      : const Color(0xFF76D5AD),
+                  fontSize: 15.sp),
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 4),
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(4),
                   boxShadow: [
                     BoxShadow(
-                        offset: Offset(0, 4),
+                        offset: const Offset(0, 4),
                         blurRadius: 4,
                         color: Colors.black.withOpacity(.25))
                   ],

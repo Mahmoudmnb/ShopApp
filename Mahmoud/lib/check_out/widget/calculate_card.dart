@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CalculateCard extends StatelessWidget {
   const CalculateCard({super.key});
@@ -16,13 +16,13 @@ class CalculateCard extends StatelessWidget {
       ]),
       child: Column(children: [
         Container(
-          padding: EdgeInsets.symmetric(vertical: 1.h),
+          padding: EdgeInsets.symmetric(vertical: 8.h),
           child: Row(
             children: [
               SizedBox(
-                width: 8.w,
+                width: 40.w,
               ),
-                const Text(
+              const Text(
                 "Product Price",
                 style:
                     TextStyle(color: Color(0xFFAAAAAA), fontFamily: 'DM Sans'),
@@ -30,7 +30,7 @@ class CalculateCard extends StatelessWidget {
               const Spacer(),
               const Text('\$100'),
               SizedBox(
-                width: 8.w,
+                width: 40.w,
               ),
             ],
           ),
@@ -39,11 +39,11 @@ class CalculateCard extends StatelessWidget {
           color: Color(0xFFE8E8E8),
         ),
         Container(
-          padding: EdgeInsets.symmetric(vertical: 1.h),
+          padding: EdgeInsets.symmetric(vertical: 8.h),
           child: Row(
             children: [
               SizedBox(
-                width: 8.w,
+                width: 40.w,
               ),
               const Text(
                 "Shopping",
@@ -53,7 +53,7 @@ class CalculateCard extends StatelessWidget {
               const Spacer(),
               const Text('\$10'),
               SizedBox(
-                width: 8.w,
+                width: 40.w,
               ),
             ],
           ),
@@ -62,11 +62,11 @@ class CalculateCard extends StatelessWidget {
           color: Color(0xFFE8E8E8),
         ),
         Container(
-          padding: EdgeInsets.symmetric(vertical: 1.h),
+          padding: EdgeInsets.symmetric(vertical: 8.h),
           child: Row(
             children: [
               SizedBox(
-                width: 8.w,
+                width: 40.w,
               ),
               const Text(
                 "Subtotal",
@@ -75,7 +75,7 @@ class CalculateCard extends StatelessWidget {
               const Spacer(),
               const Text('\$110'),
               SizedBox(
-                width: 8.w,
+                width: 40.w,
               ),
             ],
           ),

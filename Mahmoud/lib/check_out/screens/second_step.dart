@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sanadprojecttest/check_out/cubit/check_out_cubit.dart';
 import 'package:sanadprojecttest/check_out/screens/third_step.dart';
 import 'package:sanadprojecttest/check_out/widget/calculate_card.dart';
 import 'package:sanadprojecttest/check_out/widget/payment_method_card.dart';
 import 'package:sanadprojecttest/check_out/widget/point.dart';
-import 'package:sizer_pro/sizer.dart';
 
 class CheckOutScreen2 extends StatelessWidget {
   const CheckOutScreen2({super.key});
@@ -19,7 +19,7 @@ class CheckOutScreen2 extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 10.h),
+              padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 60.h),
               child: Column(children: [
                 Row(
                   children: [
@@ -28,31 +28,31 @@ class CheckOutScreen2 extends StatelessWidget {
                           Navigator.of(context).pop();
                         },
                         child: Image(
-                          height: 11.w,
-                          width: 11.w,
+                          height: 40.w,
+                          width: 40.w,
                           image: const AssetImage("assets/images/backicon.png"),
                         )),
                     SizedBox(
-                      width: 2.w,
+                      width: 10.w,
                     ),
                     Text(
                       "Check out",
                       style:
-                          TextStyle(fontSize: 10.sp, fontFamily: 'Tenor Sans'),
+                          TextStyle(fontSize: 18.sp, fontFamily: 'Tenor Sans'),
                     )
                   ],
                 ),
                 SizedBox(
-                  height: 2.h,
+                  height: 15.h,
                 ),
                 Row(
                   children: [
                     const Spacer(),
                     Image(
-                        height: 3.h,
+                        height: 24.h,
                         image: const AssetImage('assets/images/location.png')),
                     SizedBox(
-                      width: 2.w,
+                      width: 10.w,
                     ),
                     const Point(),
                     const Point(),
@@ -60,13 +60,13 @@ class CheckOutScreen2 extends StatelessWidget {
                     const Point(),
                     const Point(),
                     SizedBox(
-                      width: 2.w,
+                      width: 10.w,
                     ),
                     Image(
-                        height: 2.h,
+                        height: 18.h,
                         image: const AssetImage('assets/images/card.png')),
                     SizedBox(
-                      width: 2.w,
+                      width: 10.w,
                     ),
                     const Point(),
                     const Point(),
@@ -74,23 +74,23 @@ class CheckOutScreen2 extends StatelessWidget {
                     const Point(),
                     const Point(),
                     SizedBox(
-                      width: 2.w,
+                      width: 10.w,
                     ),
                     Image(
-                        height: 3.h,
+                        height: 25.h,
                         image: const AssetImage(
                             'assets/images/grey_check_out.png')),
                     const Spacer(),
                   ],
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 2.h),
+                  margin: EdgeInsets.only(top: 15.h),
                   width: double.infinity,
                   child: Text(
                     "Payment",
                     style: TextStyle(
                         color: const Color(0xFF939393),
-                        fontSize: 10.sp,
+                        fontSize: 18.sp,
                         fontFamily: 'DM Sans'),
                   ),
                 ),
@@ -98,7 +98,7 @@ class CheckOutScreen2 extends StatelessWidget {
                   shrinkWrap: true,
                   physics: const BouncingScrollPhysics(),
                   separatorBuilder: (context, index) => SizedBox(
-                    height: 2.h,
+                    height: 15.h,
                   ),
                   itemCount: Payment.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -109,8 +109,8 @@ class CheckOutScreen2 extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.only(
-                      left: 2.w, top: 2.h, right: 4.w, bottom: 2.h),
-                  margin: EdgeInsets.symmetric(vertical: 2.h),
+                      left: 10.w, top: 15.h, right: 20.w, bottom: 15.h),
+                  margin: EdgeInsets.symmetric(vertical: 15.h),
                   width: double.infinity,
                   decoration: BoxDecoration(
                       boxShadow: [
@@ -125,7 +125,7 @@ class CheckOutScreen2 extends StatelessWidget {
                     "   +  Add Card",
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                        fontSize: 8.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
                         fontFamily: 'DM Sans'),
                   ),
@@ -133,11 +133,11 @@ class CheckOutScreen2 extends StatelessWidget {
               ]),
             ),
             SizedBox(
-              height: 1.h,
+              height: 8.h,
             ),
             CalculateCard(),
             SizedBox(
-              height: 2.h,
+              height: 15.h,
             ),
             BlocConsumer<CheckOutCubit, CheckOutState>(
               listener: (context, state) {
@@ -148,10 +148,10 @@ class CheckOutScreen2 extends StatelessWidget {
                 return Row(
                   children: [
                     SizedBox(
-                      width: 10.w,
+                      width: 50.w,
                     ),
                     Checkbox(
-                        activeColor: Color(0xFF5ECE7B),
+                        activeColor: const Color(0xFF5ECE7B),
                         value: cubit.agree,
                         onChanged: (value) {
                           cubit.changeAgree(value!);
@@ -170,14 +170,14 @@ class CheckOutScreen2 extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => CheckOutScreen3(),
+                  builder: (context) => const CheckOutScreen3(),
                 ));
               },
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: 3.h, horizontal: 5.w),
+                margin: EdgeInsets.symmetric(vertical: 24.h, horizontal: 25.w),
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(
-                  vertical: 1.6.h,
+                  vertical: 13.h,
                 ),
                 decoration: BoxDecoration(
                     color: Colors.black,
@@ -189,7 +189,7 @@ class CheckOutScreen2 extends StatelessWidget {
                       color: Colors.white,
                       fontFamily: 'DM Sans',
                       fontWeight: FontWeight.bold,
-                      fontSize: 8.sp),
+                      fontSize: 16.sp),
                 ),
               ),
             ),

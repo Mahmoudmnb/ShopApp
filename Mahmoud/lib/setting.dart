@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Setting extends StatelessWidget {
   const Setting({super.key});
@@ -8,7 +8,7 @@ class Setting extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 10.h),
+        padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 60.h),
         child: Column(children: [
           Row(
             children: [
@@ -17,21 +17,21 @@ class Setting extends StatelessWidget {
                     Navigator.of(context).pop();
                   },
                   child: Image(
-                    height: 11.w,
-                    width: 11.w,
+                    height: 40.w,
+                    width: 40.w,
                     image: const AssetImage("assets/images/backicon.png"),
                   )),
               SizedBox(
-                width: 2.w,
+                width: 10.w,
               ),
               Text(
                 "Setting",
-                style: TextStyle(fontSize: 10.sp, fontFamily: 'Tenor Sans'),
+                style: TextStyle(fontSize: 18.sp, fontFamily: 'Tenor Sans'),
               )
             ],
           ),
           SizedBox(
-            height: 4.h,
+            height: 30.h,
           ),
           buildListTile(
               title: 'Language',
@@ -57,16 +57,16 @@ class Setting extends StatelessWidget {
   Widget buildListTile(
       {required String title, required String url, required Function ontap}) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 3.h),
+      padding: EdgeInsets.symmetric(vertical: 20.h),
       child: Row(
         children: [
-          Image(height: 4.h, width: 4.h, image: AssetImage(url)),
+          Image(height: 30.h, width: 30.h, image: AssetImage(url)),
           Container(
-            padding: EdgeInsets.only(left: 5.w),
+            padding: EdgeInsets.only(left: 15.w),
             child: Text(
               title,
               style: TextStyle(
-                  fontSize: 7.sp,
+                  fontSize: 15.sp,
                   fontFamily: 'DM Sans',
                   fontWeight: FontWeight.bold),
             ),

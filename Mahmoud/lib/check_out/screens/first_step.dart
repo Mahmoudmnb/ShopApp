@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sanadprojecttest/check_out/screens/second_step.dart';
 import 'package:sanadprojecttest/check_out/widget/check_out_address.dart';
 import 'package:sanadprojecttest/check_out/widget/check_out_method.dart';
 import 'package:sanadprojecttest/check_out/widget/code_textfild.dart';
 import 'package:sanadprojecttest/check_out/widget/point.dart';
 import 'package:sanadprojecttest/profile/model/shopping_address_model.dart';
-import 'package:sizer_pro/sizer.dart';
 
 class CheckOutScreen1 extends StatelessWidget {
   const CheckOutScreen1({super.key});
@@ -21,7 +21,7 @@ class CheckOutScreen1 extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 10.h),
+          padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 60.h),
           child: Column(children: [
             Row(
               children: [
@@ -30,30 +30,30 @@ class CheckOutScreen1 extends StatelessWidget {
                       Navigator.of(context).pop();
                     },
                     child: Image(
-                      height: 11.w,
-                      width: 11.w,
+                      height: 40.w,
+                      width: 40.w,
                       image: const AssetImage("assets/images/backicon.png"),
                     )),
                 SizedBox(
-                  width: 2.w,
+                  width: 10.w,
                 ),
                 Text(
                   "Check out",
-                  style: TextStyle(fontSize: 10.sp, fontFamily: 'Tenor Sans'),
+                  style: TextStyle(fontSize: 18.sp, fontFamily: 'Tenor Sans'),
                 )
               ],
             ),
             SizedBox(
-              height: 2.h,
+              height: 20.h,
             ),
             Row(
               children: [
                 const Spacer(),
                 Image(
-                    height: 3.h,
+                    height: 25.h,
                     image: const AssetImage('assets/images/location.png')),
                 SizedBox(
-                  width: 2.w,
+                  width: 10.w,
                 ),
                 const Point(),
                 const Point(),
@@ -61,13 +61,13 @@ class CheckOutScreen1 extends StatelessWidget {
                 const Point(),
                 const Point(),
                 SizedBox(
-                  width: 2.w,
+                  width: 10.w,
                 ),
                 Image(
-                    height: 3.h,
+                    height: 25.h,
                     image: const AssetImage('assets/images/greycard.png')),
                 SizedBox(
-                  width: 2.w,
+                  width: 10.w,
                 ),
                 const Point(),
                 const Point(),
@@ -75,23 +75,23 @@ class CheckOutScreen1 extends StatelessWidget {
                 const Point(),
                 const Point(),
                 SizedBox(
-                  width: 2.w,
+                  width: 10.w,
                 ),
                 Image(
-                    height: 3.h,
+                    height: 25.h,
                     image:
                         const AssetImage('assets/images/grey_check_out.png')),
                 const Spacer(),
               ],
             ),
             Container(
-              margin: EdgeInsets.only(top: 2.h),
+              margin: EdgeInsets.only(top: 15.h),
               width: double.infinity,
               child: Text(
                 "Shopping Address",
                 style: TextStyle(
                     color: const Color(0xFF939393),
-                    fontSize: 10.sp,
+                    fontSize: 18.sp,
                     fontFamily: 'DM Sans'),
               ),
             ),
@@ -99,7 +99,7 @@ class CheckOutScreen1 extends StatelessWidget {
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
               separatorBuilder: (context, index) => SizedBox(
-                height: 2.h,
+                height: 15.h,
               ),
               itemCount: addressInfo.length,
               itemBuilder: (BuildContext context, int index) {
@@ -112,8 +112,8 @@ class CheckOutScreen1 extends StatelessWidget {
               onTap: () {},
               child: Container(
                 width: double.infinity,
-                margin: EdgeInsets.symmetric(vertical: 2.h),
-                padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
+                margin: EdgeInsets.symmetric(vertical: 15.h),
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
                 decoration: BoxDecoration(boxShadow: [
                   BoxShadow(
                       offset: const Offset(0, 11),
@@ -123,7 +123,7 @@ class CheckOutScreen1 extends StatelessWidget {
                 child: Text(
                   " +  Add Another Address",
                   style: TextStyle(
-                    fontSize: 8.sp,
+                    fontSize: 16.sp,
                     fontFamily: 'DM Sans',
                     fontWeight: FontWeight.bold,
                   ),
@@ -131,13 +131,13 @@ class CheckOutScreen1 extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 2.h),
+              margin: EdgeInsets.only(top: 16.h),
               width: double.infinity,
               child: Text(
                 "Shopping Method",
                 style: TextStyle(
                     color: const Color(0xFF939393),
-                    fontSize: 10.sp,
+                    fontSize: 18.sp,
                     fontFamily: 'DM Sans'),
               ),
             ),
@@ -145,24 +145,24 @@ class CheckOutScreen1 extends StatelessWidget {
                 price: 'Free ',
                 title: "In store pick-up",
                 description: "Up until 30 days after placing order"),
-            SizedBox(height: 2.h),
+            SizedBox(height: 15.h),
             const CheckOutMethodCard(
                 price: '\$4.99',
                 title: "Standard delivery",
                 description: "Delivery by Mon, April 5th"),
-            SizedBox(height: 2.h),
+            SizedBox(height: 15.h),
             const CheckOutMethodCard(
                 price: '\$9.99',
                 title: "Express delivery",
                 description: "Same-day delivery"),
             Container(
-              margin: EdgeInsets.symmetric(vertical: 2.h),
+              margin: EdgeInsets.symmetric(vertical: 15.h),
               width: double.infinity,
               child: Text(
                 "Coupon Code",
                 style: TextStyle(
                     color: const Color(0xFF939393),
-                    fontSize: 10.sp,
+                    fontSize: 18.sp,
                     fontFamily: 'DM Sans'),
               ),
             ),
@@ -174,9 +174,9 @@ class CheckOutScreen1 extends StatelessWidget {
                 ));
               },
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: 3.h),
+                margin: EdgeInsets.symmetric(vertical: 24.h),
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(vertical: 1.6.h),
+                padding: EdgeInsets.symmetric(vertical: 13.h),
                 decoration: BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.circular(10)),
@@ -187,7 +187,7 @@ class CheckOutScreen1 extends StatelessWidget {
                       color: Colors.white,
                       fontFamily: 'DM Sans',
                       fontWeight: FontWeight.bold,
-                      fontSize: 8.sp),
+                      fontSize: 16.sp),
                 ),
               ),
             ),

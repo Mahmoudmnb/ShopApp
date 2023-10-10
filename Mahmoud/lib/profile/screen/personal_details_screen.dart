@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PersonalDetails extends StatefulWidget {
   PersonalDetails({super.key});
@@ -27,7 +27,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 10.h),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 60.h),
           child: Column(children: [
             Row(
               children: [
@@ -36,25 +36,25 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                       Navigator.of(context).pop();
                     },
                     child: Image(
-                      height: 11.w,
-                      width: 11.w,
+                      height: 40.w,
+                      width: 40.w,
                       image: const AssetImage("assets/images/backicon.png"),
                     )),
                 SizedBox(
-                  width: 2.w,
+                  width: 8.w,
                 ),
                 Text(
                   "Personal Details",
-                  style: TextStyle(fontSize: 10.sp, fontFamily: 'Tenor Sans'),
+                  style: TextStyle(fontSize: 18.sp, fontFamily: 'Tenor Sans'),
                 )
               ],
             ),
             SizedBox(
-              height: 4.h,
+              height: 16.h,
             ),
             Row(
               children: [
-                Spacer(),
+                const Spacer(),
                 Stack(
                   alignment: const Alignment(1.2, 1.2),
                   children: [
@@ -63,15 +63,15 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                           color: Colors.red,
                           borderRadius: BorderRadius.circular(12)),
                       child: Image(
-                          height: 16.h,
-                          width: 16.h,
+                          height: 130.h,
+                          width: 130.h,
                           image: const AssetImage(
                               'assets/images/profileimage.jpg')),
                     ),
                     Container(
-                      height: 6.h,
-                      width: 6.h,
-                      padding: EdgeInsets.only(top: 1.h),
+                      height: 40.h,
+                      width: 40.h,
+                      padding: EdgeInsets.only(top: 8.h),
                       decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
@@ -82,18 +82,16 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                           ],
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10)),
-                      child: Image(
-                          height: 6.h,
-                          width: 6.h,
+                      child: const Image(
                           image: AssetImage("assets/images/Pen.png")),
                     )
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
               ],
             ),
             SizedBox(
-              height: 10.h,
+              height: 80.h,
             ),
             const Row(
               children: [
@@ -115,7 +113,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
               children: [
                 Expanded(
                     child: Container(
-                  padding: EdgeInsets.only(right: 4.w),
+                  padding: EdgeInsets.only(right: 16.w),
                   child: TextField(
                     controller: FirstNameController,
                   ),
@@ -127,7 +125,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
               ],
             ),
             SizedBox(
-              height: 6.h,
+              height: 24.h,
             ),
             Container(
               width: double.infinity,
@@ -143,7 +141,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
               controller: EmailNameController,
             )),
             SizedBox(
-              height: 10.h,
+              height: 80.h,
             ),
             const Row(
               children: [
@@ -165,8 +163,8 @@ class _PersonalDetailsState extends State<PersonalDetails> {
               children: [
                 Expanded(
                     child: Container(
-                  padding: EdgeInsets.only(right: 4.w),
-                  child: TextField(),
+                  padding: EdgeInsets.only(right: 16.w),
+                  child: const TextField(),
                 )),
                 Expanded(
                     child: TextField(
@@ -178,11 +176,11 @@ class _PersonalDetailsState extends State<PersonalDetails> {
               ],
             ),
             SizedBox(
-              height: 10.h,
+              height: 80.h,
             ),
             Container(
               width: double.infinity,
-              padding: EdgeInsets.symmetric(vertical: 1.6.h),
+              padding: EdgeInsets.symmetric(vertical: 13.h),
               decoration: BoxDecoration(
                   color: Colors.black, borderRadius: BorderRadius.circular(10)),
               child: Text(
@@ -192,7 +190,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                     color: Colors.white,
                     fontFamily: 'DM Sans',
                     fontWeight: FontWeight.bold,
-                    fontSize: 8.sp),
+                    fontSize: 16.sp),
               ),
             ),
           ]),

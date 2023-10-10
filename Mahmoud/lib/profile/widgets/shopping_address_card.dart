@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sanadprojecttest/profile/cubit/profile_cubit.dart';
-import 'package:sizer_pro/sizer.dart';
 
 class ShoppingAddressCard extends StatelessWidget {
   final String title;
@@ -26,7 +26,7 @@ class ShoppingAddressCard extends StatelessWidget {
           ], color: Colors.white, borderRadius: BorderRadius.circular(5)),
           child: MaterialButton(
             padding:
-                EdgeInsets.only(left: 2.w, top: 1.h, right: 4.w, bottom: 2.h),
+                EdgeInsets.only(left: 8.w, top: 8.h, right: 16.w, bottom: 16.h),
             onPressed: () {
               cubit.changeAddress(title);
             },
@@ -37,7 +37,7 @@ class ShoppingAddressCard extends StatelessWidget {
                   Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.only(bottom: 2.h),
+                        padding: EdgeInsets.only(bottom: 16.h),
                         child: Radio(
                             activeColor: Colors.black,
                             value: title,
@@ -51,21 +51,21 @@ class ShoppingAddressCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: 1.h,
+                            height: 8.h,
                           ),
                           Text(
                             title,
                             style: TextStyle(
-                                fontSize: 8.sp,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'DM Sans'),
                           ),
                           SizedBox(
-                            height: .5.h,
+                            height: 4.h,
                           ),
                           Text(
                             description,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Color(0xFF828282),
                                 fontFamily: 'Tenor Sans'),
                           ),
@@ -74,20 +74,18 @@ class ShoppingAddressCard extends StatelessWidget {
                     ],
                   ),
                   GestureDetector(
-                    onTap: () {
-                      print("edit the $title");
-                    },
+                    onTap: () {},
                     child: Container(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 2.w, vertical: 2),
-                      margin: EdgeInsets.only(right: 2.w, top: 2.h),
+                          EdgeInsets.symmetric(horizontal: 8.w, vertical: 2),
+                      margin: EdgeInsets.only(right: 8.w, top: 16.h),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
                           border: Border.all(color: const Color(0xFFD57676))),
                       child: Text(
                         "Edit",
                         style: TextStyle(
-                            fontSize: 3.sp,
+                            fontSize: 8.sp,
                             fontFamily: 'Tenor Sans',
                             color: const Color(0xFFD57676)),
                       ),

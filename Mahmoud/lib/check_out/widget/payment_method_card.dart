@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sanadprojecttest/check_out/cubit/check_out_cubit.dart';
-import 'package:sizer_pro/sizer.dart';
 
 class PaymentMethodCard extends StatelessWidget {
   final String title;
@@ -24,7 +24,7 @@ class PaymentMethodCard extends StatelessWidget {
           ], color: Colors.white, borderRadius: BorderRadius.circular(5)),
           child: MaterialButton(
             padding:
-                EdgeInsets.only(left: 2.w, top: 1.h, right: 4.w, bottom: 1.h),
+                EdgeInsets.only(left: 10.w, top: 8.h, right: 20.w, bottom: 8.h),
             onPressed: () {
               cubit.changeAddress(title);
             },
@@ -40,7 +40,7 @@ class PaymentMethodCard extends StatelessWidget {
                 Text(
                   title,
                   style: TextStyle(
-                      fontSize: 8.sp,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'DM Sans'),
                 ),

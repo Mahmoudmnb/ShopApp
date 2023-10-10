@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sanadprojecttest/Elegance/cubit/sreach_cubit.dart';
-import 'package:sizer_pro/sizer.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class EndDrawer extends StatelessWidget {
@@ -47,11 +47,11 @@ class EndDrawer extends StatelessWidget {
                   children: [
                     Text(
                       "Filter",
-                      style: TextStyle(fontSize: 12.sp),
+                      style: TextStyle(fontSize: 20.sp),
                     ),
                     Image(
                       image: const AssetImage('assets/images/Filter_big.png'),
-                      height: 8.w,
+                      height: 24.w,
                     )
                   ],
                 ),
@@ -68,14 +68,14 @@ class EndDrawer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 2.h,
+                        height: 16.h,
                       ),
                       Text(
                         "Category",
                         style: TextStyle(
-                            color: const Color(0xFF7E7E7E), fontSize: 6.sp),
+                            color: const Color(0xFF7E7E7E), fontSize: 13.sp),
                       ),
-                      sb(height: 2.h),
+                      sb(height: 16.h),
                       Container(
                         width: double.infinity,
                         padding: const EdgeInsets.only(left: 10, right: 10),
@@ -138,7 +138,7 @@ class EndDrawer extends StatelessWidget {
                       Text(
                         "Price",
                         style: TextStyle(
-                            color: const Color(0xFF7E7E7E), fontSize: 6.sp),
+                            color: const Color(0xFF7E7E7E), fontSize: 13.sp),
                       ),
                       SfRangeSlider(
                         shouldAlwaysShowTooltip: true,
@@ -148,7 +148,7 @@ class EndDrawer extends StatelessWidget {
                         values: cubit.valuesOfFilterPrice,
                         stepSize: 1,
                         interval: 20,
-                        activeColor: Color(0xFF33302E),
+                        activeColor: const Color(0xFF33302E),
                         // showTicks: true,
                         // showLabels: true,
                         enableTooltip: true,
@@ -156,25 +156,17 @@ class EndDrawer extends StatelessWidget {
                           cubit.changeValueofFilterPrice(values);
                         },
                       ),
-                      // Row(
-                      //   children: [
-                      //     sb(width: 4.w + (cubit.minprice * 42.5 / 100).w),
-                      //     Text('${cubit.minprice.round()}\$'),
-                      //     sb(width: (cubit.maxprice * 42.5 / 100).w),
-                      //     Text('${cubit.maxprice.round()}\$')
-                      //   ],
-                      // ),
-                      sb(height: 1.h),
+                      sb(height: 8.h),
                       Text(
                         "Color",
                         style: TextStyle(
-                            color: const Color(0xFF7E7E7E), fontSize: 6.sp),
+                            color: const Color(0xFF7E7E7E), fontSize: 13.sp),
                       ),
-                      sb(height: 1.h),
+                      sb(height: 8.h),
                       SizedBox(
-                        height: 3.h,
+                        height: 24.h,
                         child: ListView.separated(
-                          separatorBuilder: (context, index) => sb(width: 2.w),
+                          separatorBuilder: (context, index) => sb(width: 8.w),
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
                           itemCount: colors.length,
@@ -183,29 +175,29 @@ class EndDrawer extends StatelessWidget {
                               cubit.selectFilterColor(index);
                             },
                             child: Container(
-                              width: 3.h,
-                              height: 3.h,
+                              width: 24.h,
+                              height: 24.h,
                               decoration: BoxDecoration(
                                   border: cubit.FilterColors[index]
                                       ? Border.all(color: Colors.blue, width: 2)
-                                      : Border(),
+                                      : const Border(),
                                   color: colors[index],
                                   borderRadius: BorderRadius.circular(100)),
                             ),
                           ),
                         ),
                       ),
-                      sb(height: 3.h),
+                      sb(height: 24.h),
                       Text(
                         "Rating",
                         style: TextStyle(
-                            color: const Color(0xFF7E7E7E), fontSize: 6.sp),
+                            color: const Color(0xFF7E7E7E), fontSize: 13.sp),
                       ),
-                      sb(height: 1.h),
+                      sb(height: 8.h),
                       SizedBox(
-                        height: 8.w,
+                        height: 24.w,
                         child: ListView.separated(
-                          separatorBuilder: (context, index) => sb(width: 3.w),
+                          separatorBuilder: (context, index) => sb(width: 12.w),
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
                           itemCount: 5,
@@ -222,10 +214,10 @@ class EndDrawer extends StatelessWidget {
                                         color: Colors.black.withOpacity(.25))
                                   ],
                                   color: cubit.FilterRating[index]
-                                      ? Color(0xFF33302E)
+                                      ? const Color(0xFF33302E)
                                       : Colors.white,
                                   borderRadius: BorderRadius.circular(100)),
-                              width: 8.w,
+                              width: 24.w,
                               child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -234,7 +226,7 @@ class EndDrawer extends StatelessWidget {
                                       color: cubit.FilterRating[index]
                                           ? Colors.white
                                           : const Color(0xFF33302E),
-                                      size: 3.w,
+                                      size: 12.w,
                                     ),
                                     Text(
                                       '${index + 1}',
@@ -249,14 +241,14 @@ class EndDrawer extends StatelessWidget {
                           ),
                         ),
                       ),
-                      sb(height: 3.h),
+                      sb(height: 24.h),
                       Text(
                         "Discount",
                         style: TextStyle(
-                            color: const Color(0xFF7E7E7E), fontSize: 6.sp),
+                            color: const Color(0xFF7E7E7E), fontSize: 13.sp),
                       ),
                       Container(
-                        height: 20.h,
+                        height: 160.h,
                         child: GridView.builder(
                           physics: const BouncingScrollPhysics(),
                           shrinkWrap: true,
@@ -296,7 +288,7 @@ class EndDrawer extends StatelessWidget {
                           ),
                         ),
                       ),
-                      sb(height: 1.h),
+                      sb(height: 8.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [

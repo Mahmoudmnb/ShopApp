@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CodeTextFeild extends StatefulWidget {
   const CodeTextFeild({super.key});
@@ -19,7 +19,7 @@ class _CodeTextFeildState extends State<CodeTextFeild> {
           decoration: InputDecoration(
               border: InputBorder.none,
               suffixIcon: Container(
-                padding: EdgeInsets.only(top: 2.h),
+                padding: EdgeInsets.only(top: 15.h),
                 child: Text(
                   'Validate',
                   style: TextStyle(color: Color(0xFF76D5AD)),
