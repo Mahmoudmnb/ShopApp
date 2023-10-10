@@ -129,7 +129,7 @@ class CustomTextField extends StatelessWidget {
                                               : const SizedBox.shrink(),
                                     )
                                   : null,
-                          hintStyle: GoogleFonts.dmSans(fontSize: 6.sp),
+                          hintStyle: GoogleFonts.dmSans(fontSize: 14.sp),
                           hintText: hintText,
                           border: const UnderlineInputBorder(
                             borderSide: BorderSide(

@@ -37,7 +37,7 @@ class SocialButton extends StatelessWidget {
           // }
         },
         child: Padding(
-          padding: EdgeInsets.only(left: 40.w, right: 40.w),
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(100),
             child: Image.asset(

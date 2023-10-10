@@ -89,7 +89,12 @@ class _MainPageState extends State<MainPage>
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar,
-      drawer: const HomeDrawer(),
+      drawer: const Drawer(shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(15),
+                        bottomRight: Radius.circular(15),
+                      ),
+                    ),child: HomeDrawer()),
       body: const Center(
         child: Text('Hi'),
       ),

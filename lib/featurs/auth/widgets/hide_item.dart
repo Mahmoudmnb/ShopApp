@@ -6,12 +6,12 @@ class HideItem extends StatelessWidget {
   final Widget child;
   final double maxHight;
   final bool visabl;
-  const HideItem(
-      {Key? key,
-      required this.maxHight,
-      required this.child,
-      required this.visabl})
-      : super(key: key);
+  const HideItem({
+    Key? key,
+    required this.maxHight,
+    required this.child,
+    required this.visabl,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

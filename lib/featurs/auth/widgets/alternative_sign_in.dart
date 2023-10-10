@@ -20,8 +20,9 @@ class AlternativeSignIn extends StatelessWidget {
         }
         return Column(
           children: [
+            SizedBox(height: 9.h),
             HideItem(
-                maxHight: 3.h,
+                maxHight: 25.5.h,
                 visabl: !isSignUp,
                 child: GestureDetector(
                   onTap: () {},
@@ -31,16 +32,16 @@ class AlternativeSignIn extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: 'DM Sans',
                       color: Colors.black.withOpacity(0.6),
-                      fontSize: 5.sp,
+                      fontSize: 10.sp,
                     ),
                   )),
                 )),
-            SizedBox(height: 2.h),
+            SizedBox(height: 25.h),
             HideItem(
-              maxHight: 15.h,
+              maxHight: 100.h,
               visabl: !isSignUp,
               child: Padding(
-                padding: EdgeInsets.only(bottom: 5.h),
+                padding: EdgeInsets.only(bottom: 42.5.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [

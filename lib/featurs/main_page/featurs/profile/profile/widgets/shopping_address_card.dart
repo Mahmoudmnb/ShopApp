@@ -9,8 +9,11 @@ import '../cubit/profile_cubit.dart';
 class ShoppingAddressCard extends StatelessWidget {
   final String title;
   final String description;
-  const ShoppingAddressCard(
-      {super.key, required this.title, required this.description});
+  const ShoppingAddressCard({
+    super.key,
+    required this.title,
+    required this.description,
+  });
 
   @override
   Widget build(BuildContext context) {

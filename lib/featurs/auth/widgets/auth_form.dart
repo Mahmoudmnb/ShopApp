@@ -119,9 +119,9 @@ class _AuthFormState extends State<AuthForm> {
                       ? const CircularProgressIndicator()
                       : SwitchBetweenTwoTextWithRotation(
                           isFirestText: isSignUP,
-                          firstText: 'SIGN IN',
-                          secondText: 'SING UP',
-                          textStyle: GoogleFonts.dmSans(fontSize: 8.sp));
+                          firstText: 'LOG IN',
+                          secondText: 'SIGN UP',
+                          textStyle: GoogleFonts.dmSans(fontSize: 16.sp));
                 },
               ),
             );
