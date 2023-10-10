@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shop_app/featurs/main_page/featurs/shopping_bag/cubits/item_product_cubit/item_product_cubit.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/constant.dart';
@@ -17,6 +18,7 @@ import 'featurs/main_page/featurs/orders/cubit/orders_cubit.dart';
 import 'featurs/main_page/featurs/products_view/cubits/product_screen/cubit.dart';
 import 'featurs/main_page/featurs/profile/profile/cubit/profile_cubit.dart';
 import 'featurs/main_page/featurs/search/cubit/sreach_cubit.dart';
+import 'featurs/main_page/featurs/shopping_bag/cubits/products_cubit/products_cubit.dart';
 import 'featurs/main_page/main_page.dart';
 import 'injection.dart';
 
@@ -28,7 +30,6 @@ Future<void> main(List<String> args) async {
   );
   init();
   SharedPreferences db = await SharedPreferences.getInstance();
-  Constant.setDeviceSize();
   String? user = db.getString('currentUser');
   if (user != null) {
     Constant.currentUser = UserModel.fromJson(user);
@@ -64,6 +65,12 @@ Future<void> main(List<String> args) async {
     BlocProvider(
       create: (context) => ProfileCubit(),
     ),
+    BlocProvider(
+      create: (context) => ProductsCubit(),
+    ),
+    BlocProvider(
+      create: (context) => ItemProductCubit(),
+    ),
   ], child: const MyApp()));
 }
 
@@ -75,28 +82,17 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: Size(
           MediaQuery.of(context).size.width, MediaQuery.of(context).size.width),
-      child: MaterialApp(
-          builder: (context, child) {
-            final originalTextScaleFactor =
-                MediaQuery.of(context).textScaleFactor;
-            final boldText = MediaQuery.boldTextOf(context);
-            final newMediaQueryData = MediaQuery.of(context).copyWith(
-              textScaleFactor: originalTextScaleFactor.clamp(1, 1.0),
-              boldText: boldText,
-            );
-
-            return MediaQuery(
-              data: newMediaQueryData,
-              child: child!,
-            );
-          },
-          debugShowCheckedModeBanner: false,
-          home: sl.get<SharedPreferences>().getBool('isFirstTime') == null
-              ? SplashScreen(
-                  deviceHeight: 100.h,
-                  deviceWidth: 100.w,
-                )
-              : const MainPage()),
+      child: ScreenUtilInit(
+        designSize: const Size(393, 852),
+        builder: (context, child) => MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: sl.get<SharedPreferences>().getBool('isFirstTime') == null
+                ? SplashScreen(
+                    deviceHeight: 100.h,
+                    deviceWidth: 100.w,
+                  )
+                : const MainPage()),
+      ),
     );
   }
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/core/constant.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../cubit/main_page_cubit.dart';
 import '../cubit/orders_cubit.dart';
 import '../model/card_model.dart';
@@ -105,7 +106,7 @@ class OrdersScreen extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: "DM Sans",
-                                  fontSize: 10.f,
+                                  fontSize: 10.sp,
                                   color: ordersCubit.kindOfOrder == "Pending"
                                       ? const Color(0xFF3D3D3D)
                                       : const Color(0xFF9B9B9B),

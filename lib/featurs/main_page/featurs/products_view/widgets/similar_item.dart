@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../home/models/product_model.dart';
 import '../cubits/product_screen/cubit.dart';
@@ -9,9 +9,7 @@ class SimilarItem extends StatefulWidget {
   final ProductModel product;
   final ProductCubit productCubit;
   const SimilarItem(
-      {super.key,
-      required this.product,
-      required this.productCubit});
+      {super.key, required this.product, required this.productCubit});
 
   @override
   State<SimilarItem> createState() => _SimilarItemState();

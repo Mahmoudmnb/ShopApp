@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/core/constant.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../model/card_model.dart';
 

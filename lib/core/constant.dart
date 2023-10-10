@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../featurs/auth/models/user_model.dart';
-import '../injection.dart';
 
 class Constant {
   static String dateToString(DateTime date) {
@@ -15,20 +11,6 @@ class Constant {
     var date = d[1].split('/');
     return DateTime(int.parse(date[2]), int.parse(date[1]), int.parse(date[0]),
         int.parse(time[0]), int.parse(time[1]), int.parse(time[2]));
-  }
-
-  static void getDeviceSize(BuildContext ctx) {
-    deviceHeight = MediaQuery.of(ctx).size.height -
-        (MediaQuery.of(ctx).padding.top + MediaQuery.of(ctx).padding.bottom);
-    deviceWidth = MediaQuery.of(ctx).size.width -
-        (MediaQuery.of(ctx).padding.left + MediaQuery.of(ctx).padding.right);
-    sl.get<SharedPreferences>().setDouble('deviceHeight', deviceHeight);
-    sl.get<SharedPreferences>().setDouble('deviceWidth', deviceWidth);
-  }
-
-  static void setDeviceSize() {
-    deviceHeight = sl.get<SharedPreferences>().getDouble('deviceHeight') ?? 0;
-    deviceWidth = sl.get<SharedPreferences>().getDouble('deviceWidth') ?? 0;
   }
 
   static double deviceWidth = 0;

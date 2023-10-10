@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/constant.dart';
 import 'package:shop_app/featurs/auth/pages/steper_screen.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SplashScreen extends StatefulWidget {
   final double deviceHeight;
@@ -66,7 +65,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Constant.getDeviceSize(context);
     return Scaffold(
       body: Container(
           decoration: BoxDecoration(

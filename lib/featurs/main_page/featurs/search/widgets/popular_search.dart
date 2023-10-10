@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../cubit/sreach_cubit.dart';
 

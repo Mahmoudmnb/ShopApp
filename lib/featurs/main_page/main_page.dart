@@ -1,17 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shop_app/featurs/main_page/drawer/home_drawer.dart';
+import 'package:shop_app/featurs/main_page/featurs/shopping_bag/screens/shopping_bag_screen.dart';
 
-import '../../injection.dart';
 import 'cubit/main_page_cubit.dart';
-import 'data_source/data_source.dart';
-import 'featurs/home/pages/home_page.dart';
 import 'featurs/home/widgets/main_page_tab_bar.dart';
-import 'featurs/orders/screen/order_screen.dart';
-import 'featurs/profile/profile/screen/profile_screen.dart';
-import 'featurs/search/pages/search_screen.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -37,70 +31,88 @@ class _MainPageState extends State<MainPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final AppBar appBar = AppBar(
       backgroundColor: Colors.white,
-      appBar: _appBar,
-      body: TabBarView(
-        controller: tabController,
+      foregroundColor: Colors.black,
+      elevation: 0,
+      leadingWidth: 150.w,
+      leading: Row(
         children: [
-          FutureBuilder(
-            future: sl.get<DataSource>().getDiscountsProducts(),
-            builder: (context, snapshot) => snapshot.hasData
-                ? HomePage(disCountProducts: snapshot.data!)
-                : const SizedBox.shrink(),
+          Builder(
+            builder: (context) => IconButton(
+                onPressed: () async {
+                  Scaffold.of(context).openDrawer();
+                },
+                icon: Icon(
+                  Icons.density_medium_rounded,
+                  size: 25.sp,
+                )),
           ),
-          const SearchScreen(),
-          const OrdersScreen(),
-          const ProfileScreen(),
+          SizedBox(width: 2.w),
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const ShoppingBagScreen(),
+                ));
+              },
+              icon: Icon(
+                Icons.shopping_cart_outlined,
+                size: 25.sp,
+              )),
         ],
       ),
+      actions: [
+        Padding(
+          padding: EdgeInsets.only(right: 4.0.w),
+          child: const Icon(Icons.favorite_border),
+        )
+      ],
+      centerTitle: true,
+      title: BlocBuilder<MainPageCubit, MainPageState>(
+        builder: (context, state) {
+          int pageIndex = context.read<MainPageCubit>().pageIndex;
+          return Text(
+              pageIndex == 0
+                  ? 'Home'
+                  : pageIndex == 1
+                      ? 'Discover'
+                      : pageIndex == 2
+                          ? 'My Orders'
+                          : 'profile',
+              style: TextStyle(
+                  fontFamily: 'DM Sans',
+                  fontSize: MediaQuery.of(context).textScaleFactor * 30));
+        },
+      ),
+    );
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: appBar,
+      drawer: const HomeDrawer(),
+      body: const Center(
+        child: Text('Hi'),
+      ),
+      //   body: TabBarView(
+      //     controller: tabController,
+      //     children: [
+      //       FutureBuilder(
+      //         future: sl.get<DataSource>().getDiscountsProducts(),
+      //         builder: (context, snapshot) => snapshot.hasData
+      //             ? HomePage(disCountProducts: snapshot.data!)
+      //             : const SizedBox.shrink(),
+      //       ),
+      //       const SearchScreen(),
+      //       const OrdersScreen(),
+      //       const ProfileScreen(),
+      //     ],
+      //   ),
+      //
+      //
+
       bottomNavigationBar: MainPageTabBar(
         tabController: tabController,
       ),
     );
   }
-
-  final AppBar _appBar = AppBar(
-    backgroundColor: Colors.white,
-    foregroundColor: Colors.black,
-    elevation: 0,
-    leadingWidth: 25.w,
-    leading: Row(
-      children: [
-        Builder(
-          builder: (context) => IconButton(
-              onPressed: () async {
-                log(MediaQuery.of(context).textScaleFactor.toString());
-                // Scaffold.of(context).openDrawer();
-              },
-              icon: const Icon(Icons.density_medium_rounded)),
-        ),
-        SizedBox(width: 2.w),
-        const Icon(Icons.shopping_cart_outlined),
-      ],
-    ),
-    actions: [
-      Padding(
-        padding: EdgeInsets.only(right: 4.0.w),
-        child: const Icon(Icons.favorite_border),
-      )
-    ],
-    centerTitle: true,
-    title: BlocBuilder<MainPageCubit, MainPageState>(
-      builder: (context, state) {
-        int pageIndex = context.read<MainPageCubit>().pageIndex;
-        return Text(
-            pageIndex == 0
-                ? 'Home'
-                : pageIndex == 1
-                    ? 'Discover'
-                    : pageIndex == 2
-                        ? 'My Orders'
-                        : 'profile',
-            style: TextStyle(
-                fontFamily: 'DM Sans',
-                fontSize: MediaQuery.of(context).textScaleFactor * 30));
-      },
-    ),
-  );
 }

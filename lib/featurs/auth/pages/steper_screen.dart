@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/featurs/auth/pages/auth_page.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class SteperScreen extends StatefulWidget {
