@@ -85,13 +85,14 @@ class MyApp extends StatelessWidget {
       child: ScreenUtilInit(
         designSize: const Size(393, 852),
         builder: (context, child) => MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: sl.get<SharedPreferences>().getBool('isFirstTime') == null
-                ? SplashScreen(
-                    deviceHeight: 100.h,
-                    deviceWidth: 100.w,
-                  )
-                : const MainPage()),
+          debugShowCheckedModeBanner: false,
+          home: sl.get<SharedPreferences>().getBool('isFirstTime') == null
+              ? SplashScreen(
+                  deviceHeight: 100.h,
+                  deviceWidth: 100.w,
+                )
+              : const MainPage(),
+        ),
       ),
     );
   }

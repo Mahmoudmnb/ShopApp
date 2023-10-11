@@ -16,9 +16,9 @@ class AllReviewsScreen extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 4.h),
+            SizedBox(height: 25.h),
             Padding(
-              padding: EdgeInsets.only(left: 8.w),
+              padding: EdgeInsets.only(left: 20.w),
               child: Row(
                 children: [
                   CustomIconButton(
@@ -29,12 +29,12 @@ class AllReviewsScreen extends StatelessWidget {
                       }
                     },
                   ),
-                  SizedBox(width: 5.w),
+                  SizedBox(width: 20.w),
                   Text(
                     'All Reviews',
                     style: TextStyle(
                       color: const Color(0xFF171717),
-                      fontSize: 9.sp,
+                      fontSize: 24.sp,
                       fontFamily: 'Tenor Sans',
                       fontWeight: FontWeight.w600,
                       height: 1.06,
@@ -46,12 +46,12 @@ class AllReviewsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             Padding(
-              padding: const EdgeInsets.only(left: 75.0),
+              padding: EdgeInsets.only(left: 75.0.w),
               child: Text(
                 '${reviews.length} Review',
                 style: TextStyle(
                   color: const Color(0xFF979797),
-                  fontSize: 7.sp,
+                  fontSize: 16.sp,
                   fontFamily: 'Tenor Sans',
                   fontWeight: FontWeight.w400,
                   height: 1.06,
@@ -59,7 +59,7 @@ class AllReviewsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 3.h),
+            SizedBox(height: 25.5.h),
             Expanded(
               child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
@@ -68,11 +68,9 @@ class AllReviewsScreen extends StatelessWidget {
                   ReviewModel review = ReviewModel.fromMap(reviews[index]);
                   return Padding(
                     padding:
-                        const EdgeInsets.only(left: 15, right: 10, bottom: 15),
+                        EdgeInsets.only(left: 30.w, right: 30.w, bottom: 15.h),
                     child: CustomListTile(
-                      //* this width (100% - 120) becasue this card has a custom padding :)
-                      //* (bannan don't kill me please ^_^)
-                      width: 75.w,
+                      width: 273.w,
                       username: review.userName,
                       date: getOffsetDate(review.date),
                       description: review.description,

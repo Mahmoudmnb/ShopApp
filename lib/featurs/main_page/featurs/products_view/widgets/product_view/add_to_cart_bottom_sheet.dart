@@ -88,13 +88,13 @@ class AddToCartBottomSheet extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Image(image: AssetImage('assets/images/icon.png')),
+                   Image(image: const AssetImage('assets/images/icon.png'), width:20.w,height: 20.w),
                   SizedBox(width: 7.5.w),
                   Text(
                     'Add to cart',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 6.sp,
+                      fontSize: 16.sp,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w600,
                       height: 1,

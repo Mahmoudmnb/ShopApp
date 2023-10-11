@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -64,6 +66,7 @@ class SimilarProductsCard extends StatelessWidget {
                     ),
                   ),
                   onPressed: () async {
+                    log('See All');
                     cubit.getProductById(product.id).then((product) {
                       cubit
                           .getSimilarProducts(ProductModel.fromMap(product))
@@ -93,7 +96,9 @@ class SimilarProductsCard extends StatelessWidget {
             children: [
               SizedBox(
                 width: 355.w,
-                height: 174.h,
+                //* I put this height to show all simlair items
+                //* __(heightCard + heightAddToCartButton)__
+                height: 190.h + 100.h,
                 child: ListView.separated(
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   shrinkWrap: true,
@@ -102,14 +107,14 @@ class SimilarProductsCard extends StatelessWidget {
                       : 6,
                   scrollDirection: Axis.horizontal,
                   separatorBuilder: (BuildContext context, int index) =>
-                      const SizedBox(width: 10),
+                      SizedBox(width: 10.w),
                   physics: const BouncingScrollPhysics(),
                   itemBuilder: (_, int index) {
                     ProductModel product =
                         ProductModel.fromMap(cubit.similarProducts[index]);
                     return CustomCard(
                       width: 136.5.w,
-                      height: 229.5.h,
+                      height: 174.5.h,
                       product: product,
                     );
                   },

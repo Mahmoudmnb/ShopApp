@@ -4,8 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shop_app/featurs/main_page/drawer/home_drawer.dart';
 import 'package:shop_app/featurs/main_page/featurs/shopping_bag/screens/shopping_bag_screen.dart';
 
+import '../../injection.dart';
 import 'cubit/main_page_cubit.dart';
+import 'data_source/data_source.dart';
+import 'featurs/home/pages/home_page.dart';
 import 'featurs/home/widgets/main_page_tab_bar.dart';
+import 'featurs/orders/screen/order_screen.dart';
+import 'featurs/profile/profile/screen/profile_screen.dart';
+import 'featurs/search/pages/search_screen.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -95,25 +101,25 @@ class _MainPageState extends State<MainPage>
                         bottomRight: Radius.circular(15),
                       ),
                     ),child: HomeDrawer()),
-      body: const Center(
-        child: Text('Hi'),
-      ),
-      //   body: TabBarView(
-      //     controller: tabController,
-      //     children: [
-      //       FutureBuilder(
-      //         future: sl.get<DataSource>().getDiscountsProducts(),
-      //         builder: (context, snapshot) => snapshot.hasData
-      //             ? HomePage(disCountProducts: snapshot.data!)
-      //             : const SizedBox.shrink(),
-      //       ),
-      //       const SearchScreen(),
-      //       const OrdersScreen(),
-      //       const ProfileScreen(),
-      //     ],
-      //   ),
-      //
-      //
+      // body: const Center(
+      //   child: Text('Hi'),
+      // ),
+        body: TabBarView(
+          controller: tabController,
+          children: [
+            FutureBuilder(
+              future: sl.get<DataSource>().getDiscountsProducts(),
+              builder: (context, snapshot) => snapshot.hasData
+                  ? HomePage(disCountProducts: snapshot.data!)
+                  : const SizedBox.shrink(),
+            ),
+            const SearchScreen(),
+            const OrdersScreen(),
+            const ProfileScreen(),
+          ],
+        ),
+      
+      
 
       bottomNavigationBar: MainPageTabBar(
         tabController: tabController,

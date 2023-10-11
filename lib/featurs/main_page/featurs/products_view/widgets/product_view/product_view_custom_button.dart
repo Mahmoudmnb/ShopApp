@@ -15,7 +15,7 @@ class ProductViewCustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       // width: 130,
-      height: 10.h,
+      height: 55.h,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF252525),
