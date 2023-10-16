@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../home/models/product_model.dart';
 
 class CustomCard extends StatelessWidget {
@@ -22,7 +23,7 @@ class CustomCard extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(5)),
             child: Image(
               image: AssetImage(product.imgUrl.split('|')[0]),
-              height: height - 6.h,
+              height: height, //- 6.h,
               width: width,
               fit: BoxFit.cover,
             ),
@@ -42,7 +43,7 @@ class CustomCard extends StatelessWidget {
                           product.makerCompany,
                           style: TextStyle(
                             color: const Color(0xFF383838),
-                            fontSize: 5.sp,
+                            fontSize: 14.sp,
                             fontFamily: 'Tenor Sans',
                             fontWeight: FontWeight.w400,
                             height: 1.06,
@@ -54,7 +55,7 @@ class CustomCard extends StatelessWidget {
                           '${product.price} \$',
                           style: TextStyle(
                             color: const Color(0xFFD47676),
-                            fontSize: 3.sp,
+                            fontSize: 10.sp,
                             fontFamily: 'Tenor Sans',
                             fontWeight: FontWeight.w400,
                             height: 1.06,
@@ -70,7 +71,7 @@ class CustomCard extends StatelessWidget {
                           product.name,
                           style: TextStyle(
                             color: const Color(0xFF818181),
-                            fontSize: 5.sp,
+                            fontSize: 11.sp,
                             fontFamily: 'Tenor Sans',
                             fontWeight: FontWeight.w400,
                             height: 1.06,

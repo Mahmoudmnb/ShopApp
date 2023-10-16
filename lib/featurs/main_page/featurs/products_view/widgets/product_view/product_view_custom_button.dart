@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductViewCustomButton extends StatelessWidget {
   const ProductViewCustomButton({
@@ -15,7 +15,7 @@ class ProductViewCustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       // width: 130,
-      height: 10.h,
+      height: 55.h,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF252525),

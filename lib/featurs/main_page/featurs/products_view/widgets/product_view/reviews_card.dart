@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/core/data_base.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:shop_app/core/constant.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../cubits/product_screen/cubit.dart';
 import '../../models/review_model.dart';
@@ -29,7 +29,7 @@ class ReviewsCard extends StatelessWidget {
               'Review (${cubit.reviws.length})',
               style: TextStyle(
                 color: const Color(0xFF0C1A30),
-                fontSize: 7.sp,
+                fontSize: 18.sp,
                 fontFamily: 'Tenor Sans',
                 fontWeight: FontWeight.bold,
                 height: 1.33,
@@ -43,14 +43,14 @@ class ReviewsCard extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(right: 3),
                       child: Icon(Icons.star,
-                          color: const Color(0xFFFFC120), size: 7.sp),
+                          color: const Color(0xFFFFC120), size: 16.sp),
                     ),
                   ),
                   // !here put average of elvaulation
                   TextSpan(
                     text: avrOfStars.toStringAsFixed(2),
                     style: TextStyle(
-                      fontSize: 6.sp,
+                      fontSize: 16.sp,
                       fontFamily: 'Tenor Sans',
                       letterSpacing: .2,
                       color: const Color(0xFF0C1A30),
@@ -61,15 +61,16 @@ class ReviewsCard extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 3.h),
+        SizedBox(height: 25.5.h),
         //! Cards of reviews
         SizedBox(
-          width: 100.w,
-          height: cubit.reviws.length >= 3
-              ? 47.h
+          width: 350.w,
+          height: 
+           cubit.reviws.length >= 3
+              ? 325.h
               : cubit.reviws.length == 2
-                  ? 30.h
-                  : 13.h,
+                  ? 255.h
+                  : 110.h,
           child: BlocBuilder<ProductCubit, ProductStates>(
             builder: (context, state) {
               List<Map<String, dynamic>> reviews = cubit.reviws;
@@ -85,7 +86,7 @@ class ReviewsCard extends StatelessWidget {
                   return CustomListTile(
                     //* this width (100% - 120px) becasue this card has a custom padding :)
                     //* (bannan don't kill me please ^_^)
-                    width: 75.w,
+                    width: 295.w,
                     username: review.userName,
                     date: getOffsetDate(review.date),
                     description: review.description,
@@ -98,10 +99,10 @@ class ReviewsCard extends StatelessWidget {
           ),
         ),
 
-        SizedBox(height: 3.h),
+        SizedBox(height: 25.5.h),
         SizedBox(
-          width: 100.w,
-          height: 8.h,
+          width: 393.w,
+          height: 50.h,
           child: ElevatedButton(
             onPressed: () {
               Navigator.of(context).push(
@@ -128,7 +129,7 @@ class ReviewsCard extends StatelessWidget {
               'See All Review',
               style: TextStyle(
                 color: const Color(0xFF0C1A30),
-                fontSize: 7.sp,
+                fontSize: 16.sp,
                 fontFamily: 'DM Sans',
                 fontWeight: FontWeight.w500,
                 height: 1.43,
@@ -141,7 +142,7 @@ class ReviewsCard extends StatelessWidget {
   }
 
   String getOffsetDate(String date) {
-    DateTime dateTime = MyDataBase.stringToDate(date);
+    DateTime dateTime = Constant.stringToDate(date);
     DateTime currentDatetime = DateTime.now();
     if (dateTime.year != currentDatetime.year) {
       return '${currentDatetime.year - dateTime.year} year ago';

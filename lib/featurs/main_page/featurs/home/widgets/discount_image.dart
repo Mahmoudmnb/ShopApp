@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DisCountImage extends StatelessWidget {
   final String imageUrl;

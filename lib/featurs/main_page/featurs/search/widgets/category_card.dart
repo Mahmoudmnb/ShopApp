@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../cubit/sreach_cubit.dart';
 import '../pages/category_view_page.dart';
@@ -48,7 +48,7 @@ class CategoryCard extends StatelessWidget {
           Expanded(
             child: Text(
               categroyName,
-              style: TextStyle(fontSize: 4.2.sp,fontFamily: 'Tenor Sans'),
+              style: TextStyle(fontSize: 4.sp, fontFamily: 'Tenor Sans'),
             ),
           ),
         ],

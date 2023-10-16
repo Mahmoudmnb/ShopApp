@@ -9,8 +9,10 @@ GetIt sl = GetIt.instance;
 Future<void> init() async {
   await ScreenUtil.ensureScreenSize();
   sl.registerLazySingleton<LocalDataSource>(() => LocalDataSource());
+
   sl.registerLazySingleton<DataSource>(
       () => DataSource(localDataSource: sl.get<LocalDataSource>()));
+
   SharedPreferences db = await SharedPreferences.getInstance();
   sl.registerLazySingleton<SharedPreferences>(() => db);
 }

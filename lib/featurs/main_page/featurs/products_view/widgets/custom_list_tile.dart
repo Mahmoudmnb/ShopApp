@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomListTile extends StatelessWidget {
   final String username;
@@ -23,18 +23,18 @@ class CustomListTile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          height: 7.h,
-          width: 7.h,
+          height: 45.w,
+          width: 45.w,
           child: CircleAvatar(
             backgroundColor: const Color(0xFFD9D9D9),
             backgroundImage: imgUrl != null ? AssetImage(imgUrl!) : null,
           ),
         ),
-        SizedBox(width: 2.w),
+        SizedBox(width: 8.w),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 1.h),
+            SizedBox(height: 8.5.h),
             SizedBox(
               width: width,
               child: Row(
@@ -42,13 +42,13 @@ class CustomListTile extends StatelessWidget {
                 children: [
                   // !username
                   SizedBox(
-                    width: 35.w,
+                    width: 137.w,
                     child: Text(
                       username,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 6.sp,
+                        fontSize: 13.sp,
                         fontFamily: 'Tenor Sans',
                         fontWeight: FontWeight.w600,
                         letterSpacing: 1.20,
@@ -60,7 +60,7 @@ class CustomListTile extends StatelessWidget {
                     date,
                     style: TextStyle(
                       color: const Color(0xFF9B9B9B),
-                      fontSize: 5.sp,
+                      fontSize: 10.sp,
                       fontFamily: 'Tenor Sans',
                       letterSpacing: 1.20,
                     ),
@@ -97,48 +97,51 @@ class ReviewStars extends StatelessWidget {
   final int numOfStars;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(
-          numOfStars >= 1 ? Icons.star_rounded : Icons.star_border_rounded,
-          size: 20,
-          color: numOfStars >= 1
-              ? const Color(0xFFFFC120)
-              : const Color(0xFFC4C5C4),
-        ),
-        const SizedBox(width: 3),
-        Icon(
-          numOfStars >= 2 ? Icons.star_rounded : Icons.star_border_rounded,
-          size: 20,
-          color: numOfStars >= 2
-              ? const Color(0xFFFFC120)
-              : const Color(0xFFC4C5C4),
-        ),
-        const SizedBox(width: 3),
-        Icon(
-          numOfStars >= 3 ? Icons.star_rounded : Icons.star_border_rounded,
-          size: 20,
-          color: numOfStars >= 3
-              ? const Color(0xFFFFC120)
-              : const Color(0xFFC4C5C4),
-        ),
-        const SizedBox(width: 3),
-        Icon(
-          numOfStars >= 4 ? Icons.star_rounded : Icons.star_border_rounded,
-          size: 20,
-          color: numOfStars >= 4
-              ? const Color(0xFFFFC120)
-              : const Color(0xFFC4C5C4),
-        ),
-        const SizedBox(width: 3),
-        Icon(
-          numOfStars >= 5 ? Icons.star_rounded : Icons.star_border_rounded,
-          size: 20,
-          color: numOfStars >= 5
-              ? const Color(0xFFFFC120)
-              : const Color(0xFFC4C5C4),
-        ),
-      ],
+    return Padding(
+      padding:  EdgeInsets.only(top: 3.h),
+      child: Row(
+        children: [
+          Icon(
+            numOfStars >= 1 ? Icons.star_rounded : Icons.star_border_rounded,
+            size: 20.sp,
+            color: numOfStars >= 1
+                ? const Color(0xFFFFC120)
+                : const Color(0xFFC4C5C4),
+          ),
+          const SizedBox(width: 3),
+          Icon(
+            numOfStars >= 2 ? Icons.star_rounded : Icons.star_border_rounded,
+            size: 20.sp,
+            color: numOfStars >= 2
+                ? const Color(0xFFFFC120)
+                : const Color(0xFFC4C5C4),
+          ),
+          const SizedBox(width: 3),
+          Icon(
+            numOfStars >= 3 ? Icons.star_rounded : Icons.star_border_rounded,
+            size: 20.sp,
+            color: numOfStars >= 3
+                ? const Color(0xFFFFC120)
+                : const Color(0xFFC4C5C4),
+          ),
+          const SizedBox(width: 3),
+          Icon(
+            numOfStars >= 4 ? Icons.star_rounded : Icons.star_border_rounded,
+            size: 20.sp,
+            color: numOfStars >= 4
+                ? const Color(0xFFFFC120)
+                : const Color(0xFFC4C5C4),
+          ),
+          const SizedBox(width: 3),
+          Icon(
+            numOfStars >= 5 ? Icons.star_rounded : Icons.star_border_rounded,
+            size: 20.sp,
+            color: numOfStars >= 5
+                ? const Color(0xFFFFC120)
+                : const Color(0xFFC4C5C4),
+          ),
+        ],
+      ),
     );
   }
 }

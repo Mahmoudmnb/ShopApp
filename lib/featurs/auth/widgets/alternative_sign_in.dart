@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:sizer_pro/sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../blocs/auth_blocs.dart';
 import 'auth_widgets.dart';
@@ -21,34 +20,40 @@ class AlternativeSignIn extends StatelessWidget {
         }
         return Column(
           children: [
+            SizedBox(height: 9.h),
             HideItem(
-                maxHight: 3.h,
+                maxHight: 25.5.h,
                 visabl: !isSignUp,
                 child: GestureDetector(
                   onTap: () {},
                   child: Center(
                       child: Text(
                     'Or sign In with',
-                    style: GoogleFonts.dmSans(
+                    style: TextStyle(
+                      fontFamily: 'DM Sans',
                       color: Colors.black.withOpacity(0.6),
-                      fontSize: 5.sp,
+                      fontSize: 10.sp,
                     ),
                   )),
                 )),
-            SizedBox(height: 2.h),
+            SizedBox(height: 25.h),
             HideItem(
-              maxHight: 15.h,
+              maxHight: 100.h,
               visabl: !isSignUp,
               child: Padding(
-                padding: EdgeInsets.only(bottom: 5.h),
+                padding: EdgeInsets.only(bottom: 42.5.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SocialButton(onTap: () {}, imageUrl: 'assets/images/linkedin_logo.png'),
+                    SocialButton(
+                        onTap: () {},
+                        imageUrl: 'assets/images/linkedin_logo.png'),
                     SocialButton(
                         onTap: () {},
                         imageUrl: 'assets/images/google_logo.png'),
-                    SocialButton(onTap: () {}, imageUrl: 'assets/images/facebook_logo.png'),
+                    SocialButton(
+                        onTap: () {},
+                        imageUrl: 'assets/images/facebook_logo.png'),
                   ],
                 ),
               ),
@@ -59,3 +64,4 @@ class AlternativeSignIn extends StatelessWidget {
     );
   }
 }
+// Comment
