@@ -1,9 +1,30 @@
+import '../featurs/products_view/models/add_to_cart_product_model.dart';
 import '../featurs/home/models/product_model.dart';
 import 'local_data_source.dart';
 
 class DataSource {
   LocalDataSource localDataSource;
   DataSource({required this.localDataSource});
+  Future<List<Map<String, dynamic>>> getAddToCartProducts() async {
+    return localDataSource.getAddToCartProduct();
+  }
+
+  Future<void> removeItemFromAddToCartProducts(int id) async {
+    localDataSource.removeItemFromAddToCartProducts(id);
+  }
+
+  Future<void> addToCart(AddToCartProductModel addToCartTableModel) async {
+    localDataSource.addToCart(addToCartTableModel);
+  }
+
+  Future<void> updateQuantity(int id, int quantity) async {
+    localDataSource.updateQuantity(id, quantity);
+  }
+
+  Future<Map<String, dynamic>> getAddToCartProductById(int id) async {
+    return localDataSource.getAddToCartProductById(id);
+  }
+
   Future<List<Map<String, Object?>>> searchInCategory({
     required double minPrice,
     required double maxPrice,

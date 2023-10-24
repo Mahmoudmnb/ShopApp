@@ -1,34 +1,37 @@
-import 'dart:developer';
+// ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shop_app/featurs/main_page/featurs/shopping_bag/cubits/products_cubit/products_cubit.dart';
 
 import '../cubits/item_product_cubit/item_product_cubit.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem({
-    super.key,
-    required this.title,
-    required this.brand,
-    required this.color,
-    required this.size,
-    required this.price,
-    required this.amountOfProduct,
-  });
+  ProductItem(
+      {super.key,
+      required this.title,
+      required this.brand,
+      required this.color,
+      required this.size,
+      required this.price,
+      required this.amountOfProduct,
+      required this.id,
+      required this.imgUrl});
+  final int id;
   final String title;
   final String brand;
   final Color color;
   final String size;
   final double price;
-  final int amountOfProduct;
+  int amountOfProduct;
+  final String imgUrl;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       // margin: EdgeInsets.symmetric(horizontal: 7.6335.w),
       width: 393.w, //- 2 * 7.6335.w,
-
       height: 117.h,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       decoration: const BoxDecoration(
@@ -45,7 +48,7 @@ class ProductItem extends StatelessWidget {
       child: Row(
         children: [
           Image(
-            image: const AssetImage('assets/images/elegance.png'),
+            image: AssetImage(imgUrl),
             fit: BoxFit.cover,
             width: 81.w,
             height: 852.h,
@@ -72,7 +75,7 @@ class ProductItem extends StatelessWidget {
                   'Brand: $brand',
                   style: TextStyle(
                     color: const Color(0xFF9B9B9B),
-                    fontSize: 12.sp,
+                    fontSize: 13.sp,
                     fontFamily: 'DM Sans',
                     fontWeight: FontWeight.w400,
                     height: 1.06,
@@ -116,7 +119,7 @@ class ProductItem extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(width: 40.w),
+          SizedBox(width: 20.w),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 17.h),
             child: Column(
@@ -133,42 +136,51 @@ class ProductItem extends StatelessWidget {
                     letterSpacing: 1,
                   ),
                 ),
-                BlocProvider(
-                  create: (context) => ItemProductCubit(),
-                  child: BlocBuilder<ItemProductCubit, ItemProductState>(
-                    builder: (context, state) {
-                      log('product');
-                      ItemProductCubit cubit =
-                          BlocProvider.of<ItemProductCubit>(context);
-                      return Container(
-                        width: 57.w,
-                        height: 25.5.h,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFEEEEEE),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            InkWell(
-                              onTap: cubit.removeAmount,
-                              child: Icon(Icons.remove, size: 14.sp),
+                Container(
+                  width: 57.w,
+                  height: 25.5.h,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFEEEEEE),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          context
+                              .read<ItemProductCubit>()
+                              .removeAmount(id, amountOfProduct);
+                          context.read<AddToCartCubit>().getAddToCartProducts();
+                        },
+                        child: Icon(Icons.remove, size: 14.sp),
+                      ),
+                      BlocBuilder<ItemProductCubit, ItemProductState>(
+                        builder: (context, state) {
+                          if (state is ItemProductChanged) {
+                            if (state.product['id'] == id) {
+                              amountOfProduct = state.product['quantity']!;
+                            }
+                          }
+                          return Text(
+                            amountOfProduct.toString(),
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              fontFamily: 'Poppins',
                             ),
-                            Text(
-                              cubit.amountOfProduct.toString(),
-                              style: TextStyle(
-                                fontSize: 12.sp,
-                                fontFamily: 'Poppins',
-                              ),
-                            ),
-                            InkWell(
-                              onTap: cubit.addAmount,
-                              child: Icon(Icons.add, size: 14.sp),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
+                          );
+                        },
+                      ),
+                      InkWell(
+                        onTap: () {
+                          context
+                              .read<ItemProductCubit>()
+                              .addAmount(id, amountOfProduct);
+                          context.read<AddToCartCubit>().getAddToCartProducts();
+                        },
+                        child: Icon(Icons.add, size: 14.sp),
+                      ),
+                    ],
                   ),
                 ),
               ],

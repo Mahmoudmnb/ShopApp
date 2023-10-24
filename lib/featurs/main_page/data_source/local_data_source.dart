@@ -4,8 +4,57 @@ import 'package:sqflite/sqflite.dart';
 
 import '../../../core/constant.dart';
 import '../featurs/home/models/product_model.dart';
+import '../featurs/products_view/models/add_to_cart_product_model.dart';
 
 class LocalDataSource {
+  Future<List<Map<String, dynamic>>> getAddToCartProduct() async {
+    Database db = await openDatabase(Constant.addToCartTable);
+    List<Map<String, dynamic>> products = [];
+    try {
+      products = await db.rawQuery('SELECT * FROM AddToCartTable');
+    } catch (e) {
+      log(e.toString());
+    }
+    return products;
+  }
+
+  Future<void> addToCart(AddToCartProductModel addToCartTableModel) async {
+    //! try it if its working
+    Database db = await openDatabase(Constant.addToCartTable);
+    try {
+      List<Map<String, dynamic>> data = await db.rawQuery(
+          'SELECT * FROM AddToCartTable WHERE  productName=="${addToCartTableModel.productName}" AND price == ${addToCartTableModel.price} AND companyMaker == "${addToCartTableModel.companyMaker}" AND color == "${addToCartTableModel.color}" AND  size == "${addToCartTableModel.size}"');
+      if (data.isNotEmpty) {
+        int q = data[0]['quantity'];
+        q += addToCartTableModel.quantity;
+        db.rawUpdate('UPDATE AddToCartTable SET quantity=$q');
+      } else {
+        db.rawInsert(
+          "INSERT INTO AddToCartTable (imgUrl, quantity, productName, price,companyMaker, color, size) VALUES ('${addToCartTableModel.imgUrl}', ${addToCartTableModel.quantity},'${addToCartTableModel.productName}',${addToCartTableModel.price},'${addToCartTableModel.companyMaker}','${addToCartTableModel.color}','${addToCartTableModel.size}')",
+        );
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  Future<void> removeItemFromAddToCartProducts(int id) async {
+    Database db = await openDatabase(Constant.addToCartTable);
+    db.rawDelete('DELETE FROM AddToCartTable WHERE id == $id');
+  }
+
+  Future<void> updateQuantity(int id, int quantity) async {
+    Database db = await openDatabase(Constant.addToCartTable);
+    db.rawUpdate('UPDATE AddToCartTable SET quantity=$quantity WHERE id==$id');
+  }
+
+  Future<Map<String, dynamic>> getAddToCartProductById(int id) async {
+    Database db = await openDatabase(Constant.addToCartTable);
+    List<Map<String, dynamic>> data =
+        await db.rawQuery('SELECT * FROM AddToCartTable WHERE id==$id');
+    return data[0];
+  }
+
   Future<List<Map<String, Object?>>> searchInCategory({
     String? searchWord,
     required double minPrice,

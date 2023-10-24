@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,21 +15,25 @@ class AuthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void goToHomePage() async {
-      sl.get<SharedPreferences>().setBool('isFirstTime', false);
-      MyDataBase myDataBase = MyDataBase();
-      myDataBase.createTable().then((value) {
-        myDataBase.createReviewTable().then((value) {
-          myDataBase.createSearchHistoryTable().then((value) {
-            myDataBase.insertReviewTable().then((value) {
-              myDataBase.insertData().then((value) {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => const MainPage(),
-                ));
+      if (Navigator.of(context).canPop()) {
+        Navigator.of(context).pop();
+      } else {
+        sl.get<SharedPreferences>().setBool('isFirstTime', false);
+        MyDataBase myDataBase = MyDataBase();
+        myDataBase.createTable().then((value) {
+          myDataBase.createReviewTable().then((value) {
+            myDataBase.createSearchHistoryTable().then((value) {
+              myDataBase.insertReviewTable().then((value) {
+                myDataBase.insertData().then((value) {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const MainPage(),
+                  ));
+                });
               });
             });
           });
         });
-      });
+      }
     }
 
     return SafeArea(

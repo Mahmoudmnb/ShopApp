@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/featurs/main_page/featurs/products_view/models/add_to_cart_product_model.dart';
 import '../../../home/models/product_model.dart';
 
 import '../../../../../../injection.dart';
@@ -63,5 +64,19 @@ class ProductCubit extends Cubit<ProductStates> {
 
   Future<Map<String, dynamic>> getProductById(int id) async {
     return sl.get<DataSource>().getProductById(id);
+  }
+
+  Future<void> addToCart(ProductModel product) async {
+    String color = product.colors.split('|')[indexOfColor];
+    String size = product.sizes.split('|')[indexOfSize];
+    String imgUrl = product.imgUrl.split('|')[0];
+    sl.get<DataSource>().addToCart(AddToCartProductModel(
+        imgUrl: imgUrl,
+        quantity: amountOfProduct,
+        color: color,
+        companyMaker: product.makerCompany,
+        productName: product.name,
+        price: product.price,
+        size: size));
   }
 }

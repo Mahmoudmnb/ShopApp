@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shop_app/featurs/main_page/drawer/home_drawer.dart';
-import 'package:shop_app/featurs/main_page/featurs/shopping_bag/screens/shopping_bag_screen.dart';
+import 'package:shop_app/core/data_base.dart';
+import 'package:shop_app/featurs/main_page/featurs/orders/screen/orders.dart';
+import 'package:shop_app/featurs/main_page/featurs/profile/screen/profile.dart';
 
 import '../../injection.dart';
 import 'cubit/main_page_cubit.dart';
+import 'drawer/home_drawer.dart';
 import 'data_source/data_source.dart';
 import 'featurs/home/pages/home_page.dart';
 import 'featurs/home/widgets/main_page_tab_bar.dart';
-import 'featurs/orders/screen/order_screen.dart';
-import 'featurs/profile/profile/screen/profile_screen.dart';
 import 'featurs/search/pages/search_screen.dart';
+import 'featurs/shopping_bag/cubits/products_cubit/products_cubit.dart';
+import 'featurs/shopping_bag/screens/shopping_bag_screen.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -56,10 +58,16 @@ class _MainPageState extends State<MainPage>
           ),
           SizedBox(width: 2.w),
           IconButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ShoppingBagScreen(),
-                ));
+              onPressed: () async {
+                await sl
+                    .get<DataSource>()
+                    .getAddToCartProducts()
+                    .then((addToCartProducts) {
+                  context.read<AddToCartCubit>().products = addToCartProducts;
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const ShoppingBagScreen(),
+                  ));
+                });
               },
               icon: Icon(
                 Icons.shopping_cart_outlined,
@@ -70,7 +78,12 @@ class _MainPageState extends State<MainPage>
       actions: [
         Padding(
           padding: EdgeInsets.only(right: 4.0.w),
-          child: const Icon(Icons.favorite_border),
+          child: IconButton(
+            icon: const Icon(Icons.favorite_border),
+            onPressed: () {
+              MyDataBase().createAddToCartTable();
+            },
+          ),
         )
       ],
       centerTitle: true,
@@ -85,9 +98,7 @@ class _MainPageState extends State<MainPage>
                       : pageIndex == 2
                           ? 'My Orders'
                           : 'profile',
-              style: TextStyle(
-                  fontFamily: 'DM Sans',
-                  fontSize: MediaQuery.of(context).textScaleFactor * 30));
+              style: TextStyle(fontFamily: 'DM Sans', fontSize: 30.sp));
         },
       ),
     );
@@ -95,32 +106,28 @@ class _MainPageState extends State<MainPage>
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar,
-      drawer: const Drawer(shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(15),
-                        bottomRight: Radius.circular(15),
-                      ),
-                    ),child: HomeDrawer()),
-      // body: const Center(
-      //   child: Text('Hi'),
-      // ),
-        body: TabBarView(
-          controller: tabController,
-          children: [
-            FutureBuilder(
-              future: sl.get<DataSource>().getDiscountsProducts(),
-              builder: (context, snapshot) => snapshot.hasData
-                  ? HomePage(disCountProducts: snapshot.data!)
-                  : const SizedBox.shrink(),
+      drawer: const Drawer(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(15),
+              bottomRight: Radius.circular(15),
             ),
-            const SearchScreen(),
-            const OrdersScreen(),
-            const ProfileScreen(),
-          ],
-        ),
-      
-      
-
+          ),
+          child: HomeDrawer()),
+      body: TabBarView(
+        controller: tabController,
+        children: [
+          FutureBuilder(
+            future: sl.get<DataSource>().getDiscountsProducts(),
+            builder: (context, snapshot) => snapshot.hasData
+                ? HomePage(disCountProducts: snapshot.data!)
+                : const SizedBox.shrink(),
+          ),
+          const SearchScreen(),
+          const MyOrdersScreen(),
+          const ProfileScreen(),
+        ],
+      ),
       bottomNavigationBar: MainPageTabBar(
         tabController: tabController,
       ),

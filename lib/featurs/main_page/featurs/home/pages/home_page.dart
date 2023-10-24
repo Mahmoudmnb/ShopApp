@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
         const SizedBox(height: 5),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          height: 20.h,
+          height: 60.h,
           width: 100.w,
           child: Image.asset(
             'assets/images/Capture.PNG',

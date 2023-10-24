@@ -5,5 +5,7 @@ sealed class ItemProductState {}
 
 final class ItemProductInitial extends ItemProductState {}
 
-class ItemProductAddAmount extends ItemProductState {}
-class ItemProductRemoveAmount extends ItemProductState {}
+class ItemProductChanged extends ItemProductState {
+  final Map<String, int> product;
+  ItemProductChanged({required this.product});
+}

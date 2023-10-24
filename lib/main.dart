@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shop_app/featurs/main_page/featurs/shopping_bag/cubits/item_product_cubit/item_product_cubit.dart';
+import 'package:shop_app/featurs/main_page/featurs/check_out/cubit/check_out_cubit.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/constant.dart';
@@ -16,14 +17,17 @@ import 'featurs/main_page/cubit/main_page_cubit.dart';
 import 'featurs/main_page/featurs/home/blocs/discount/discount_products_bloc.dart';
 import 'featurs/main_page/featurs/orders/cubit/orders_cubit.dart';
 import 'featurs/main_page/featurs/products_view/cubits/product_screen/cubit.dart';
-import 'featurs/main_page/featurs/profile/profile/cubit/profile_cubit.dart';
+import 'featurs/main_page/featurs/profile/cubit/profile_cubit.dart';
 import 'featurs/main_page/featurs/search/cubit/sreach_cubit.dart';
 import 'featurs/main_page/featurs/shopping_bag/cubits/products_cubit/products_cubit.dart';
+import 'featurs/main_page/featurs/shopping_bag/cubits/item_product_cubit/item_product_cubit.dart';
 import 'featurs/main_page/main_page.dart';
 import 'injection.dart';
 
 Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
   await Supabase.initialize(
     url: Constant.supabaseUrl,
     anonKey: Constant.supabaseAnonkey,
@@ -66,10 +70,13 @@ Future<void> main(List<String> args) async {
       create: (context) => ProfileCubit(),
     ),
     BlocProvider(
-      create: (context) => ProductsCubit(),
+      create: (context) => AddToCartCubit(),
     ),
     BlocProvider(
       create: (context) => ItemProductCubit(),
+    ),
+    BlocProvider(
+      create: (context) => CheckOutCubit(),
     ),
   ], child: const MyApp()));
 }
@@ -80,20 +87,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(
-          MediaQuery.of(context).size.width, MediaQuery.of(context).size.width),
-      child: ScreenUtilInit(
         designSize: const Size(393, 852),
         builder: (context, child) => MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: sl.get<SharedPreferences>().getBool('isFirstTime') == null
-              ? SplashScreen(
-                  deviceHeight: 100.h,
-                  deviceWidth: 100.w,
-                )
-              : const MainPage(),
-        ),
-      ),
-    );
+              debugShowCheckedModeBanner: false,
+              home: sl.get<SharedPreferences>().getBool('isFirstTime') == null
+                  ? SplashScreen(
+                      deviceHeight: 100.h,
+                      deviceWidth: 100.w,
+                    )
+                  : const MainPage(),
+            ));
   }
 }
