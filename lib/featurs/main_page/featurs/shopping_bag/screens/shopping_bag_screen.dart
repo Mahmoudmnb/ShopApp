@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shop_app/featurs/main_page/featurs/check_out/screens/first_step.dart';
@@ -28,6 +30,7 @@ class ShoppingBagScreen extends StatelessWidget {
                   child: CustomButton(
                     title: 'Proceed to checkout',
                     onPressed: () {
+                      log('');
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const CheckOutScreen1(),
                       ));
