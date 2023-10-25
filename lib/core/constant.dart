@@ -23,6 +23,8 @@ class Constant {
   static Duration duration = const Duration(milliseconds: 500);
   static String productDataBasePath =
       '/data/user/0/com.example.shop_app/databases/prducts.db';
+  static String addToCartTable =
+      '/data/user/0/com.example.shop_app/databases/AddToCartTable.db';
   static String searchHistoryDataBasePath =
       '/data/user/0/com.example.shop_app/databases/searchHistory.db';
   static String reviewsDataBasePath =

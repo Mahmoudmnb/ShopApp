@@ -1,74 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../widgets/product_item.dart';
+
+import '../../../../data_source/data_source.dart';
+import '../../../../../../injection.dart';
 
 part 'products_state.dart';
 
-class ProductsCubit extends Cubit<ProductsState> {
-  ProductsCubit() : super(ProductsInitial());
+class AddToCartCubit extends Cubit<AddToCartState> {
+  AddToCartCubit() : super(ProductsInitial());
 
-  List<ProductItem> list = [
-    const ProductItem(
-      title: 'Flyday shirt1',
-      brand: 'Zara',
-      color: Color(0xFF44565C),
-      amountOfProduct: 2,
-      price: 34,
-      size: 'L',
-    ),
-    const ProductItem(
-      title: 'Flyday shirt2',
-      brand: 'Zara',
-      color: Color(0xFF44565C),
-      amountOfProduct: 2,
-      price: 34,
-      size: 'L',
-    ),
-    const ProductItem(
-      title: 'Flyday shirt3',
-      brand: 'Zara',
-      color: Color(0xFF44565C),
-      amountOfProduct: 2,
-      price: 34,
-      size: 'L',
-    ),
-    const ProductItem(
-      title: 'Flyday shirt4',
-      brand: 'Zara',
-      color: Color(0xFF44565C),
-      amountOfProduct: 2,
-      price: 34,
-      size: 'L',
-    ),
-    const ProductItem(
-      title: 'Flyday shirt5',
-      brand: 'Zara',
-      color: Color(0xFF44565C),
-      amountOfProduct: 2,
-      price: 34,
-      size: 'L',
-    ),
-    const ProductItem(
-      title: 'Flyday shirt7',
-      brand: 'Zara',
-      color: Color(0xFF44565C),
-      amountOfProduct: 2,
-      price: 34,
-      size: 'L',
-    ),
-  ];
-
-  void removeElement(int index) {
-    list.removeAt(index);
-    emit(ProductsRemoveElement());
+  List<Map<String, dynamic>> products = [];
+  void removeElement(int id) {
+    sl
+        .get<DataSource>()
+        .removeItemFromAddToCartProducts(id)
+        .then((value) async {
+      products = await sl.get<DataSource>().getAddToCartProducts();
+      emit(ProductsRemoveElement());
+    });
   }
 
-  void addElement(ProductItem item) {
-    list.add(item);
+  void addElement(Map<String, dynamic> item) {
+    products.add(item);
     emit(ProductsAddElement());
   }
 
   void fetchData() {
     emit(ProductsFetchData());
+  }
+
+  double totalPrice() {
+    double total = 0;
+    for (var element in products) {
+      total += element['price'] * element['quantity'];
+    }
+    return total;
+  }
+
+  void getAddToCartProducts() async {
+    products = await sl.get<DataSource>().getAddToCartProducts();
   }
 }

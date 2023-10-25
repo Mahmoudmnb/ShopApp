@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,17 +15,16 @@ class InfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 25.55.w, vertical: 40.h),
-      decoration: const ShapeDecoration(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          side: BorderSide(
-            width: 1,
-            color: Color(0xFFDBDBDB),
+        padding: EdgeInsets.symmetric(horizontal: 25.55.w, vertical: 40.h),
+        decoration: const ShapeDecoration(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            side: BorderSide(
+              width: 1,
+              color: Color(0xFFDBDBDB),
+            ),
           ),
         ),
-      ),
-      child: InfoCardView(productPrice: productPrice, shipping: shipping),
-    );
+        child: InfoCardView(productPrice: productPrice, shipping: shipping));
   }
 }

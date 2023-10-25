@@ -40,7 +40,6 @@ class ProductDetails extends StatelessWidget {
       initialChildSize: 0.49,
       minChildSize: 0.49,
       builder: (context, scrollController) => SingleChildScrollView(
-        physics: const NeverScrollableScrollPhysics(),
         controller: scrollController,
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -85,7 +84,7 @@ class ProductDetails extends StatelessWidget {
                                     letterSpacing: .5,
                                     fontFamily: 'Tenor Sans',
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 24.sp,
+                                    fontSize: 16.w,
                                   ),
                                 ),
                                 SizedBox(width: 3.w),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/core/constant.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../model/card_model.dart';
@@ -12,7 +11,7 @@ class BuildOrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 1.w, vertical: 2.h),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 15.h),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
@@ -24,10 +23,10 @@ class BuildOrderCard extends StatelessWidget {
           ]),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(
-          "Order #${card.orderNumber}",
+          "Order #${card.numb}",
           style: TextStyle(
               fontFamily: "DM Sans",
-              fontSize: 7.sp,
+              fontSize: 8.sp,
               fontWeight: FontWeight.bold,
               shadows: [
                 Shadow(
@@ -36,7 +35,9 @@ class BuildOrderCard extends StatelessWidget {
                     blurRadius: 4)
               ]),
         ),
-        SizedBox(height: 1.h),
+        SizedBox(
+          height: 8.h,
+        ),
         Row(
           children: [
             Expanded(
@@ -44,21 +45,25 @@ class BuildOrderCard extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    "Order date:",
+                    "Order date",
                     style: TextStyle(
                         fontFamily: 'Tenor Sans',
                         color: const Color(0xFF828282),
-                        fontSize: 5.8.sp),
+                        fontSize: 13.sp),
                   ),
-                  SizedBox(width: 0.5.w),
+                  SizedBox(
+                    width: 8.w,
+                  ),
                   Text(
-                    "${Constant.stringToDate(card.orderDate).day}/${Constant.stringToDate(card.orderDate).month}/${Constant.stringToDate(card.orderDate).year}",
-                    style: TextStyle(color: Colors.black, fontSize: 4.3.sp),
+                    "${card.orderDate.day}/${card.orderDate.month}/${card.orderDate.year}",
+                    style: TextStyle(color: Colors.black, fontSize: 13.sp),
                   ),
                 ],
               ),
             ),
-            SizedBox(width: 1.w),
+            SizedBox(
+              width: 8.w,
+            ),
             Expanded(
               // flex: 4,
               child: Row(
@@ -68,19 +73,23 @@ class BuildOrderCard extends StatelessWidget {
                     style: TextStyle(
                         fontFamily: 'Tenor Sans',
                         color: const Color(0xFF828282),
-                        fontSize: 6.sp),
+                        fontSize: 13.sp),
                   ),
-                  SizedBox(width: 1.w),
+                  SizedBox(
+                    width: 8.w,
+                  ),
                   Text(
-                    "${Constant.stringToDate(card.dueDate).day}/${Constant.stringToDate(card.dueDate).month}/${Constant.stringToDate(card.dueDate).year}",
-                    style: TextStyle(color: Colors.black, fontSize: 4.5.sp),
+                    "${card.dueDate.day}/${card.dueDate.month}/${card.dueDate.year}",
+                    style: TextStyle(color: Colors.black, fontSize: 13.sp),
                   ),
                 ],
               ),
             ),
           ],
         ),
-        SizedBox(height: 1.h),
+        SizedBox(
+          height: 8.h,
+        ),
         Row(
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -88,84 +97,84 @@ class BuildOrderCard extends StatelessWidget {
               // flex: 6,
               child: Row(
                 children: [
-                  Text(
+                  const Text(
                     "Quantity:",
                     style: TextStyle(
-                        fontSize: 6.sp,
-                        fontFamily: 'Tenor Sans',
-                        color: const Color(0xFF828282)),
+                        fontFamily: 'Tenor Sans', color: Color(0xFF828282)),
                   ),
-                  SizedBox(width: 2.w),
+                  SizedBox(
+                    width: 8.w,
+                  ),
                   Text(
                     "${card.quantity}",
-                    style: TextStyle(
-                        fontFamily: 'Tenor Sans',
-                        color: Colors.black,
-                        fontSize: 5.sp),
+                    style: const TextStyle(
+                        fontFamily: 'Tenor Sans', color: Colors.black),
                   ),
                 ],
               ),
             ),
-            SizedBox(width: 2.w),
+            SizedBox(
+              width: 8.w,
+            ),
             Expanded(
               // flex: 4,
               child: Row(
                 children: [
-                  Text(
+                  const Text(
                     "Subtotal",
                     style: TextStyle(
-                        fontSize: 6.sp,
-                        fontFamily: 'Tenor Sans',
-                        color: const Color(0xFF828282)),
+                        fontFamily: 'Tenor Sans', color: Color(0xFF828282)),
                   ),
-                  SizedBox(width: 2.w),
+                  SizedBox(
+                    width: 8.w,
+                  ),
                   Text(
                     "${card.subtotal}\$",
-                    style: TextStyle(
-                        fontSize: 6.sp,
-                        fontFamily: 'Tenor Sans',
-                        color: Colors.black),
+                    style: const TextStyle(
+                        fontFamily: 'Tenor Sans', color: Colors.black),
                   ),
                 ],
               ),
             ),
           ],
         ),
-        SizedBox(height: 1.h),
+        SizedBox(
+          height: 8.h,
+        ),
         Row(
           children: [
-            Text(
+            const Text(
               "Tracking number:",
-              style: TextStyle(
-                  fontSize: 6.sp,
-                  fontFamily: 'Tenor Sans',
-                  color: const Color(0xFF828282)),
+              style:
+                  TextStyle(fontFamily: 'Tenor Sans', color: Color(0xFF828282)),
             ),
-            SizedBox(width: 2.w),
+            SizedBox(
+              width: 8.w,
+            ),
             Text(
               card.trackingNumber,
-              style: TextStyle(
-                  fontSize: 6.sp,
-                  fontFamily: 'Tenor Sans',
-                  color: Colors.black),
+              style: const TextStyle(
+                  fontFamily: 'Tenor Sans', color: Colors.black),
             ),
           ],
         ),
-        SizedBox(height: 1.h),
+        SizedBox(
+          height: 8.h,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              card.isDelevered ? 'Delevered' : 'Pending',
+              card.kingOfOrder,
               style: TextStyle(
                   fontFamily: 'Tenor Sans',
-                  color: card.isDelevered
+                  color: card.kingOfOrder == "Pending"
                       ? const Color(0xFFD57676)
                       : const Color(0xFF76D5AD),
-                  fontSize: 8.sp),
+                  fontSize: 15.sp),
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 4),
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(4),
@@ -176,9 +185,11 @@ class BuildOrderCard extends StatelessWidget {
                         color: Colors.black.withOpacity(.25))
                   ],
                   border: Border.all(color: const Color(0xFF434343))),
-              child: Text(
+              child: const Text(
                 "Details",
-                style: TextStyle(fontFamily: 'Tenor Sans', fontSize: 6.sp),
+                style: TextStyle(
+                  fontFamily: 'Tenor Sans',
+                ),
               ),
             )
           ],

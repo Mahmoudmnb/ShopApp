@@ -1,12 +1,12 @@
 part of 'products_cubit.dart';
 
 @immutable
-abstract class ProductsState {}
+abstract class AddToCartState {}
 
-class ProductsInitial extends ProductsState {}
+class ProductsInitial extends AddToCartState {}
 
-class ProductsRemoveElement extends ProductsState {}
+class ProductsRemoveElement extends AddToCartState {}
 
-class ProductsAddElement extends ProductsState {}
+class ProductsAddElement extends AddToCartState {}
 
-class ProductsFetchData extends ProductsState {}
+class ProductsFetchData extends AddToCartState {}

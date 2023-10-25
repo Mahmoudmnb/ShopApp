@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:shop_app/featurs/main_page/featurs/products_view/cubits/product_screen/cubit.dart';
 import '../../../home/models/product_model.dart';
 import 'product_view_custom_button.dart';
 
@@ -88,7 +89,10 @@ class AddToCartBottomSheet extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                   Image(image: const AssetImage('assets/images/icon.png'), width:20.w,height: 20.w),
+                  Image(
+                      image: const AssetImage('assets/images/icon.png'),
+                      width: 20.w,
+                      height: 20.w),
                   SizedBox(width: 7.5.w),
                   Text(
                     'Add to cart',
@@ -102,7 +106,36 @@ class AddToCartBottomSheet extends StatelessWidget {
                   ),
                 ],
               ),
-              onPressed: () {},
+              onPressed: () {
+                context.read<ProductCubit>().addToCart(product);
+                showDialog(
+                  context: context,
+                  builder: (context) => const AlertDialog(
+                    content: Text('success'),
+                  ),
+                );
+                // if (Constant.currentUser == null) {
+                //   showDialog(
+                //     context: context,
+                //     builder: (context) => AlertDialog(
+                //       content: const Text(
+                //           'you have to register before you can by any thing'),
+                //       actions: [
+                //         TextButton(
+                //             onPressed: () {
+                //               Navigator.of(context).pop();
+                //               Navigator.of(context).push(MaterialPageRoute(
+                //                 builder: (context) => const AuthPage(),
+                //               ));
+                //             },
+                //             child: const Text('register now'))
+                //       ],
+                //     ),
+                //   );
+                // } else {
+
+                // }
+              },
             ),
           )
         ],

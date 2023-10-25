@@ -5,6 +5,26 @@ import 'package:shop_app/core/constant.dart';
 import 'package:sqflite/sqflite.dart';
 
 class MyDataBase {
+  Future<void> createAddToCartTable() async {
+    String path = await getDatabasesPath();
+    String dataBasePath = '$path/AddToCartTable.db';
+    log(dataBasePath);
+    try {
+      await openDatabase(
+        dataBasePath,
+        version: 1,
+        onCreate: (db, version) async {
+          db.execute(
+              'CREATE TABLE AddToCartTable (id INTEGER PRIMARY KEY , imgUrl TEXT NOT NULL, quantity INTEGER NOT NULL, productName TEXT NOT NULL ,price DOUBLE NOT NULL, companyMaker TEXT NOT NULL , color TEXT NOT NULL , size  TEXT NOT NULL)');
+        },
+      );
+      log('Add to cart table created');
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  //! working on it
   Future<void> createOrdersTable() async {
     String path = await getDatabasesPath();
     String dataBasePath = '$path/orders.db';

@@ -67,6 +67,7 @@ class _ProductScreenState extends State<ProductScreen> {
     isDiscount = product.disCount > 0;
     cubit = widget.cubit;
     cubit.isFavorite = product.isFavorite;
+    cubit.amountOfProduct = 1;
     getAvrOfStars(cubit.reviws);
     super.initState();
   }
@@ -81,7 +82,7 @@ class _ProductScreenState extends State<ProductScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        // backToSomePage();
+        backToSomePage();
         return false;
       },
       child: SafeArea(
@@ -89,7 +90,7 @@ class _ProductScreenState extends State<ProductScreen> {
           designSize: const Size(393, 852),
           minTextAdapt: true,
           splitScreenMode: true,
-          builder: (context, _)=> Scaffold(
+          builder: (context, _) => Scaffold(
               body: SizedBox(
                 width: 393.w,
                 height: 852.h,
@@ -132,7 +133,8 @@ class _ProductScreenState extends State<ProductScreen> {
                               isFavorate
                                   ? Icons.favorite_rounded
                                   : Icons.favorite_outline_rounded,
-                              color: isFavorate ? const Color(0xFFFF6E6E) : null,
+                              color:
+                                  isFavorate ? const Color(0xFFFF6E6E) : null,
                             ),
                             onPressed: () async {
                               cubit.changeFavorite(product.id).then((value) {});
