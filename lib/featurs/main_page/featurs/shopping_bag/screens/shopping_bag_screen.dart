@@ -29,7 +29,7 @@ class ShoppingBagScreen extends StatelessWidget {
                   child: CustomButton(
                     title: 'Proceed to checkout',
                     onPressed: () {
-                      log('message');
+                      log('mnb');
                     },
                   ),
                 ),
