@@ -19,7 +19,7 @@ class CollectionsSpacer extends StatelessWidget {
           Text(collectoinTitle,
               style: TextStyle(
                 fontFamily: 'DM Sans',
-                fontSize: 8.sp,
+                fontSize: 20.sp,
                 color: const Color(0xff6D6D6D),
               )),
           const Spacer(),
@@ -30,13 +30,14 @@ class CollectionsSpacer extends StatelessWidget {
                 Text('See All',
                     style: TextStyle(
                       fontFamily: 'DM Sans',
-                      fontSize: 7.sp,
+                      fontSize: 16.sp,
                       color: const Color(0xff6D6D6D),
                     )),
                 const SizedBox(width: 5),
-                const Icon(
+                Icon(
                   Icons.arrow_forward,
-                  color: Color(0xff6D6D6D),
+                  size: 16.sp,
+                  color: const Color(0xff6D6D6D),
                 )
               ],
             ),

@@ -37,18 +37,18 @@ class CategoryCard extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            width: 17.w,
-            height: 17.w,
+            width: 60.w,
+            height: 60.h,
             decoration: BoxDecoration(
                 border: Border.all(color: const Color(0xFF3D3D3D), width: 1.5),
                 borderRadius: BorderRadius.circular(10)),
             child: Image.asset(categoryImageUrl),
           ),
-          SizedBox(height: 1.h),
+          SizedBox(height: 10.h),
           Expanded(
             child: Text(
               categroyName,
-              style: TextStyle(fontSize: 4.sp, fontFamily: 'Tenor Sans'),
+              style: TextStyle(fontSize: 12.sp, fontFamily: 'Tenor Sans'),
             ),
           ),
         ],

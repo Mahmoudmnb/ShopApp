@@ -5,8 +5,10 @@ class RecommendedImage extends StatelessWidget {
   final String productNamge;
   final String productPrice;
   final String imageUrl;
+  final String companyMaker;
   const RecommendedImage(
       {super.key,
+      required this.companyMaker,
       required this.imageUrl,
       required this.productNamge,
       required this.productPrice});
@@ -19,8 +21,8 @@ class RecommendedImage extends StatelessWidget {
       decoration: BoxDecoration(
           color: const Color(0xffF1F1F1),
           borderRadius: BorderRadius.circular(15)),
-      height: 30,
-      width: 70.w,
+      height: 68.h,
+      width: 257.w,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -29,8 +31,8 @@ class RecommendedImage extends StatelessWidget {
             child: Image.asset(
               imageUrl,
               fit: BoxFit.fill,
-              height: 12.h,
-              width: 12.h,
+              height: 68.h,
+              width: 70.w,
             ),
           ),
           const SizedBox(width: 4),
@@ -38,13 +40,20 @@ class RecommendedImage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(
+                companyMaker,
+                style: TextStyle(fontSize: 16.sp, fontFamily: 'Tenor Sans'),
+              ),
               Text(productNamge,
-                  style: TextStyle(fontFamily: 'DM Sans', fontSize: 5.sp)),
+                  style: TextStyle(
+                      fontFamily: 'Tenor Sans',
+                      fontSize: 13.sp,
+                      color: const Color(0xff929292))),
               Text(productPrice,
                   style: TextStyle(
-                      fontFamily: 'DM Sans',
-                      fontSize: 5.sp,
-                      color: Colors.grey))
+                      fontFamily: 'Tenor Sans',
+                      fontSize: 11.sp,
+                      color: const Color(0xff6D6D6D)))
             ],
           )
         ],

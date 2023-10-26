@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -51,46 +52,42 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
         searchController: searchController,
       ),
       body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 3.w),
+        margin: EdgeInsets.symmetric(horizontal: 15.w),
         child: Column(children: [
-          SizedBox(
-            height: 3.w,
-          ),
+          SizedBox(height: 30.h),
           Row(
             children: [
-              Container(
-                alignment: Alignment.center,
-                height: 10.w,
-                width: 10.w,
-                padding: EdgeInsets.only(
-                    left: 2.5.w, top: 1.w, bottom: 1.w, right: 1.w),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          offset: const Offset(0.1, 2),
-                          blurRadius: .4,
-                          color: Colors.black.withOpacity(.25))
-                    ]),
-                child: Center(
-                    child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context)
-                        .pop({'searchWord': searchController.text});
-                  },
-                  child: const Icon(
-                    Icons.arrow_back_ios,
-                    color: Colors.black,
-                  ),
-                )),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .pop({'searchWord': searchController.text});
+                },
+                child: Container(
+                    alignment: Alignment.center,
+                    height: 36.h,
+                    width: 35.w,
+                    margin: EdgeInsets.all(5.sp),
+                    padding: EdgeInsets.only(left: 10.w),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                              offset: const Offset(0.1, 2),
+                              blurRadius: .4,
+                              color: Colors.black.withOpacity(.25))
+                        ]),
+                    child: const Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.black,
+                    )),
               ),
-              SizedBox(
-                width: 4.w,
-              ),
+              SizedBox(width: 10.w),
               Expanded(
                   child: TextField(
                 controller: searchController,
+                style:
+                    TextStyle(fontSize: 24.sp, color: const Color(0xff797979)),
                 onSubmitted: (value) {
                   search(cubit);
                 },
@@ -103,20 +100,20 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                     onPressed: () {
                       search(cubit);
                     },
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.search,
+                      size: 30.sp,
                     ),
                   ),
                 )),
-              ))
+              )),
+              SizedBox(width: 10.w)
             ],
           ),
-          SizedBox(height: 2.h),
+          SizedBox(height: 30.h),
           Row(
             children: [
-              SizedBox(
-                width: 10.w,
-              ),
+              SizedBox(width: 55.w),
               BlocBuilder<SearchCubit, SearchState>(
                 builder: (context, state) {
                   int length = searchProducts.length;
@@ -128,7 +125,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                     style: TextStyle(
                         fontFamily: 'Tenor Sans',
                         color: const Color(0xFF979797),
-                        fontSize: 7.sp),
+                        fontSize: 16.sp),
                   );
                 },
               ),
@@ -140,7 +137,8 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                   },
                   child: Image(
                     image: const AssetImage('assets/images/Filter_big.png'),
-                    height: 4.h,
+                    height: 22.h,
+                    width: 22.w,
                   ),
                 );
               }),
@@ -149,7 +147,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
               )
             ],
           ),
-          SizedBox(height: 3.h),
+          SizedBox(height: 30.h),
           BlocBuilder<SearchCubit, SearchState>(
             builder: (context, state) {
               if (state is SearchResults) {
@@ -159,10 +157,11 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                 child: GridView.builder(
                   physics: const BouncingScrollPhysics(),
                   itemCount: searchProducts.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    childAspectRatio: .5,
-                    crossAxisSpacing: 20,
+                    childAspectRatio: 0.65,
+                    mainAxisSpacing: 10.w,
+                    crossAxisSpacing: 10.h,
                   ),
                   itemBuilder: (context, index) {
                     ProductModel product =
@@ -190,77 +189,93 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                           });
                         });
                       },
-                      child: Column(
-                        children: [
-                          Container(
-                            clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(boxShadow: [
-                              BoxShadow(
-                                  offset: const Offset(0, 4),
-                                  color: Colors.black.withOpacity(.25),
-                                  blurRadius: 2)
-                            ], borderRadius: BorderRadius.circular(10)),
-                            child: Stack(
-                              alignment: const Alignment(.80, -.89),
-                              children: [
-                                Image.asset(
-                                  product.imgUrl.split('|')[0].trim(),
-                                  fit: BoxFit.cover,
-                                  height: 35.h,
-                                  width: 25.h,
-                                ),
-                                Positioned(
-                                  right: 2.w,
-                                  child: CircleAvatar(
-                                    backgroundColor: Colors.white,
-                                    child: IconButton(
-                                        color: Colors.pink,
-                                        onPressed: () {
+                      child: SizedBox(
+                        width: 141.w,
+                        height: 248.h,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              clipBehavior: Clip.antiAlias,
+                              decoration: BoxDecoration(boxShadow: [
+                                BoxShadow(
+                                    offset: const Offset(0, 4),
+                                    color: Colors.black.withOpacity(.25),
+                                    blurRadius: 2)
+                              ], borderRadius: BorderRadius.circular(10)),
+                              child: Stack(
+                                alignment: const Alignment(.80, -.89),
+                                children: [
+                                  Image.asset(
+                                    product.imgUrl.split('|')[0].trim(),
+                                    fit: BoxFit.cover,
+                                    height: 206.h,
+                                    width: 141.w,
+                                  ),
+                                  Positioned(
+                                    right: 8.w,
+                                    child: GestureDetector(
+                                        onTap: () {
                                           cubit.setFavorateProduct(
                                               product.id, !product.isFavorite);
                                           cubit.search(searchController.text);
                                         },
-                                        icon: Icon(product.isFavorite
-                                            ? Icons.favorite
-                                            : Icons.favorite_outline)),
+                                        child: Container(
+                                            height: 33.h,
+                                            width: 33.h,
+                                            alignment: Alignment.center,
+                                            decoration: const BoxDecoration(
+                                                color: Colors.white,
+                                                shape: BoxShape.circle),
+                                            child: product.isFavorite
+                                                ? const Icon(
+                                                    Icons.favorite,
+                                                    color: Color(0xffFF6E6E),
+                                                  )
+                                                : const Icon(
+                                                    Icons.favorite,
+                                                    color: Color(0xffD8D8D8),
+                                                  ))),
+                                  )
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 15.h),
+                            SizedBox(
+                              height: 20.h,
+                              width: 141.w,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    product.makerCompany,
+                                    style: TextStyle(
+                                        fontSize: 14.sp,
+                                        fontFamily: 'Tenor Sans'),
                                   ),
-                                )
-                              ],
+                                  const Spacer(),
+                                  Text(
+                                    "${product.price} \$",
+                                    style: TextStyle(
+                                        fontFamily: 'Tenor Sans',
+                                        color: const Color(0xFFD57676),
+                                        fontSize: 10.sp),
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 1.h),
-                          SizedBox(
-                            height: 5.h,
-                            child: Row(
-                              children: [
-                                Text(
-                                  product.makerCompany,
-                                  style: TextStyle(
-                                      fontSize: 6.sp, fontFamily: 'Tenor Sans'),
-                                ),
-                                const Spacer(),
-                                Text(
-                                  "${product.price} \$",
-                                  style: TextStyle(
-                                      fontFamily: 'Tenor Sans',
-                                      color: const Color(0xFFD57676),
-                                      fontSize: 5.sp),
-                                )
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 3.h,
-                            width: double.infinity,
-                            child: Text(
-                              product.name,
-                              maxLines: 1,
-                              style: const TextStyle(
-                                  fontFamily: 'Tenor Sans',
-                                  color: Color(0xFF828282)),
-                            ),
-                          )
-                        ],
+                            SizedBox(
+                              height: 20.h,
+                              width: 141.w,
+                              child: Text(
+                                product.name,
+                                style: TextStyle(
+                                    fontFamily: 'Tenor Sans',
+                                    fontSize: 11.sp,
+                                    color: const Color(0xFF828282)),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     );
                   },
