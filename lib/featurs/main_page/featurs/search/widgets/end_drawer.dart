@@ -42,38 +42,42 @@ class EndDrawer extends StatelessWidget {
     return Drawer(
       child: Container(
         padding: EdgeInsets.only(
-            top: fromPage == 'SearchPage' ? 0 : 5.h, left: 1.w, right: 1.w),
+            top: fromPage == 'SearchPage' ? 0 : 40.h, left: 8.w, right: 8.w),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 3.w),
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   "Filter",
-                  style: TextStyle(fontSize: 10.sp, fontFamily: 'DM Sans'),
+                  style: TextStyle(
+                      fontSize: 18.sp,
+                      fontFamily: 'DM Sans',
+                      fontWeight: FontWeight.w500),
                 ),
                 Image(
                   image: const AssetImage('assets/images/Filter_big.png'),
-                  height: 7.w,
+                  height: 25.w,
                 )
               ],
             ),
           ),
-          sb(height: fromPage == 'SearchPage' ? 0 : 2.h),
+          sb(height: fromPage == 'SearchPage' ? 0 : 10.h),
           const Divider(thickness: 1),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const SizedBox(height: 10),
               Text(
                 "Category",
                 style: TextStyle(
                     color: const Color(0xFF7E7E7E),
-                    fontSize: 6.sp,
+                    fontSize: 13.sp,
                     fontFamily: 'DM Sans'),
               ),
-              sb(height: fromPage == 'SearchPage' ? 1.h : 2.h),
+              sb(height: fromPage == 'SearchPage' ? 20.h : 20.h),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.only(left: 10, right: 10),
@@ -165,12 +169,12 @@ class EndDrawer extends StatelessWidget {
                   },
                 ),
               ),
-              sb(height: fromPage == 'SearchPage' ? 1.h : 2.h),
+              sb(height: fromPage == 'SearchPage' ? 15.h : 20.h),
               Text(
                 "Price",
                 style: TextStyle(
                     color: const Color(0xFF7E7E7E),
-                    fontSize: 6.sp,
+                    fontSize: 13.sp,
                     fontFamily: 'DM Sans'),
               ),
               BlocBuilder<SearchCubit, SearchState>(
@@ -199,10 +203,10 @@ class EndDrawer extends StatelessWidget {
                 "Colors",
                 style: TextStyle(
                     color: const Color(0xFF7E7E7E),
-                    fontSize: 6.sp,
+                    fontSize: 13.sp,
                     fontFamily: 'DM Sans'),
               ),
-              sb(height: fromPage == 'SearchPage' ? 1.h : 2.h),
+              sb(height: fromPage == 'SearchPage' ? 15.h : 20.h),
               BlocBuilder<SearchCubit, SearchState>(
                 builder: (context, state) {
                   List<bool> filterColors = cubit.filterColors;
@@ -210,9 +214,10 @@ class EndDrawer extends StatelessWidget {
                     filterColors = cubit.filterColors;
                   }
                   return SizedBox(
-                    height: 7.w,
+                    height: 20.w,
                     child: ListView.separated(
-                      separatorBuilder: (context, index) => sb(width: 2.w),
+                      physics: const BouncingScrollPhysics(),
+                      separatorBuilder: (context, index) => sb(width: 10.w),
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemCount: cubit.colors.length,
@@ -221,8 +226,8 @@ class EndDrawer extends StatelessWidget {
                           cubit.selectFilterColor(index);
                         },
                         child: Container(
-                          width: 7.w,
-                          height: 7.w,
+                          width: 20.w,
+                          height: 20.w,
                           decoration: BoxDecoration(
                               border: filterColors[index]
                                   ? Border.all(color: Colors.blue, width: 2)
@@ -235,26 +240,26 @@ class EndDrawer extends StatelessWidget {
                   );
                 },
               ),
-              sb(height: fromPage == 'SearchPage' ? 1.h : 2.h),
+              sb(height: fromPage == 'SearchPage' ? 10.h : 20.h),
               Text(
                 "Rating",
                 style: TextStyle(
                     color: const Color(0xFF7E7E7E),
-                    fontSize: 6.sp,
+                    fontSize: 13.sp,
                     fontFamily: 'DM Sans'),
               ),
-              sb(height: fromPage == 'SearchPage' ? 1.h : 2.h),
+              sb(height: fromPage == 'SearchPage' ? 15.h : 20.h),
               BlocBuilder<SearchCubit, SearchState>(
                 builder: (context, state) {
                   List<bool> filterRating = cubit.filterRating;
                   if (state is ResetFilter) {
                     filterRating = cubit.filterRating;
                   }
-                  return Container(
-                    padding: EdgeInsets.only(left: 2.w),
-                    height: 12.w,
+                  return SizedBox(
+                    // padding: EdgeInsets.only(left: 10.w),
+                    height: 40.w,
                     child: ListView.separated(
-                      separatorBuilder: (context, index) => sb(width: 4.w),
+                      separatorBuilder: (context, index) => sb(width: 10.w),
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemCount: 5,
@@ -263,6 +268,7 @@ class EndDrawer extends StatelessWidget {
                           cubit.selectFilterRating(index);
                         },
                         child: Container(
+                          margin: EdgeInsets.only(bottom: 5.h),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                               boxShadow: [
@@ -275,8 +281,8 @@ class EndDrawer extends StatelessWidget {
                                   ? const Color(0xFF33302E)
                                   : Colors.white,
                               borderRadius: BorderRadius.circular(100)),
-                          width: 12.w,
-                          height: 12.w,
+                          width: 35.w,
+                          // height: 30.w,
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -285,7 +291,7 @@ class EndDrawer extends StatelessWidget {
                                   color: filterRating[index]
                                       ? Colors.white
                                       : const Color(0xFF33302E),
-                                  size: 3.w,
+                                  size: 12.w,
                                 ),
                                 Text(
                                   '${index + 1}',
@@ -303,15 +309,15 @@ class EndDrawer extends StatelessWidget {
                   );
                 },
               ),
-              sb(height: fromPage == 'SearchPage' ? 1.h : 2.h),
+              sb(height: fromPage == 'SearchPage' ? 10.h : 15.h),
               Text(
                 "Discount",
                 style: TextStyle(
                     color: const Color(0xFF7E7E7E),
-                    fontSize: 6.sp,
+                    fontSize: 13.sp,
                     fontFamily: 'DM Sans'),
               ),
-              sb(height: fromPage == 'SearchPage' ? 1.h : 2.h),
+              sb(height: fromPage == 'SearchPage' ? 15.h : 15.h),
               BlocBuilder<SearchCubit, SearchState>(
                 builder: (context, state) {
                   List<bool> filterDiscount = cubit.filterDiscount;
@@ -319,7 +325,7 @@ class EndDrawer extends StatelessWidget {
                     filterDiscount = cubit.filterDiscount;
                   }
                   return SizedBox(
-                    height: 15.h,
+                    // height: 15.h,
                     child: GridView.builder(
                       physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
@@ -362,7 +368,7 @@ class EndDrawer extends StatelessWidget {
                   );
                 },
               ),
-              sb(height: fromPage == 'SearchPage' ? 0.5.h : 2.h),
+              sb(height: fromPage == 'SearchPage' ? 15.h : 15.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [

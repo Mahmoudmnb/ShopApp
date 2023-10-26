@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shop_app/featurs/main_page/featurs/orders/screen/details_delivered.dart';
 
 import '../model/card_model.dart';
 
@@ -26,7 +27,7 @@ class BuildOrderCard extends StatelessWidget {
           "Order #${card.numb}",
           style: TextStyle(
               fontFamily: "DM Sans",
-              fontSize: 8.sp,
+              fontSize: 15.sp,
               fontWeight: FontWeight.bold,
               shadows: [
                 Shadow(
@@ -173,22 +174,29 @@ class BuildOrderCard extends StatelessWidget {
                       : const Color(0xFF76D5AD),
                   fontSize: 15.sp),
             ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(4),
-                  boxShadow: [
-                    BoxShadow(
-                        offset: const Offset(0, 4),
-                        blurRadius: 4,
-                        color: Colors.black.withOpacity(.25))
-                  ],
-                  border: Border.all(color: const Color(0xFF434343))),
-              child: const Text(
-                "Details",
-                style: TextStyle(
-                  fontFamily: 'Tenor Sans',
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const DetailsDelivered(),
+                ));
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(4),
+                    boxShadow: [
+                      BoxShadow(
+                          offset: const Offset(0, 4),
+                          blurRadius: 4,
+                          color: Colors.black.withOpacity(.25))
+                    ],
+                    border: Border.all(color: const Color(0xFF434343))),
+                child: const Text(
+                  "Details",
+                  style: TextStyle(
+                    fontFamily: 'Tenor Sans',
+                  ),
                 ),
               ),
             )

@@ -28,10 +28,10 @@ Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  await Supabase.initialize(
-    url: Constant.supabaseUrl,
-    anonKey: Constant.supabaseAnonkey,
-  );
+  // await Supabase.initialize(
+  //   url: Constant.supabaseUrl,
+  //   anonKey: Constant.supabaseAnonkey,
+  // );
   init();
   SharedPreferences db = await SharedPreferences.getInstance();
   String? user = db.getString('currentUser');

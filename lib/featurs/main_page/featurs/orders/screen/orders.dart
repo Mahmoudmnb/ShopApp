@@ -77,48 +77,6 @@ class MyOrdersScreen extends StatelessWidget {
         return Scaffold(
           body: Column(
             children: [
-              SizedBox(
-                height: 18.h,
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 15.h),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      child: Container(
-                        margin: const EdgeInsets.all(8),
-                        child: Icon(
-                          Icons.menu,
-                          size: 25.w,
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      child: Container(
-                        margin: const EdgeInsets.all(8),
-                        child: Icon(
-                          Icons.shopping_cart_outlined,
-                          size: 25.w,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                        child: Text(
-                      "My Orders",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 18.sp),
-                    )),
-                    SizedBox(
-                      width: 40.w,
-                    ),
-                    GestureDetector(
-                      child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 20),
-                          child: const Icon(Icons.favorite)),
-                    )
-                  ],
-                ),
-              ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 30.w),
                 child: Column(
