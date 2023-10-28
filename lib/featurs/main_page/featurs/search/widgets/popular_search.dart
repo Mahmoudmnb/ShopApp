@@ -17,27 +17,29 @@ class PopularSearch extends StatelessWidget {
             "Popular search",
             style: TextStyle(
                 color: const Color(0xFF888888),
-                fontSize: 8.sp,
+                fontSize: 18.sp,
                 fontFamily: 'DM Sans'),
           ),
         ),
-        const SizedBox(
-          height: 30,
-        ),
+        SizedBox(height: 15.h),
         GridView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: 6,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
-              childAspectRatio: .4.h,
-              crossAxisSpacing: 3.w,
-              mainAxisSpacing: 1.h),
-          itemBuilder: (context, index) => Container(
-            decoration: BoxDecoration(
-                color: const Color(0xFFF0EFEF),
-                borderRadius: BorderRadius.circular(3)),
-            child: const Center(child: Text("Trendy")),
+            crossAxisCount: 4,
+            childAspectRatio: 1.5.sp,
+            crossAxisSpacing: 10.w,
+          ),
+          itemBuilder: (context, index) => Center(
+            child: Container(
+              width: 75.w,
+              height: 26.h,
+              decoration: BoxDecoration(
+                  color: const Color(0xFFF0EFEF),
+                  borderRadius: BorderRadius.circular(3)),
+              child: const Center(child: Text("Trendy")),
+            ),
           ),
         ),
       ],

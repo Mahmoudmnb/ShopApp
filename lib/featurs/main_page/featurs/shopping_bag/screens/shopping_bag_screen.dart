@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shop_app/featurs/main_page/featurs/check_out/screens/first_step.dart';
+import '../../check_out/screens/first_step.dart';
 
 import '../widgets/custom_button.dart';
 import '../widgets/shopping_bag_body.dart';

@@ -22,10 +22,10 @@ class DisCountImage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: 38.w,
-          height: 22.h,
+          width: 108.w,
+          height: 142.h,
           alignment: Alignment.center,
-          margin: const EdgeInsets.symmetric(horizontal: 3),
+          margin: EdgeInsets.symmetric(horizontal: 8.w),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
@@ -44,13 +44,13 @@ class DisCountImage extends StatelessWidget {
                     borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(10),
                         bottomRight: Radius.circular(10))),
-                height: 4.h,
-                width: 38.w,
+                height: 25.h,
+                width: 108.w,
                 child: Text(
                   '$discount %',
                   style: TextStyle(
                       fontFamily: 'DM Sans',
-                      fontSize: 7.sp,
+                      fontSize: 16.sp,
                       color: Colors.white),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -58,33 +58,37 @@ class DisCountImage extends StatelessWidget {
             ],
           ),
         ),
-        Row(
-          children: [
-            Text(
-              ' $makerCompany',
-              style: TextStyle(
-                  fontFamily: 'DM Sans',
-                  color: const Color(0xff393939),
-                  fontSize: 5.sp,
-                  fontWeight: FontWeight.bold),
-              overflow: TextOverflow.ellipsis,
-            ),
-            Text(
-              '$price\$',
-              style: TextStyle(
-                  fontFamily: 'DM Sans',
-                  color: const Color(0xffD57676),
-                  fontSize: 5.sp),
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
+        SizedBox(
+          width: 110.w,
+          child: Row(
+            children: [
+              Text(
+                ' $makerCompany',
+                style: TextStyle(
+                    fontFamily: 'DM Sans',
+                    color: const Color(0xff393939),
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.bold),
+                overflow: TextOverflow.ellipsis,
+              ),
+              const Spacer(),
+              Text(
+                '$price\$',
+                style: TextStyle(
+                    fontFamily: 'DM Sans',
+                    color: const Color(0xffD57676),
+                    fontSize: 10.sp),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
         ),
         Text(
           ' $productName',
           style: TextStyle(
               fontFamily: 'DM Sans',
               color: const Color(0xff828282),
-              fontSize: 4.sp),
+              fontSize: 11.sp),
           overflow: TextOverflow.ellipsis,
         ),
       ],

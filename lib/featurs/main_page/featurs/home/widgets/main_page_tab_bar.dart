@@ -8,7 +8,8 @@ class MainPageTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 7.h,
+      height: 52.h,
+      width: 393.w,
       decoration: const BoxDecoration(
           boxShadow: [
             BoxShadow(
@@ -19,7 +20,7 @@ class MainPageTabBar extends StatelessWidget {
               topLeft: Radius.circular(15), topRight: Radius.circular(15))),
       child: TabBar(
           padding: const EdgeInsets.all(5),
-          unselectedLabelColor: Colors.grey,
+          unselectedLabelColor: const Color(0xffC5C5C5),
           indicatorColor: Colors.transparent,
           labelColor: Colors.black,
           controller: tabController,

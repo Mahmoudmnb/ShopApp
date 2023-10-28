@@ -6,8 +6,10 @@ class TrendyImage extends StatelessWidget {
   final String price;
   final String productName;
   final String percent;
+  final String makerCompany;
   const TrendyImage({
     Key? key,
+    required this.makerCompany,
     required this.imageUrl,
     required this.price,
     required this.productName,
@@ -16,37 +18,56 @@ class TrendyImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 38.w,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 38.w,
-            height: 22.h,
-            child: Container(
-              width: 38.w,
-              height: 22.h,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: const DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage(
-                        'assets/images/1.png',
-                      ))),
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: 108.w,
+          height: 131.h,
+          alignment: Alignment.center,
+          margin: EdgeInsets.symmetric(horizontal: 8.w),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage(
+                    imageUrl.split('|')[0],
+                  ))),
+        ),
+        SizedBox(
+          width: 110.w,
+          child: Row(
+            children: [
+              Text(
+                ' $makerCompany',
+                style: TextStyle(
+                    fontFamily: 'DM Sans',
+                    color: const Color(0xff393939),
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.bold),
+                overflow: TextOverflow.ellipsis,
+              ),
+              const Spacer(),
+              Text(
+                price,
+                style: TextStyle(
+                    fontFamily: 'DM Sans',
+                    color: const Color(0xffD57676),
+                    fontSize: 10.sp),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
           ),
-          const SizedBox(height: 5),
-          Text(
-            productName,
-            style: TextStyle(fontFamily: 'DM Sans', fontSize: 4.sp),
-            overflow: TextOverflow.ellipsis,
-          ),
-          Text(price,
-              style: TextStyle(
-                  fontFamily: 'DM Sans', color: Colors.grey, fontSize: 6.sp)),
-        ],
-      ),
+        ),
+        Text(
+          ' $productName',
+          style: TextStyle(
+              fontFamily: 'DM Sans',
+              color: const Color(0xff828282),
+              fontSize: 11.sp),
+          overflow: TextOverflow.ellipsis,
+        ),
+      ],
     );
   }
 }

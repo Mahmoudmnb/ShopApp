@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shop_app/core/data_base.dart';
-import 'package:shop_app/featurs/main_page/featurs/orders/screen/orders.dart';
-import 'package:shop_app/featurs/main_page/featurs/profile/screen/profile.dart';
 
 import '../../injection.dart';
 import 'cubit/main_page_cubit.dart';
 import 'drawer/home_drawer.dart';
 import 'data_source/data_source.dart';
 import 'featurs/home/pages/home_page.dart';
-import 'featurs/home/widgets/main_page_tab_bar.dart';
+import 'featurs/orders/screen/orders.dart';
+import 'featurs/profile/screen/profile.dart';
+import 'package:shop_app/core/data_base.dart';
 import 'featurs/search/pages/search_screen.dart';
+import 'featurs/home/widgets/main_page_tab_bar.dart';
 import 'featurs/shopping_bag/cubits/products_cubit/products_cubit.dart';
 import 'featurs/shopping_bag/screens/shopping_bag_screen.dart';
 

@@ -38,6 +38,7 @@ class _SearchScreenState extends State<SearchScreen> {
     context.read<MainPageCubit>().changePageIndex(1);
     var cubit = SearchCubit.get(context);
     return Scaffold(
+      backgroundColor: Colors.white,
       endDrawer: EndDrawer(
         searchWord: searchController.text,
         fromPage: 'SearchPage',
@@ -46,218 +47,237 @@ class _SearchScreenState extends State<SearchScreen> {
       drawer: const Drawer(),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(children: [
-            SizedBox(height: 2.h),
-            Row(
-              children: [
-                const SizedBox(width: 30),
-                Expanded(
-                  child: Container(
-                    alignment: Alignment.center,
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(5)),
-                    clipBehavior: Clip.antiAlias,
-                    child: BlocBuilder<SearchCubit, SearchState>(
-                      builder: (context, state) {
-                        bool isSearch = cubit.isSearch;
-                        return TextField(
-                          onSubmitted: (value) async {
-                            search(cubit);
-                          },
-                          controller: searchController,
-                          onTap: () {
-                            cubit.startSreaching(true);
-                            cubit.getSearchHistory();
-                          },
-                          textAlign: TextAlign.start,
-                          decoration: InputDecoration(
-                              hintText: "Search",
-                              hintStyle: const TextStyle(
-                                  color: Color(0xFF9B9B9B),
-                                  fontFamily: 'Tenor Sans'),
-                              prefixIcon: IconButton(
-                                onPressed: () {
-                                  FocusScope.of(context).unfocus();
-                                  search(cubit);
-                                },
-                                icon: const Icon(
-                                  color: Color(0xFFA4A4A4),
-                                  Icons.search,
-                                  size: 25,
+          child: Padding(
+            padding: EdgeInsets.only(left: 20.w, right: 12.w),
+            child: Column(children: [
+              SizedBox(height: 15.h),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.center,
+                      decoration:
+                          BoxDecoration(borderRadius: BorderRadius.circular(5)),
+                      clipBehavior: Clip.antiAlias,
+                      child: BlocBuilder<SearchCubit, SearchState>(
+                        builder: (context, state) {
+                          bool isSearch = cubit.isSearch;
+                          return TextField(
+                            onTapOutside: (event) {
+                              FocusScope.of(context).unfocus();
+                            },
+                            onSubmitted: (value) async {
+                              search(cubit);
+                            },
+                            controller: searchController,
+                            onTap: () {
+                              cubit.startSreaching(true);
+                              cubit.getSearchHistory();
+                            },
+                            textAlign: TextAlign.start,
+                            decoration: InputDecoration(
+                                hintText: "Search",
+                                hintStyle: TextStyle(
+                                    fontSize: 20.sp,
+                                    color: const Color(0xFF9B9B9B),
+                                    fontFamily: 'Tenor Sans'),
+                                prefixIcon: IconButton(
+                                  onPressed: () {
+                                    FocusScope.of(context).unfocus();
+                                    search(cubit);
+                                  },
+                                  icon: Icon(
+                                    color: const Color(0xFFA4A4A4),
+                                    Icons.search,
+                                    size: 30.sp,
+                                  ),
                                 ),
-                              ),
-                              suffixIcon: isSearch
-                                  ? GestureDetector(
-                                      child: const Icon(Icons.close),
-                                      onTap: () {
-                                        FocusScope.of(context).unfocus();
-                                        cubit.startSreaching(false);
-                                        searchController.clear();
-                                      },
-                                    )
-                                  : const SizedBox.shrink(),
-                              fillColor: const Color(0xFFEAEAEA),
-                              filled: true,
-                              enabledBorder: InputBorder.none,
-                              border: InputBorder.none),
-                        );
-                      },
+                                suffixIcon: isSearch
+                                    ? GestureDetector(
+                                        child: const Icon(
+                                          Icons.close,
+                                          color: Color(0xff6C6C6C),
+                                        ),
+                                        onTap: () {
+                                          FocusScope.of(context).unfocus();
+                                          cubit.startSreaching(false);
+                                          searchController.clear();
+                                        },
+                                      )
+                                    : const SizedBox.shrink(),
+                                fillColor: const Color(0xFFEAEAEA),
+                                filled: true,
+                                enabledBorder: InputBorder.none,
+                                border: InputBorder.none),
+                          );
+                        },
+                      ),
                     ),
                   ),
-                ),
-                Builder(builder: (context) {
-                  return GestureDetector(
-                    onTap: () {
-                      cubit.openDrawer(context);
-                    },
-                    child: Container(
-                      height: 6.h,
-                      padding: const EdgeInsets.all(10),
-                      color: const Color(0xFFEAEAEA),
-                      margin: const EdgeInsets.all(10),
-                      child: const Image(
-                          image: AssetImage('assets/images/Filter_big.png')),
-                    ),
-                  );
-                })
-              ],
-            ),
-            BlocBuilder<SearchCubit, SearchState>(
-              builder: (context, state) {
-                bool isSearch = cubit.isSearch;
-                if (state is SearchingState) {
-                  isSearch = cubit.isSearch;
-                }
-                return isSearch
-                    ? Container(
-                        margin: EdgeInsets.symmetric(horizontal: 7.w),
-                        child: Column(children: [
-                          SizedBox(
-                            height: 3.h,
-                          ),
-                          RecentSearch(
-                            selectHistorySearch: (String selected) {
-                              searchController.text = selected;
-                            },
-                            cubit: cubit,
-                          ),
-                          SizedBox(
-                            height: 3.h,
-                          ),
-                          PopularSearch(cubit: cubit),
-                        ]),
-                      )
-                    : Container(
-                        margin: EdgeInsets.symmetric(horizontal: 7.w),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 1.h,
-                            ),
-                            SizedBox(
-                              width: double.infinity,
-                              child: Text(
-                                "Categories",
-                                style: TextStyle(
-                                    color: const Color(0xFF6D6D6D),
-                                    fontFamily: 'Tenor Sans',
-                                    fontSize: 10.sp),
+                  Builder(builder: (context) {
+                    return GestureDetector(
+                      onTap: () {
+                        cubit.openDrawer(context);
+                      },
+                      child: Container(
+                        height: 45.h,
+                        width: 45.w,
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          color: const Color(0xFFEAEAEA),
+                        ),
+                        margin: const EdgeInsets.all(10),
+                        child: Image(
+                          image:
+                              const AssetImage('assets/images/Filter_big.png'),
+                          height: 27.h,
+                          width: 27.h,
+                        ),
+                      ),
+                    );
+                  })
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(right: 5.w),
+                child: BlocBuilder<SearchCubit, SearchState>(
+                  builder: (context, state) {
+                    bool isSearch = cubit.isSearch;
+                    if (state is SearchingState) {
+                      isSearch = cubit.isSearch;
+                    }
+                    return isSearch
+                        ? Container(
+                            margin: EdgeInsets.symmetric(horizontal: 7.w),
+                            child: Column(children: [
+                              SizedBox(height: 15.h),
+                              RecentSearch(
+                                selectHistorySearch: (String selected) {
+                                  searchController.text = selected;
+                                },
+                                cubit: cubit,
                               ),
-                            ),
-                            SizedBox(
-                              height: 3.h,
-                            ),
-                            GridView(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 4,
-                                      childAspectRatio: 0.78,
-                                      crossAxisSpacing: 1.h,
-                                      mainAxisSpacing: 5),
+                              SizedBox(height: 30.h),
+                              PopularSearch(cubit: cubit),
+                            ]),
+                          )
+                        : Container(
+                            margin: EdgeInsets.symmetric(horizontal: 7.w),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                CategoryCard(
-                                  categroyName: 'Shirt',
-                                  categoryImageUrl: 'assets/icons/shirt.png',
-                                  searchCubit: cubit,
-                                  searchWord: searchController.text,
+                                SizedBox(
+                                  height: 10.h,
                                 ),
-                                CategoryCard(
-                                  categroyName: 'Sweaters',
-                                  categoryImageUrl: 'assets/icons/Sweaters.png',
-                                  searchCubit: cubit,
-                                  searchWord: searchController.text,
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: Text(
+                                    "Categories",
+                                    style: TextStyle(
+                                        color: const Color(0xFF6D6D6D),
+                                        fontFamily: 'Tenor Sans',
+                                        fontSize: 20.sp),
+                                  ),
                                 ),
-                                CategoryCard(
-                                  categroyName: 'T-shirts',
-                                  categoryImageUrl: 'assets/icons/T-shirts.png',
-                                  searchCubit: cubit,
-                                  searchWord: searchController.text,
+                                SizedBox(height: 20.h),
+                                GridView(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 4,
+                                          childAspectRatio: 0.78,
+                                          crossAxisSpacing: 10.h,
+                                          mainAxisSpacing: 5),
+                                  children: [
+                                    CategoryCard(
+                                      categroyName: 'Shirt',
+                                      categoryImageUrl:
+                                          'assets/icons/shirt.png',
+                                      searchCubit: cubit,
+                                      searchWord: searchController.text,
+                                    ),
+                                    CategoryCard(
+                                      categroyName: 'Sweaters',
+                                      categoryImageUrl:
+                                          'assets/icons/Sweaters.png',
+                                      searchCubit: cubit,
+                                      searchWord: searchController.text,
+                                    ),
+                                    CategoryCard(
+                                      categroyName: 'T-shirts',
+                                      categoryImageUrl:
+                                          'assets/icons/T-shirts.png',
+                                      searchCubit: cubit,
+                                      searchWord: searchController.text,
+                                    ),
+                                    CategoryCard(
+                                      categroyName: 'Jackets',
+                                      categoryImageUrl:
+                                          'assets/icons/Jackets.png',
+                                      searchCubit: cubit,
+                                      searchWord: searchController.text,
+                                    ),
+                                    CategoryCard(
+                                      categroyName: 'Shorts',
+                                      categoryImageUrl:
+                                          'assets/icons/Shorts.png',
+                                      searchCubit: cubit,
+                                      searchWord: searchController.text,
+                                    ),
+                                    CategoryCard(
+                                      categroyName: 'Pants',
+                                      categoryImageUrl:
+                                          'assets/icons/Pants.png',
+                                      searchCubit: cubit,
+                                      searchWord: searchController.text,
+                                    ),
+                                    CategoryCard(
+                                      categroyName: 'Suits',
+                                      categoryImageUrl:
+                                          'assets/icons/Suits.png',
+                                      searchCubit: cubit,
+                                      searchWord: searchController.text,
+                                    ),
+                                    CategoryCard(
+                                      categroyName: 'Sportswear',
+                                      categoryImageUrl:
+                                          'assets/icons/Sportswear.png',
+                                      searchCubit: cubit,
+                                      searchWord: searchController.text,
+                                    ),
+                                  ],
                                 ),
-                                CategoryCard(
-                                  categroyName: 'Jackets',
-                                  categoryImageUrl: 'assets/icons/Jackets.png',
-                                  searchCubit: cubit,
-                                  searchWord: searchController.text,
+                                SizedBox(height: 2.h),
+                                Text(
+                                  "Collections",
+                                  style: TextStyle(
+                                      fontFamily: 'Tenor Sans',
+                                      fontSize: 20.sp,
+                                      color: const Color(0xFF6D6D6D)),
                                 ),
-                                CategoryCard(
-                                  categroyName: 'Shorts',
-                                  categoryImageUrl: 'assets/icons/Shorts.png',
-                                  searchCubit: cubit,
-                                  searchWord: searchController.text,
-                                ),
-                                CategoryCard(
-                                  categroyName: 'Pants',
-                                  categoryImageUrl: 'assets/icons/Pants.png',
-                                  searchCubit: cubit,
-                                  searchWord: searchController.text,
-                                ),
-                                CategoryCard(
-                                  categroyName: 'Suits',
-                                  categoryImageUrl: 'assets/icons/Suits.png',
-                                  searchCubit: cubit,
-                                  searchWord: searchController.text,
-                                ),
-                                CategoryCard(
-                                  categroyName: 'Sportswear',
-                                  categoryImageUrl:
-                                      'assets/icons/Sportswear.png',
-                                  searchCubit: cubit,
-                                  searchWord: searchController.text,
-                                ),
+                                SizedBox(height: 15.h),
+                                ListView.separated(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  separatorBuilder: (context, index) =>
+                                      SizedBox(height: 30.h),
+                                  shrinkWrap: true,
+                                  itemCount: 3,
+                                  itemBuilder: (context, index) => Container(
+                                    height: 123.h,
+                                    width: 337.w,
+                                    color: const Color(0xFFD7D7D7),
+                                  ),
+                                )
                               ],
                             ),
-                            SizedBox(height: 2.h),
-                            Text(
-                              "Collections",
-                              style: TextStyle(
-                                  fontFamily: 'Tenor Sans',
-                                  fontSize: 10.sp,
-                                  color: const Color(0xFF6D6D6D)),
-                            ),
-                            SizedBox(height: 4.h),
-                            ListView.separated(
-                              physics: const NeverScrollableScrollPhysics(),
-                              separatorBuilder: (context, index) =>
-                                  const SizedBox(
-                                height: 30,
-                              ),
-                              shrinkWrap: true,
-                              itemCount: 3,
-                              itemBuilder: (context, index) => Container(
-                                height: 100,
-                                width: double.infinity,
-                                color: const Color(0xFFD7D7D7),
-                              ),
-                            )
-                          ],
-                        ),
-                      );
-              },
-            )
-          ]),
+                          );
+                  },
+                ),
+              )
+            ]),
+          ),
         ),
       ),
     );
