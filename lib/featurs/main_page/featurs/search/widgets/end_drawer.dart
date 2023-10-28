@@ -257,9 +257,9 @@ class EndDrawer extends StatelessWidget {
                   }
                   return SizedBox(
                     // padding: EdgeInsets.only(left: 10.w),
-                    height: 40.w,
+                    height: 45.w,
                     child: ListView.separated(
-                      separatorBuilder: (context, index) => sb(width: 10.w),
+                      separatorBuilder: (context, index) => sb(width: 20.w),
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemCount: 5,
@@ -281,7 +281,7 @@ class EndDrawer extends StatelessWidget {
                                   ? const Color(0xFF33302E)
                                   : Colors.white,
                               borderRadius: BorderRadius.circular(100)),
-                          width: 35.w,
+                          width: 40.w,
                           // height: 30.w,
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -368,7 +368,7 @@ class EndDrawer extends StatelessWidget {
                   );
                 },
               ),
-              sb(height: fromPage == 'SearchPage' ? 15.h : 15.h),
+              sb(height: fromPage == 'SearchPage' ? 40.h : 60.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [

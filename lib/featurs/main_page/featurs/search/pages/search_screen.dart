@@ -120,9 +120,9 @@ class _SearchScreenState extends State<SearchScreen> {
                         cubit.openDrawer(context);
                       },
                       child: Container(
-                        height: 45.h,
-                        width: 45.w,
-                        padding: const EdgeInsets.all(10),
+                        height: 60.h,
+                        width: 60.w,
+                        padding: EdgeInsets.symmetric(vertical: 15.h),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
                           color: const Color(0xFFEAEAEA),
@@ -131,8 +131,8 @@ class _SearchScreenState extends State<SearchScreen> {
                         child: Image(
                           image:
                               const AssetImage('assets/images/Filter_big.png'),
-                          height: 27.h,
-                          width: 27.h,
+                          height: 35.h,
+                          width: 35.h,
                         ),
                       ),
                     );
