@@ -159,6 +159,7 @@ class MyOrdersScreen extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 25.w),
                   child: ListView.separated(
+                    physics: const BouncingScrollPhysics(),
                     separatorBuilder: (context, index) => SizedBox(
                       height: 15.h,
                     ),

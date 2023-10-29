@@ -65,43 +65,60 @@ class _AddNewAddressState extends State<AddNewAddress> {
               child: ListView(
             physics: const BouncingScrollPhysics(),
             children: [
-              buildTextFeild('FirstName', firstNameController),
-              buildTextFeild('LastName', lastNameController),
-              buildTextFeild('Phone Number', phoneNuberController),
-              buildTextFeild('Email Address', emailAddressController),
-              buildTextFeild('Address Name', addressNameController),
-              buildTextFeild('Postal code', postalCodeController),
-              buildTextFeild('City', cityController),
-              buildTextFeild('Country', countryController),
-              buildTextFeild('Address', addressController),
+              buildTextFeild(
+                  title: 'FirstName', controller: firstNameController),
+              buildTextFeild(title: 'LastName', controller: lastNameController),
+              buildTextFeild(
+                  title: 'Phone Number',
+                  controller: phoneNuberController,
+                  keyboardtype: TextInputType.number),
+              buildTextFeild(
+                  title: 'Email Address',
+                  controller: emailAddressController,
+                  keyboardtype: TextInputType.emailAddress),
+              buildTextFeild(
+                  title: 'Address Name',
+                  controller: addressNameController,
+                  keyboardtype: TextInputType.streetAddress),
+              buildTextFeild(
+                  title: 'Postal code', controller: postalCodeController),
+              buildTextFeild(title: 'City', controller: cityController),
+              buildTextFeild(title: 'Country', controller: countryController),
+              buildTextFeild(title: 'Address', controller: addressController),
+              Container(
+                margin: EdgeInsets.only(
+                    left: 10.w, right: 10.w, bottom: 20.h, top: 20.h),
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(vertical: 15.h),
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Text(
+                  "Add new address",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 15.sp,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "DM Sans"),
+                ),
+              ),
             ],
           )),
-          Container(
-            margin: EdgeInsets.only(left: 10.w, right: 10.w, bottom: 20.h),
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: 15.h),
-            decoration: BoxDecoration(
-                color: Colors.black, borderRadius: BorderRadius.circular(10)),
-            child: Text(
-              "Add new address",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 15.sp,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: "DM Sans"),
-            ),
-          ),
         ]),
       ),
     );
   }
 
-  Widget buildTextFeild(String title, TextEditingController controller) {
+  Widget buildTextFeild(
+      {required String title,
+      required TextEditingController controller,
+      keyboardtype = TextInputType.name}) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
       height: 50.h,
       child: TextField(
+        keyboardType: keyboardtype,
         controller: controller,
         decoration: InputDecoration(
             label: Text(title),

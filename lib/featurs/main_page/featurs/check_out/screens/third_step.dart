@@ -45,11 +45,11 @@ class CheckOutScreen3 extends StatelessWidget {
               SizedBox(
                 width: 10.w,
               ),
-              const Point(),
-              const Point(),
-              const Point(),
-              const Point(),
-              const Point(),
+              const CheckOutPoint(),
+              const CheckOutPoint(),
+              const CheckOutPoint(),
+              const CheckOutPoint(),
+              const CheckOutPoint(),
               SizedBox(
                 width: 10.w,
               ),
@@ -59,11 +59,11 @@ class CheckOutScreen3 extends StatelessWidget {
               SizedBox(
                 width: 10.w,
               ),
-              const Point(),
-              const Point(),
-              const Point(),
-              const Point(),
-              const Point(),
+              const CheckOutPoint(),
+              const CheckOutPoint(),
+              const CheckOutPoint(),
+              const CheckOutPoint(),
+              const CheckOutPoint(),
               SizedBox(
                 width: 10.w,
               ),
