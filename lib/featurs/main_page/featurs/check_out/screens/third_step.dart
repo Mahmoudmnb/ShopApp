@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shop_app/featurs/main_page/main_page.dart';
 
 import '../widget/point.dart';
-import 'first_step.dart';
 
 class CheckOutScreen3 extends StatelessWidget {
   const CheckOutScreen3({super.key});
@@ -105,7 +105,7 @@ class CheckOutScreen3 extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
-                    builder: (context) => const CheckOutScreen1(),
+                    builder: (context) => const MainPage(),
                   ),
                   (route) => false);
             },
