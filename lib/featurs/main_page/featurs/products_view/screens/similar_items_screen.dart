@@ -54,6 +54,7 @@ class SimilarItemsScreen extends StatelessWidget {
       },
       child: SafeArea(
         child: Scaffold(
+          backgroundColor: Colors.white,
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -69,7 +70,8 @@ class SimilarItemsScreen extends StatelessWidget {
                         productCubit.hidden = false;
                         Map<String, dynamic> productMap =
                             await productCubit.getProductById(product.id);
-                        navigateToProductScrean(ProductModel.fromMap(productMap));
+                        navigateToProductScrean(
+                            ProductModel.fromMap(productMap));
                       },
                     ),
                     SizedBox(width: 20.w),
@@ -103,33 +105,37 @@ class SimilarItemsScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 34.h),
-              SizedBox(
-                width: 393.w,
-                height: 400.h,
-                // ?if this going down (فرشت) with you
-                // ? change the childAspectRatio
-                child: GridView.count(
-                  padding: EdgeInsets.symmetric(horizontal: 8.w),
-                  physics: const BouncingScrollPhysics(),
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  //* _____________here_______________
-                  //* I calculate it and this is the answer :)
-                  childAspectRatio: 0.6373958,
-                  children: similarProducts
-                      .map((e) => GestureDetector(
-                          onTap: () async {
-                            Map<String, dynamic> productsMap =
-                                await productCubit.getProductById(e['id']);
-                            ProductModel productModel =
-                                ProductModel.fromMap(productsMap);
-                            navigateToProductScrean(productModel);
-                          },
-                          child: SimilarItem(
-                            product: ProductModel.fromMap(e),
-                            productCubit: productCubit,
-                          )))
-                      .toList(),
+              const SizedBox(width: 0),
+              Padding(
+                padding: EdgeInsets.only(left: 30.w),
+                child: SizedBox(
+                  width: 393.w,
+                  height: 673.h,
+                  // ?if this going down (فرشت) with you
+                  // ? change the childAspectRatio
+                  child: GridView.count(
+                    padding: EdgeInsets.symmetric(horizontal: 8.w),
+                    physics: const BouncingScrollPhysics(),
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    //* _____________here_______________
+                    //* I calculate it and this is the answer :)
+                    childAspectRatio: 0.65, //0.6373958,
+                    children: similarProducts
+                        .map((e) => GestureDetector(
+                            onTap: () async {
+                              Map<String, dynamic> productsMap =
+                                  await productCubit.getProductById(e['id']);
+                              ProductModel productModel =
+                                  ProductModel.fromMap(productsMap);
+                              navigateToProductScrean(productModel);
+                            },
+                            child: SimilarItem(
+                              product: ProductModel.fromMap(e),
+                              productCubit: productCubit,
+                            )))
+                        .toList(),
+                  ),
                 ),
               )
             ],

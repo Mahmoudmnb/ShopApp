@@ -55,67 +55,68 @@ class _CategoryViewPageState extends State<CategoryViewPage> {
         fromPage: 'categoryView',
         searchController: searchController,
       ),
+      backgroundColor: Colors.white,
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 3.w),
         child: Column(children: [
-          SizedBox(height: 3.w),
+          SizedBox(height: 15.h),
           Row(
             children: [
-              Container(
-                alignment: Alignment.center,
-                height: 10.w,
-                width: 10.w,
-                padding: EdgeInsets.only(
-                    left: 2.5.w, top: 1.w, bottom: 1.w, right: 1.w),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          offset: const Offset(0.1, 2),
-                          blurRadius: .4,
-                          color: Colors.black.withOpacity(.25))
-                    ]),
-                child: Center(
-                    child: GestureDetector(
-                  onTap: () {
-                    cubit.changeCategoryViewSearch(false);
-                    Navigator.of(context)
-                        .pop({'searchWord': searchController.text});
-                  },
+              SizedBox(width: 20.w),
+              GestureDetector(
+                onTap: () {
+                  cubit.changeCategoryViewSearch(false);
+                  Navigator.of(context)
+                      .pop({'searchWord': searchController.text});
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 36.w,
+                  width: 36.w,
+                  padding: EdgeInsets.only(left: 4.w),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            offset: const Offset(0.1, 2),
+                            blurRadius: .4,
+                            color: Colors.black.withOpacity(.25))
+                      ]),
                   child: const Icon(
                     Icons.arrow_back_ios,
                     color: Colors.black,
                   ),
-                )),
+                ),
               ),
-              SizedBox(width: 4.w),
+              SizedBox(width: 10.w),
               BlocBuilder<SearchCubit, SearchState>(
                 builder: (context, state) {
                   if (state is SaveState) {
                     categoryName = cubit.selectedCategory;
                   }
                   return SizedBox(
-                    width: 80.w,
+                    width: 320.w,
                     child: Row(
                       children: [
                         AnimatedContainer(
                           duration: const Duration(milliseconds: 500),
-                          width: cubit.isCategoryViewSearch ? 0.w : 40.w,
-                          height: cubit.isCategoryViewSearch ? 0 : 4.h,
+                          width: cubit.isCategoryViewSearch ? 0.w : 250.w,
+                          height: cubit.isCategoryViewSearch ? 0 : 27.h,
+                          margin: EdgeInsets.symmetric(horizontal: 5.w),
                           child: Text(
                             categoryName,
                             softWrap: true,
                             style: TextStyle(
                               color: Colors.black,
                               fontFamily: 'Tenor Sans',
-                              fontSize: 9.sp,
+                              fontSize: 24.sp,
                             ),
                           ),
                         ),
                         AnimatedContainer(
                           duration: const Duration(milliseconds: 500),
-                          width: cubit.isCategoryViewSearch ? 80.w : 0,
+                          width: cubit.isCategoryViewSearch ? 300.w : 0,
                           child: Container(
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
@@ -129,21 +130,25 @@ class _CategoryViewPageState extends State<CategoryViewPage> {
                               textAlign: TextAlign.start,
                               decoration: InputDecoration(
                                   hintText: "Search",
-                                  hintStyle:
-                                      const TextStyle(color: Color(0xFF9B9B9B)),
+                                  hintStyle: TextStyle(
+                                      color: const Color(0xFF9B9B9B),
+                                      fontSize: 20.sp),
                                   prefixIcon: IconButton(
                                     onPressed: () {
                                       FocusScope.of(context).unfocus();
                                       searchInCategory(cubit);
                                     },
-                                    icon: const Icon(
-                                      color: Color(0xFFA4A4A4),
+                                    icon: Icon(
+                                      color: const Color(0xFFA4A4A4),
                                       Icons.search,
-                                      size: 25,
+                                      size: 20.sp,
                                     ),
                                   ),
                                   suffixIcon: GestureDetector(
-                                    child: const Icon(Icons.close),
+                                    child: const Icon(
+                                      Icons.close,
+                                      color: Color(0xff9B9B9B),
+                                    ),
                                     onTap: () async {
                                       searchController.text = '';
                                       FocusScope.of(context).unfocus();
@@ -178,7 +183,7 @@ class _CategoryViewPageState extends State<CategoryViewPage> {
                                 duration: const Duration(milliseconds: 300),
                                 child: Icon(
                                   Icons.search,
-                                  size: 10.sp,
+                                  size: 30.sp,
                                 ),
                               )),
                         ),
@@ -189,10 +194,10 @@ class _CategoryViewPageState extends State<CategoryViewPage> {
               )
             ],
           ),
-          SizedBox(height: 2.h),
+          SizedBox(height: 15.h),
           Row(
             children: [
-              SizedBox(width: 10.w),
+              SizedBox(width: 40.w),
               BlocBuilder<SearchCubit, SearchState>(
                 builder: (context, state) {
                   int length = categoryProducts.length;
@@ -206,7 +211,7 @@ class _CategoryViewPageState extends State<CategoryViewPage> {
                     "$length items ",
                     style: TextStyle(
                         color: const Color(0xFF979797),
-                        fontSize: 7.sp,
+                        fontSize: 16.sp,
                         fontFamily: 'Tenor Sans'),
                   );
                 },
@@ -220,16 +225,15 @@ class _CategoryViewPageState extends State<CategoryViewPage> {
                   },
                   child: Image(
                     image: const AssetImage('assets/images/Filter_big.png'),
-                    height: 4.h,
+                    height: 22.h,
+                    width: 22.w,
                   ),
                 );
               }),
-              SizedBox(
-                width: 2.w,
-              )
+              SizedBox(width: 15.w)
             ],
           ),
-          SizedBox(height: 3.h),
+          SizedBox(height: 15.h),
           BlocBuilder<SearchCubit, SearchState>(
             builder: (context, state) {
               if (state is GetCategoryProducts) {
@@ -243,7 +247,7 @@ class _CategoryViewPageState extends State<CategoryViewPage> {
                   itemCount: categoryProducts.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    childAspectRatio: .5,
+                    childAspectRatio: .7,
                     crossAxisSpacing: 20,
                   ),
                   itemBuilder: (context, index) {
@@ -289,52 +293,68 @@ class _CategoryViewPageState extends State<CategoryViewPage> {
                                 Image.asset(
                                   product.imgUrl.split('|')[0].trim(),
                                   fit: BoxFit.cover,
-                                  height: 35.h,
-                                  width: 25.h,
+                                  height: 206.h,
+                                  width: 141.w,
                                 ),
                                 Positioned(
                                   right: 2.w,
                                   child: CircleAvatar(
-                                    backgroundColor: Colors.white,
-                                    child: IconButton(
-                                        color: const Color(0xffFF6E6E),
-                                        onPressed: () {
-                                          if (searchController.text == '') {
-                                            cubit
-                                                .setFavorateProduct(product.id,
-                                                    !product.isFavorite)
-                                                .then((value) {
-                                              cubit.searchInCategory(
-                                                  null, categoryName);
-                                            });
-                                          } else {
-                                            cubit
-                                                .setFavorateProduct(product.id,
-                                                    !product.isFavorite)
-                                                .then((value) {
-                                              cubit.searchInCategory(
-                                                  searchController.text,
-                                                  categoryName);
-                                            });
-                                          }
-                                        },
-                                        icon: Icon(product.isFavorite
-                                            ? Icons.favorite
-                                            : Icons.favorite_outline)),
-                                  ),
+                                      backgroundColor: Colors.white,
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            if (searchController.text == '') {
+                                              cubit
+                                                  .setFavorateProduct(
+                                                      product.id,
+                                                      !product.isFavorite)
+                                                  .then((value) {
+                                                cubit.searchInCategory(
+                                                    null, categoryName);
+                                              });
+                                            } else {
+                                              cubit
+                                                  .setFavorateProduct(
+                                                      product.id,
+                                                      !product.isFavorite)
+                                                  .then((value) {
+                                                cubit.searchInCategory(
+                                                    searchController.text,
+                                                    categoryName);
+                                              });
+                                            }
+                                          },
+                                          child: Container(
+                                              height: 33.h,
+                                              width: 33.h,
+                                              alignment: Alignment.center,
+                                              decoration: const BoxDecoration(
+                                                  color: Colors.white,
+                                                  shape: BoxShape.circle),
+                                              child: product.isFavorite
+                                                  ? const Icon(
+                                                      Icons.favorite,
+                                                      color: Color(0xffFF6E6E),
+                                                    )
+                                                  : const Icon(
+                                                      Icons.favorite,
+                                                      color: Color(0xffD8D8D8),
+                                                    )))),
                                 )
                               ],
                             ),
                           ),
-                          SizedBox(height: 1.h),
+                          SizedBox(height: 10.h),
                           SizedBox(
-                            height: 5.h,
+                            height: 25.h,
+                            width: 141.w,
                             child: Row(
                               children: [
                                 Text(
                                   product.makerCompany,
                                   style: TextStyle(
-                                      fontSize: 6.sp, fontFamily: 'Tenor Sans'),
+                                      fontSize: 14.sp,
+                                      fontFamily: 'Tenor Sans',
+                                      color: const Color(0xff393939)),
                                 ),
                                 const Spacer(),
                                 Text(
@@ -342,19 +362,19 @@ class _CategoryViewPageState extends State<CategoryViewPage> {
                                   style: TextStyle(
                                       fontFamily: 'Tenor Sans',
                                       color: const Color(0xFFD57676),
-                                      fontSize: 5.sp),
+                                      fontSize: 10.sp),
                                 )
                               ],
                             ),
                           ),
                           SizedBox(
-                            height: 3.h,
-                            width: double.infinity,
+                            height: 17.h,
+                            width: 141.w,
                             child: Text(
                               product.name,
-                              maxLines: 1,
-                              style: const TextStyle(
-                                  color: Color(0xFF828282),
+                              style: TextStyle(
+                                  fontSize: 11.sp,
+                                  color: const Color(0xFF828282),
                                   fontFamily: 'Tenor Sans'),
                             ),
                           )

@@ -57,68 +57,67 @@ class _SeeAllProductsPageState extends State<SeeAllProductsPage> {
         fromPage: 'seeAll',
         searchController: searchController,
       ),
+      backgroundColor: Colors.white,
       body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 3.w),
+        margin: EdgeInsets.symmetric(horizontal: 10.w),
         child: Column(children: [
-          SizedBox(height: 3.w),
+          SizedBox(height: 15.w),
           Row(
             children: [
-              Container(
-                alignment: Alignment.center,
-                height: 10.w,
-                width: 10.w,
-                padding: EdgeInsets.only(
-                    left: 2.5.w, top: 1.w, bottom: 1.w, right: 1.w),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          offset: const Offset(0.1, 2),
-                          blurRadius: .4,
-                          color: Colors.black.withOpacity(.25))
-                    ]),
-                child: Center(
-                    child: GestureDetector(
-                  onTap: () {
-                    context
-                        .read<DiscountProductsBloc>()
-                        .add(ChangeIsSearchEvent(isSearch: false));
-                    Navigator.of(context)
-                        .pop({'searchWord': searchController.text});
-                  },
+              GestureDetector(
+                onTap: () {
+                  context
+                      .read<DiscountProductsBloc>()
+                      .add(ChangeIsSearchEvent(isSearch: false));
+                  Navigator.of(context)
+                      .pop({'searchWord': searchController.text});
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 36.w,
+                  width: 36.w,
+                  padding: EdgeInsets.only(left: 5.w),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            offset: const Offset(0.1, 2),
+                            blurRadius: .4,
+                            color: Colors.black.withOpacity(.25))
+                      ]),
                   child: const Icon(
                     Icons.arrow_back_ios,
                     color: Colors.black,
                   ),
-                )),
+                ),
               ),
-              SizedBox(width: 4.w),
+              SizedBox(width: 20.w),
               BlocBuilder<DiscountProductsBloc, DiscountProductsState>(
                 builder: (context, state) {
                   if (state is IsSearchState) {
                     isSearch = state.isSearch;
                   }
                   return SizedBox(
-                    width: 80.w,
+                    width: 310.w,
                     child: Row(
                       children: [
                         AnimatedContainer(
                           duration: const Duration(milliseconds: 500),
-                          width: isSearch ? 0.w : 40.w,
-                          height: isSearch ? 0 : 4.h,
+                          width: isSearch ? 0.w : 270.w,
+                          height: isSearch ? 0 : 30.h,
                           child: Text(
                             categoryName,
                             softWrap: true,
                             style: TextStyle(
                               color: Colors.black,
-                              fontSize: 8.sp,
+                              fontSize: 24.sp,
                             ),
                           ),
                         ),
                         AnimatedContainer(
                           duration: const Duration(milliseconds: 500),
-                          width: isSearch ? 80.w : 0,
+                          width: isSearch ? 310.w : 0,
                           child: Container(
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
@@ -130,25 +129,34 @@ class _SeeAllProductsPageState extends State<SeeAllProductsPage> {
                               },
                               controller: searchController,
                               textAlign: TextAlign.start,
+                              onTapOutside: (event) {
+                                FocusScope.of(context).unfocus();
+                              },
                               decoration: InputDecoration(
                                   hintText: "Search",
-                                  hintStyle:
-                                      const TextStyle(color: Color(0xFF9B9B9B)),
+                                  hintStyle: TextStyle(
+                                      color: const Color(0xFF9B9B9B),
+                                      fontSize: 20.sp),
+                                  iconColor: const Color(0xFFA4A4A4),
                                   prefixIcon: IconButton(
                                     onPressed: () {
                                       FocusScope.of(context).unfocus();
                                       searchInDiscount(cubit);
                                     },
-                                    icon: const Icon(
-                                      color: Color(0xFFA4A4A4),
+                                    icon: Icon(
+                                      color: const Color(0xFFA4A4A4),
                                       Icons.search,
-                                      size: 25,
+                                      size: 25.sp,
                                     ),
                                   ),
                                   suffixIcon: GestureDetector(
-                                    child: const Icon(Icons.close),
+                                    child: const Icon(
+                                      Icons.close,
+                                      color: Color(0xFFA4A4A4),
+                                    ),
                                     onTap: () async {
                                       searchController.text = '';
+                                      isSearch = false;
                                       FocusScope.of(context).unfocus();
                                       context.read<DiscountProductsBloc>().add(
                                           ChangeIsSearchEvent(isSearch: false));
@@ -187,7 +195,7 @@ class _SeeAllProductsPageState extends State<SeeAllProductsPage> {
                                 duration: const Duration(milliseconds: 300),
                                 child: Icon(
                                   Icons.search,
-                                  size: 10.sp,
+                                  size: 30.sp,
                                 ),
                               )),
                         ),
@@ -198,12 +206,10 @@ class _SeeAllProductsPageState extends State<SeeAllProductsPage> {
               )
             ],
           ),
-          SizedBox(height: 2.h),
+          SizedBox(height: 10.h),
           Row(
             children: [
-              SizedBox(
-                width: 10.w,
-              ),
+              SizedBox(width: 55.w),
               BlocBuilder<DiscountProductsBloc, DiscountProductsState>(
                 builder: (context, state) {
                   int length = categoryProducts.length;
@@ -215,7 +221,7 @@ class _SeeAllProductsPageState extends State<SeeAllProductsPage> {
                   return Text(
                     "$length items founded",
                     style: TextStyle(
-                        color: const Color(0xFF979797), fontSize: 7.sp),
+                        color: const Color(0xFF979797), fontSize: 16.sp),
                   );
                 },
               ),
@@ -228,14 +234,15 @@ class _SeeAllProductsPageState extends State<SeeAllProductsPage> {
                   },
                   child: Image(
                     image: const AssetImage('assets/images/Filter_big.png'),
-                    height: 4.h,
+                    height: 22.h,
+                    width: 22.w,
                   ),
                 );
               }),
               SizedBox(width: 2.w)
             ],
           ),
-          SizedBox(height: 3.h),
+          SizedBox(height: 30.h),
           BlocBuilder<DiscountProductsBloc, DiscountProductsState>(
             builder: (context, state) {
               log(state.toString());
@@ -250,7 +257,7 @@ class _SeeAllProductsPageState extends State<SeeAllProductsPage> {
                   itemCount: categoryProducts.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    childAspectRatio: .5,
+                    childAspectRatio: .65,
                     crossAxisSpacing: 20,
                   ),
                   itemBuilder: (context, index) {
@@ -296,85 +303,104 @@ class _SeeAllProductsPageState extends State<SeeAllProductsPage> {
                                 Image.asset(
                                   product.imgUrl.split('|')[0].trim(),
                                   fit: BoxFit.cover,
-                                  height: 35.h,
-                                  width: 25.h,
+                                  height: 206.h,
+                                  width: 141.w,
                                 ),
                                 Positioned(
                                   right: 2.w,
                                   child: CircleAvatar(
-                                    backgroundColor: Colors.white,
-                                    child: IconButton(
-                                        color: const Color(0xffFF6E6E),
-                                        onPressed: () {
-                                          if (searchController.text == '') {
-                                            cubit
-                                                .setFavorateProduct(product.id,
-                                                    !product.isFavorite)
-                                                .then((value) {
+                                      backgroundColor: Colors.white,
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            if (searchController.text == '') {
                                               cubit
-                                                  .searchInDiscounts(null)
-                                                  .then((searchResult) {
-                                                context
-                                                    .read<
-                                                        DiscountProductsBloc>()
-                                                    .add(SearchInDiscount(
-                                                        searchResult:
-                                                            searchResult));
+                                                  .setFavorateProduct(
+                                                      product.id,
+                                                      !product.isFavorite)
+                                                  .then((value) {
+                                                cubit
+                                                    .searchInDiscounts(null)
+                                                    .then((searchResult) {
+                                                  context
+                                                      .read<
+                                                          DiscountProductsBloc>()
+                                                      .add(SearchInDiscount(
+                                                          searchResult:
+                                                              searchResult));
+                                                });
                                               });
-                                            });
-                                          } else {
-                                            cubit
-                                                .setFavorateProduct(product.id,
-                                                    !product.isFavorite)
-                                                .then((value) {
+                                            } else {
                                               cubit
-                                                  .searchInDiscounts(
-                                                      searchController.text)
-                                                  .then((searchResult) {
-                                                context
-                                                    .read<
-                                                        DiscountProductsBloc>()
-                                                    .add(SearchInDiscount(
-                                                        searchResult:
-                                                            searchResult));
+                                                  .setFavorateProduct(
+                                                      product.id,
+                                                      !product.isFavorite)
+                                                  .then((value) {
+                                                cubit
+                                                    .searchInDiscounts(
+                                                        searchController.text)
+                                                    .then((searchResult) {
+                                                  context
+                                                      .read<
+                                                          DiscountProductsBloc>()
+                                                      .add(SearchInDiscount(
+                                                          searchResult:
+                                                              searchResult));
+                                                });
                                               });
-                                            });
-                                          }
-                                        },
-                                        icon: Icon(product.isFavorite
-                                            ? Icons.favorite
-                                            : Icons.favorite_outline)),
-                                  ),
+                                            }
+                                          },
+                                          child: Container(
+                                              height: 33.h,
+                                              width: 33.h,
+                                              alignment: Alignment.center,
+                                              decoration: const BoxDecoration(
+                                                  color: Colors.white,
+                                                  shape: BoxShape.circle),
+                                              child: product.isFavorite
+                                                  ? const Icon(
+                                                      Icons.favorite,
+                                                      color: Color(0xffFF6E6E),
+                                                    )
+                                                  : const Icon(
+                                                      Icons.favorite,
+                                                      color: Color(0xffD8D8D8),
+                                                    )))),
                                 )
                               ],
                             ),
                           ),
-                          SizedBox(height: 1.h),
+                          SizedBox(height: 15.h),
                           SizedBox(
-                            height: 5.h,
+                            height: 17.h,
+                            width: 141.w,
                             child: Row(
                               children: [
                                 Text(
                                   product.makerCompany,
-                                  style: TextStyle(fontSize: 6.sp),
+                                  style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontFamily: 'Tenor Sans'),
                                 ),
                                 const Spacer(),
                                 Text(
                                   "${product.price} \$",
                                   style: TextStyle(
                                       color: const Color(0xFFD57676),
-                                      fontSize: 5.sp),
+                                      fontSize: 10.sp),
                                 )
                               ],
                             ),
                           ),
                           SizedBox(
-                            height: 3.h,
-                            width: double.infinity,
+                            height: 15.h,
+                            width: 141.w,
                             child: Text(
                               product.name,
                               maxLines: 1,
-                              style: const TextStyle(color: Color(0xFF828282)),
+                              style: TextStyle(
+                                  color: const Color(0xFF828282),
+                                  fontSize: 11.sp,
+                                  fontFamily: 'Tenor Sans'),
                             ),
                           )
                         ],

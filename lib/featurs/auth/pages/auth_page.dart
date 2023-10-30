@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,9 +24,11 @@ class AuthPage extends StatelessWidget {
             myDataBase.createSearchHistoryTable().then((value) {
               myDataBase.insertReviewTable().then((value) {
                 myDataBase.insertData().then((value) {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const MainPage(),
-                  ));
+                  myDataBase.createAddToCartTable().then((value) {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const MainPage(),
+                    ));
+                  });
                 });
               });
             });
@@ -143,6 +144,7 @@ class AuthPage extends StatelessWidget {
                         },
                       ),
                     ),
+                    SizedBox(height: 30.h)
                   ],
                 ),
               ),
