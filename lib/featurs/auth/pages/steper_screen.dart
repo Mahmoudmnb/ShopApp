@@ -34,7 +34,7 @@ class _SteperScreenState extends State<SteperScreen> {
           children: [
             Container(
               alignment: Alignment.bottomLeft,
-              padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 6.h),
+              padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 20.h),
               decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage(
@@ -49,55 +49,59 @@ class _SteperScreenState extends State<SteperScreen> {
                       style: TextStyle(
                           fontFamily: 'Tiro Gurmukhi',
                           color: Colors.white,
-                          fontSize: 9.sp)),
+                          fontSize: 32.sp)),
                   const SizedBox(height: 15),
                   Text(
                       'Step into a world of timeless style and unparalleled sophistication with our application',
                       style: TextStyle(
                           fontFamily: 'Bentham',
                           color: Colors.white,
-                          fontSize: 6.5.sp)),
-                  SizedBox(height: 15.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          navigateToAuthPage(context);
-                        },
-                        style: ButtonStyle(
-                            padding: const MaterialStatePropertyAll(
-                                EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 5)),
-                            backgroundColor: MaterialStatePropertyAll(
-                                const Color(0xffB3B3B3).withOpacity(0.31))),
-                        child: Text('Skip',
+                          fontSize: 24.sp)),
+                  SizedBox(height: 100.h),
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            navigateToAuthPage(context);
+                          },
+                          style: ButtonStyle(
+                              padding: const MaterialStatePropertyAll(
+                                  EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 5)),
+                              backgroundColor: MaterialStatePropertyAll(
+                                  const Color(0xffB3B3B3).withOpacity(0.31))),
+                          child: Text('Skip',
+                              style: TextStyle(
+                                  fontFamily: 'Bentham',
+                                  color: Colors.white.withOpacity(0.73),
+                                  fontSize: 27.sp)),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            pageController.animateToPage(1,
+                                duration: const Duration(milliseconds: 1000),
+                                curve: Curves.ease);
+                          },
+                          style: ButtonStyle(
+                              padding: const MaterialStatePropertyAll(
+                                  EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 5)),
+                              backgroundColor: MaterialStatePropertyAll(
+                                  const Color(0xffB3B3B3).withOpacity(0.31))),
+                          child: Text(
+                            'Next',
                             style: TextStyle(
                                 fontFamily: 'Bentham',
                                 color: Colors.white.withOpacity(0.73),
-                                fontSize: 10.sp)),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          pageController.animateToPage(1,
-                              duration: const Duration(milliseconds: 1000),
-                              curve: Curves.ease);
-                        },
-                        style: ButtonStyle(
-                            padding: const MaterialStatePropertyAll(
-                                EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 5)),
-                            backgroundColor: MaterialStatePropertyAll(
-                                const Color(0xffB3B3B3).withOpacity(0.31))),
-                        child: Text(
-                          'Next',
-                          style: TextStyle(
-                              fontFamily: 'Bentham',
-                              color: Colors.white.withOpacity(0.73),
-                              fontSize: 10.sp),
+                                fontSize: 27.sp),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   )
                 ],
               ),
@@ -119,36 +123,39 @@ class _SteperScreenState extends State<SteperScreen> {
                       style: TextStyle(
                           fontFamily: 'Tiro Gurmukhi',
                           color: Colors.white,
-                          fontSize: 9.sp)),
+                          fontSize: 32.sp)),
                   const SizedBox(height: 15),
                   Text(
                     'With a huge collection of elegant clothes, you must find what you need',
                     style: TextStyle(
                         fontFamily: 'Bentham',
                         color: Colors.white,
-                        fontSize: 6.5.sp),
+                        fontSize: 24.sp),
                   ),
-                  SizedBox(height: 15.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          navigateToAuthPage(context);
-                        },
-                        style: ButtonStyle(
-                            padding: const MaterialStatePropertyAll(
-                                EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 5)),
-                            backgroundColor: MaterialStatePropertyAll(
-                                const Color(0xffB3B3B3).withOpacity(0.31))),
-                        child: Text('Let’s start',
-                            style: TextStyle(
-                                fontFamily: 'Bentham',
-                                color: Colors.white.withOpacity(0.73),
-                                fontSize: 10.sp)),
-                      ),
-                    ],
+                  SizedBox(height: 120.h),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 50.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            navigateToAuthPage(context);
+                          },
+                          style: ButtonStyle(
+                              padding: const MaterialStatePropertyAll(
+                                  EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 5)),
+                              backgroundColor: MaterialStatePropertyAll(
+                                  const Color(0xffB3B3B3).withOpacity(0.31))),
+                          child: Text('Let’s start',
+                              style: TextStyle(
+                                  fontFamily: 'Bentham',
+                                  color: Colors.white.withOpacity(0.73),
+                                  fontSize: 32.sp)),
+                        ),
+                      ],
+                    ),
                   )
                 ],
               ),
@@ -156,8 +163,8 @@ class _SteperScreenState extends State<SteperScreen> {
           ],
         ),
         Positioned(
-            bottom: 18.h,
-            left: 43.w,
+            bottom: 130.h,
+            left: 160.w,
             child: SmoothPageIndicator(controller: pageController, count: 2))
       ]),
     );

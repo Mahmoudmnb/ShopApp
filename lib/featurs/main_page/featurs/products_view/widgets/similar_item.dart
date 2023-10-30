@@ -28,13 +28,13 @@ class _SimilarItemState extends State<SimilarItem> {
     return Stack(
       children: [
         CustomCard(
-          width: 50.w,
-          height: 33.h,
+          width: 141.w,
+          height: 206.h,
           product: widget.product,
         ),
         Positioned(
-            right: 3.w,
-            top: 3.w,
+            right: 50.w,
+            top: 10.w,
             child: CustomIconButton(
               size: 20,
               icon: Icon(

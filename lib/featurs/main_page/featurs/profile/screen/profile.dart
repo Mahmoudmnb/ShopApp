@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../orders/screen/orders.dart';
+import '../../orders/screen/orders_screen.dart';
 import 'personal_details_screen.dart';
 import 'shopping_address.dart';
 

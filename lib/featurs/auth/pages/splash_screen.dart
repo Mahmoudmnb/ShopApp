@@ -35,13 +35,13 @@ class _SplashScreenState extends State<SplashScreen> {
       timer.cancel();
       setState(() {});
     });
-    Timer.periodic(const Duration(milliseconds: 1600), (timer) {
+    Timer.periodic(const Duration(milliseconds: 1400), (timer) {
       height = widget.deviceHeight * 0.4;
       color = Colors.transparent;
       timer.cancel();
       setState(() {});
     });
-    Timer.periodic(const Duration(milliseconds: 2000), (timer) {
+    Timer.periodic(const Duration(milliseconds: 1800), (timer) {
       height = widget.deviceHeight * 0.5;
       logoWidth = widget.deviceWidth * 0.8;
       logoHeight = widget.deviceHeight * 0.08;

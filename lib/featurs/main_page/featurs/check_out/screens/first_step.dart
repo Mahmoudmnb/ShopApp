@@ -75,9 +75,7 @@ class CheckOutScreen1 extends StatelessWidget {
                 const Point(),
                 const Point(),
                 const Point(),
-                SizedBox(
-                  width: 10.w,
-                ),
+                SizedBox(width: 10.w),
                 Image(
                     height: 25.h,
                     image:
