@@ -110,7 +110,7 @@ class CheckOutScreen1 extends StatelessWidget {
             GestureDetector(
               onTap: () {},
               child: Container(
-                width: double.infinity,
+                width: 393.w,
                 margin: EdgeInsets.symmetric(vertical: 15.h),
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
                 decoration: BoxDecoration(boxShadow: [
