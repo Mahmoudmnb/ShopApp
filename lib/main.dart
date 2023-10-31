@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shop_app/gogole_map.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'featurs/auth/pages/splash_screen.dart';

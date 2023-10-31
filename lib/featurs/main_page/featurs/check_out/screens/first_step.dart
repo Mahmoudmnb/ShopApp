@@ -50,28 +50,10 @@ class CheckOutScreen1 extends StatelessWidget {
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Container(
-<<<<<<< HEAD
-                width: 393.w,
-                margin: EdgeInsets.symmetric(vertical: 15.h),
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
-                decoration: BoxDecoration(boxShadow: [
-                  BoxShadow(
-                      offset: const Offset(0, 11),
-                      blurRadius: 11,
-                      color: Colors.black.withOpacity(0.04))
-                ], color: Colors.white, borderRadius: BorderRadius.circular(5)),
-                child: Text(
-                  " +  Add Another Address",
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontFamily: 'DM Sans',
-                    fontWeight: FontWeight.bold,
-=======
                 padding: EdgeInsets.only(left: 20.w, right: 20.w),
                 child: Column(children: [
                   SizedBox(
                     height: 20.h,
->>>>>>> origin/main
                   ),
                   Row(
                     children: [
