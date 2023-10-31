@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Point extends StatelessWidget {
-  const Point({super.key});
+class CheckOutPoint extends StatelessWidget {
+  const CheckOutPoint({super.key});
 
   @override
   Widget build(BuildContext context) {

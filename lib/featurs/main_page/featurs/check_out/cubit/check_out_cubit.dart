@@ -5,9 +5,9 @@ part 'check_out_state.dart';
 class CheckOutCubit extends Cubit<CheckOutState> {
   CheckOutCubit() : super(CheckOutInitial());
   static CheckOutCubit get(context) => BlocProvider.of(context);
-  String selectAddress = '';
-  String selectPayment = '';
-  String selectMethod = '';
+  String selectAddress = 'My Home';
+  String selectMethod = 'In store pick-up';
+  String selectPayment = 'Credit Card';
   changeAddress(String address) {
     selectAddress = address;
     emit(ChangeAddressState());

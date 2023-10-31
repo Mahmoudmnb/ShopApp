@@ -27,6 +27,7 @@ class MyOrdersScreen extends StatelessWidget {
           numb: '1580',
           orderDate: DateTime(2023, 9, 2),
           dueDate: DateTime(2023, 9, 20)),
+          //lsdkfj
       CardModel(
           kingOfOrder: 'Pending',
           quantity: 2,
@@ -159,6 +160,7 @@ class MyOrdersScreen extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 25.w),
                   child: ListView.separated(
+                    physics: const BouncingScrollPhysics(),
                     separatorBuilder: (context, index) => SizedBox(
                       height: 15.h,
                     ),

@@ -27,7 +27,7 @@ class CheckOutAddressCard extends StatelessWidget {
           ], color: Colors.white, borderRadius: BorderRadius.circular(5)),
           child: MaterialButton(
             padding: EdgeInsets.only(
-                left: 10.w, top: 8.h, right: 20.w, bottom: 16.h),
+                left: 10.w, right: 20.w, bottom: 16.h),
             onPressed: () {
               cubit.changeAddress(title);
             },
