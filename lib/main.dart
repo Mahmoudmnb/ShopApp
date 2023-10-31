@@ -3,8 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shop_app/gogole_map.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'featurs/auth/pages/splash_screen.dart';
 import 'featurs/main_page/featurs/shopping_bag/cubits/item_product_cubit/item_product_cubit.dart';
 import 'featurs/main_page/featurs/shopping_bag/cubits/products_cubit/products_cubit.dart';
 import 'featurs/main_page/featurs/home/blocs/discount/discount_products_bloc.dart';
@@ -18,10 +20,9 @@ import 'featurs/main_page/featurs/search/cubit/sreach_cubit.dart';
 import 'featurs/auth/blocs/email_text_bloc/email_text_bloc.dart';
 import 'featurs/auth/blocs/sign_up_bloc/sign_up_bloc.dart';
 import 'featurs/main_page/cubit/main_page_cubit.dart';
-import 'featurs/auth/pages/splash_screen.dart';
 import 'featurs/auth/models/user_model.dart';
-import 'featurs/main_page/main_page.dart';
 import 'core/constant.dart';
+import 'featurs/main_page/main_page.dart';
 import 'injection.dart';
 
 Future<void> main(List<String> args) async {
