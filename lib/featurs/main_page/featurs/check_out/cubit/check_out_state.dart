@@ -12,3 +12,5 @@ class ChangeMethodState extends CheckOutState {}
 class ChangePayState extends CheckOutState {}
 
 class ChangeAgreeState extends CheckOutState {}
+
+class SavingCardState extends CheckOutState {}

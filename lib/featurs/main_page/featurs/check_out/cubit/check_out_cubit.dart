@@ -8,6 +8,12 @@ class CheckOutCubit extends Cubit<CheckOutState> {
   String selectAddress = 'My Home';
   String selectMethod = 'In store pick-up';
   String selectPayment = 'Credit Card';
+  bool saveCard = false;
+  savingCard(bool value) {
+    saveCard = value;
+    emit(SavingCardState());
+  }
+
   changeAddress(String address) {
     selectAddress = address;
     emit(ChangeAddressState());

@@ -52,9 +52,7 @@ class CheckOutScreen1 extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.only(left: 20.w, right: 20.w),
                 child: Column(children: [
-                  SizedBox(
-                    height: 20.h,
-                  ),
+                  SizedBox(height: 20.h),
                   Row(
                     children: [
                       const Spacer(),

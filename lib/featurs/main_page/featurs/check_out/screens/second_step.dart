@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shop_app/featurs/main_page/featurs/check_out/widget/add_card.dart';
 
 import '../cubit/check_out_cubit.dart';
 import '../widget/calculate_card.dart';
@@ -13,7 +14,7 @@ class CheckOutScreen2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> payment = ['Credit Card', 'Paypal', 'Visa', 'Google play'];
+    List<String> payment = ['Card', 'Paypal', 'Pay'];
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -93,65 +94,43 @@ class CheckOutScreen2 extends StatelessWidget {
                         ],
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 15.h),
+                        margin: EdgeInsets.only(top: 25.h),
                         width: double.infinity,
                         child: Text(
                           "Payment",
                           style: TextStyle(
                               color: const Color(0xFF939393),
-                              fontSize: 18.sp,
+                              fontSize: 22.sp,
                               fontFamily: 'DM Sans'),
                         ),
                       ),
-                      ListView.separated(
-                        shrinkWrap: true,
-                        physics: const BouncingScrollPhysics(),
-                        separatorBuilder: (context, index) => SizedBox(
-                          height: 15.h,
-                        ),
-                        itemCount: payment.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return PaymentMethodCard(
-                            title: payment[index],
-                          );
-                        },
+                      SizedBox(height: 20.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          PaymentMethodCard(
+                            title: payment[0],
+                          ),
+                          PaymentMethodCard(
+                            title: payment[1],
+                          ),
+                          PaymentMethodCard(
+                            title: payment[2],
+                          )
+                        ],
                       ),
-                      Container(
-                        padding: EdgeInsets.only(
-                            left: 10.w, top: 15.h, right: 20.w, bottom: 15.h),
-                        margin: EdgeInsets.symmetric(vertical: 15.h),
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  offset: const Offset(0, 11),
-                                  blurRadius: 11,
-                                  color: Colors.black.withOpacity(0.04))
-                            ],
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Text(
-                          "   +  Add Card",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'DM Sans'),
-                        ),
-                      )
+                      const AddCardForPayming(),
                     ]),
                   ),
                   SizedBox(
-                    height: 8.h,
+                    height: 80.h,
                   ),
                   const CalculateCard(),
                   SizedBox(
                     height: 15.h,
                   ),
                   BlocConsumer<CheckOutCubit, CheckOutState>(
-                    listener: (context, state) {
-                      // TODO: implement listener
-                    },
+                    listener: (context, state) {},
                     builder: (context, state) {
                       CheckOutCubit cubit = CheckOutCubit.get(context);
                       return Row(
