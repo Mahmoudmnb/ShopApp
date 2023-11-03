@@ -39,6 +39,7 @@ class AddToCartBottomSheet extends StatelessWidget {
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
                             'Total Price',
@@ -86,7 +87,7 @@ class AddToCartBottomSheet extends StatelessWidget {
           Expanded(
             child: ProductViewCustomButton(
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image(

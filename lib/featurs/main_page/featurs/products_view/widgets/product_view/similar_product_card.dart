@@ -95,12 +95,12 @@ class SimilarProductsCard extends StatelessWidget {
           Row(
             children: [
               SizedBox(
-                width: 355.w,
+                width: 393.w,
                 //* I put this height to show all simlair items
                 //* __(heightCard + heightAddToCartButton)__
                 height: 190.h + 100.h,
                 child: ListView.separated(
-                  padding: EdgeInsets.symmetric(horizontal: 15.w),
+                  padding: EdgeInsets.only(left: 20.w, right: 15.w),
                   shrinkWrap: true,
                   itemCount: cubit.similarProducts.length < 6
                       ? cubit.similarProducts.length
